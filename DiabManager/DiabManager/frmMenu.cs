@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DiabManager
 {
-    public partial class Main : Form
+    public partial class frmMenu : Form
     {
-        public Main()
+        public frmMenu()
         {
             InitializeComponent();
         }
