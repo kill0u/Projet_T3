@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiabManager.Metiers.Actions
+namespace DiabManager.Metiers.ListeActions
 {
-    class Medicaments
+    class Sport
     {
     }
 }

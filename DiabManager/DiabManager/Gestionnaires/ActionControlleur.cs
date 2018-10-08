@@ -3,17 +3,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiabManager.Metiers;
 
 namespace DiabManager.Gestionnaires
 {
     /**Classe controllant les actions disponibles.
      * Cette classe stocke toutes les actions possibles, et fait le lien avec le temps (autorise notamment certaines actions à certains moments)
+     * @author Geoffrey Kugelmann
+     * @version 1
      */
     class ActionControlleur
     {
-        /**
+        /**Singleton de la classe ActionControlleur.
+         * Garde la référence à la classe ActionControlleur active (afin de n'avoir qu'une instance de temps en même temps)
          */
-        List<Actions> m_listAction = new List<Actions>();
+        private static ActionControlleur m_actionControlleurInstance = new ActionControlleur();
+
+        /** Liste de toutes les actions lancés actuellement.
+         * Liste les actions possibles pour l'utilisateurs, avec pour valeur si l'utilisateur peut les faire
+         */ 
+        private Dictionary<Actions, bool> m_listActions = new Dictionary<Actions, bool>();
+        public Dictionary<Actions, bool> ListActions
+        {
+            get { return new Dictionary<Actions, bool>(m_listActions); }
+        }
+
+
+        private ActionControlleur()
+        {
+
+        }
+
+
+        /** Ajoute une action.
+         * Chaque action possible pour l'utilisateur doit être ajouter dans le controlleur
+         * @param a Action possible pour l'utilisateur
+         */ 
+        public void AddAction(Actions a)
+        {
+            m_listActions.Add(a, false);
+        }
+
+
+        public void UpdateAction()
+        {
+
+        }
+
+
+        /** Renvoie l'instance ddu controlleur actuel
+         * @return instance du controlleur
+         */
+        public static ActionControlleur getInstance()
+        {
+            return m_actionControlleurInstance;
+        }
+
+
 
 
     }
