@@ -15,7 +15,7 @@ namespace DiabManager.Metiers
     class Temps
     {
         /**Singleton de la classe Temps.
-         * Garde la référence à la classe Temps active actuellement (afin de n'avoir qu'une instance de temps en même temps)
+         * Garde la référence à la classe Temps active (afin de n'avoir qu'une instance de temps en même temps)
          */ 
         private static Temps m_tempsInstance = new Temps();
 
@@ -40,7 +40,7 @@ namespace DiabManager.Metiers
          * Initiliase l'heure de la journée et initialise le timer
          * @see SetTimer()
          */ 
-        public Temps()
+        private Temps()
         {
             //Une journée commence à 00h00
             m_time = new TimeSpan(0, 0, 0);
@@ -49,12 +49,7 @@ namespace DiabManager.Metiers
             SetTimer();
         }
 
-        /** Renvoie l'instance de temps actuel
-         */ 
-        public static Temps getInstance()
-        {
-            return m_tempsInstance;
-        }
+       
 
 
         /** Mets en place le timer.
@@ -93,11 +88,9 @@ namespace DiabManager.Metiers
                 m_time = new TimeSpan(0, 0, 0);
 
                 //On ajoute un jour sur la partie
-                m_partie.AddDay();
+                //m_partie.AddDay();
 
             }
-
-            Console.WriteLine(m_time.ToString());
         }
 
         /**Retourne l'heure actuelle.
@@ -106,6 +99,15 @@ namespace DiabManager.Metiers
         public TimeSpan getHeureJournee()
         {
             return m_time;
+        }
+
+
+        /** Renvoie l'instance de temps actuel
+        * @return instance du controleur
+        */
+        public static Temps getInstance()
+        {
+            return m_tempsInstance;
         }
     }
 }

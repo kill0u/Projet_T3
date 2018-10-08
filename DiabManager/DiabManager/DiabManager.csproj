@@ -65,10 +65,10 @@
     </Compile>
     <Compile Include="Gestionnaires\ActionControlleur.cs" />
     <Compile Include="Metiers\Actions.cs" />
-    <Compile Include="Metiers\Actions\EvenementsAleatoire.cs" />
-    <Compile Include="Metiers\Actions\Medicaments.cs" />
-    <Compile Include="Metiers\Actions\Nourriture.cs" />
-    <Compile Include="Metiers\Actions\Sport.cs" />
+    <Compile Include="Metiers\ListeActions\EvenementsAleatoire.cs" />
+    <Compile Include="Metiers\ListeActions\Medicaments.cs" />
+    <Compile Include="Metiers\ListeActions\Nourriture.cs" />
+    <Compile Include="Metiers\ListeActions\Sport.cs" />
     <Compile Include="Metiers\Joueur.cs" />
     <Compile Include="Metiers\Partie.cs" />
     <Compile Include="Metiers\Stylo.cs" />
