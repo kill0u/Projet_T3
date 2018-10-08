@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace DiabManager
 {
+    /**
+     * @author Killian Matter
+     * @version 1.1
+     */
     public partial class frmMenu : Form
     {
         private Point p = new Point(116, 35);
@@ -17,18 +21,32 @@ namespace DiabManager
         private Label Titre;
         private Button LancePart;
         private Button LancerTuto;
+        private Button dFacile;
+        private Button dDifficile;
+        private Button Retour;
 
         public frmMenu()
         {
             InitializeComponent();
 
-            Titre = creerLabel("DiabManager", "lblTitre", p, s);
+            Titre = creerLabel("DiabManager", "lblTitre", p, s);//creation du label Titre
+            ajoutEvClick(Titre, new EventHandler(Titre_Click));
+
             p = new Point(210, 173);
             s = new Size(244, 52);
-            LancePart = creerButton("Lancer Partie", "btnPartie",p,s);
+            LancePart = creerButton("Lancer Partie", "btnPartie",p,s);//creation du bouton de lancement de partie
+            ajoutEvClick(LancePart, new EventHandler(LancerPart_Click));
+
             p = new Point(210, 240);
-            LancerTuto = creerButton("Lancer Tutoriel", "btnTuto",p,s);
-            ajoutEvClickLbl(Titre, new EventHandler(Titre_Click));
+            LancerTuto = creerButton("Lancer Tutoriel", "btnTuto",p,s);//creation du bouton de lancement de tuto
+
+            s = new Size(154, 32);
+            p = new Point(258, 310);
+            Retour = creerButton("Retour", "btnRetour", p, s);
+            ajoutEvClick(Retour, new EventHandler(Retour_Click));
+            this.Controls.Add(Retour);
+            Retour.Visible = false;
+
             this.Controls.Add(Titre);
             this.Controls.Add(LancePart);
             this.Controls.Add(LancerTuto);
@@ -37,14 +55,48 @@ namespace DiabManager
         private void Titre_Click(object sender, EventArgs e)
         {
             DialogResult result = cdPicker.ShowDialog();
-
             if (result == DialogResult.OK)
             {
+                foreach(Button b in this.Controls.OfType<Button>())
+                {
+                    b.BackColor = cdPicker.Color;
+                }
                 Titre.ForeColor = cdPicker.Color;
-                LancePart.BackColor = cdPicker.Color;
-                LancerTuto.BackColor = cdPicker.Color;
             }
         }
+        private void LancerPart_Click(object sender, EventArgs e)
+        {
+            affDifficulte();
+        }
+        private void Retour_Click(object sender, EventArgs e)
+        {
+            foreach (Button c in this.Controls.OfType<Button>())
+            {
+                c.Visible = false;
+            }
+            LancePart.Visible = true;
+            LancerTuto.Visible = true;
+        }
+
+        private void affDifficulte()
+        {
+            foreach(Button c in this.Controls.OfType<Button>())
+            {
+                c.Visible = false;
+            }
+            p = new Point(210, 173);
+            s = new Size(244, 52);
+            dFacile = creerButton("Facile", "btnFacile", p, s);
+            dFacile.BackColor = cdPicker.Color == Color.Black ? Color.Aqua : cdPicker.Color;
+            p = new Point(210, 240);
+            dDifficile = creerButton("Difficile", "btnDifficile", p, s);
+            dDifficile.BackColor = cdPicker.Color == Color.Black ? Color.Aqua : cdPicker.Color;
+            this.Controls.Add(dFacile);
+            this.Controls.Add(dDifficile);
+            Retour.Visible = true;
+
+        }
+        
 
         #region fonction génération dynamique de composant
         /** Création dynamique de label.
@@ -93,20 +145,11 @@ namespace DiabManager
         }
         /** Ajout dynamique d'évenement click
          * Fonction ajoutant un evenement dynamiquement
-         * @param lbl : label auquel on ajoute l'évenement
+         * @param c : controleur auquel on ajoute l'évenement
          * @param eHand : evenement ajouté
          */
-        private void ajoutEvClickLbl(Label lbl,EventHandler eHand) {
-            lbl.Click += eHand;
-        }
-        /** Ajout dynamique d'évenement click
-         * Fonction ajoutant un evenement dynamiquement
-         * @param btn : bouton auquel on ajoute l'évenement
-         * @param eHand : evenement ajouté
-         */
-        private void ajoutEvClickBtn(Button btn,EventHandler eHand)
-        {
-            btn.Click += eHand;
+        private void ajoutEvClick(Control c,EventHandler eHand) {
+            c.Click += eHand;
         }
         #endregion
 
