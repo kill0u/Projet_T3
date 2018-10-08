@@ -23,12 +23,15 @@ namespace DiabManager
             InitializeComponent();
 
             Titre = creerLabel("DiabManager", "lblTitre", p, s);
-            p = new Point(303, 173);
-            s = new Size(284, 68);
+            p = new Point(210, 173);
+            s = new Size(244, 52);
             LancePart = creerButton("Lancer Partie", "btnPartie",p,s);
+            p = new Point(210, 240);
+            LancerTuto = creerButton("Lancer Tutoriel", "btnTuto",p,s);
             ajoutEvClickLbl(Titre, new EventHandler(Titre_Click));
             this.Controls.Add(Titre);
             this.Controls.Add(LancePart);
+            this.Controls.Add(LancerTuto);
         }
 
         private void Titre_Click(object sender, EventArgs e)
@@ -39,11 +42,18 @@ namespace DiabManager
             {
                 Titre.ForeColor = cdPicker.Color;
                 LancePart.BackColor = cdPicker.Color;
-                btnTuto.BackColor = cdPicker.Color;
+                LancerTuto.BackColor = cdPicker.Color;
             }
         }
 
         #region fonction génération dynamique de composant
+        /** Création dynamique de label.
+         * Fonction permetant la création dynamique d'un label
+         *  @param texte : texte du label
+         *  @param nomlabel : nom du label
+         *  @param location : position du label
+         *  @param size : taille du label
+         */
         private Label creerLabel(String texte,String nomlabel,Point location, Size size)
         {
             Label lbl = new Label();
@@ -59,6 +69,13 @@ namespace DiabManager
             lbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             return lbl;
         }
+        /** Création dynamique d'un bouton.
+         * Fonction permetant la création dynamique d'un label
+         *  @param texte : texte du buton
+         *  @param nombutton : nom du bouton
+         *  @param location : position du buton
+         *  @param size : taille du buton
+         */
         private Button creerButton(String texte, String nombutton, Point location, Size size)
         {
             Button btn = new Button();
@@ -74,9 +91,25 @@ namespace DiabManager
             btn.UseVisualStyleBackColor = false;
             return btn;
         }
-        private void ajoutEvClickLbl(Label l,EventHandler eh) {
-            l.Click += eh;
+        /** Ajout dynamique d'évenement click
+         * Fonction ajoutant un evenement dynamiquement
+         * @param lbl : label auquel on ajoute l'évenement
+         * @param eHand : evenement ajouté
+         */
+        private void ajoutEvClickLbl(Label lbl,EventHandler eHand) {
+            lbl.Click += eHand;
+        }
+        /** Ajout dynamique d'évenement click
+         * Fonction ajoutant un evenement dynamiquement
+         * @param btn : bouton auquel on ajoute l'évenement
+         * @param eHand : evenement ajouté
+         */
+        private void ajoutEvClickBtn(Button btn,EventHandler eHand)
+        {
+            btn.Click += eHand;
         }
         #endregion
+
+       
     }
 }
