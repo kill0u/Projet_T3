@@ -9,6 +9,7 @@ namespace DiabManager.Metiers
     /**
      * La classe Joueur représente le personnage joué par l'utilisateur.
      * @version 1.0
+     * @author Léo Krebs
      */
     class Joueur
     {
@@ -24,17 +25,17 @@ namespace DiabManager.Metiers
             get { return m_taille; }
             set { this.m_taille = value; }
         }
-        private float m_imc; /**<L'IMC du joueur. L'indice de masse corporelle (IMC=poids/(taille^2)). */
-        public float Imc
-        {
-            get { return m_imc; }
-            set { this.m_imc = value; }
-        }
         private float m_glycemieMatin; /**<Le taux de glycémie du joueur mesurée au matin. */
         public float GlycemieMatin
         {
             get { return m_glycemieMatin; }
             set { this.m_glycemieMatin = value; }
+        }
+        private float m_glycemieCourante; /**<Le taux de glycémie courant du joueur. */
+        public float GlycemieCourante
+        {
+            get { return m_glycemieCourante; }
+            set { this.m_glycemieCourante = value; }
         }
         private float m_glycemieObjectif; /**<L'objectif du taux de glycémie du joueur. */
         public float GlycemieObjectif
@@ -59,6 +60,28 @@ namespace DiabManager.Metiers
         {
             get { return m_age; }
             set { this.m_age = value; }
+        }
+
+        /**
+         * Fonction permettant de calcumer l'IMC du joueur en fonction de son poids et de sa taille.
+         * @param poids Le poids du joueur, type double.
+         * @param taille La taille du joueur, type int.
+         * 
+         * @return imc L'IMC du joueur, en float.
+         */
+        private float getImc(double poids, int taille)
+        {
+            return (float)poids / (taille * taille);
+        }
+
+        private float calculGlycemieMatin(double poids, int taille)
+        {
+            return -1;
+        }
+
+        private float calculGlycemieCourante(double poids, int taille)
+        {
+            return -1;
         }
     }
 }
