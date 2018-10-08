@@ -53,7 +53,7 @@ namespace DiabManager.Metiers
             m_t.StartTime(this);
             //Met en place les actions.
             //m_ac = Gestionnaires.ActionControlleur.getInstance();
-            IHM_Joueurs.setJoueur(m_j);
+            IHM.IHM_Joueur.setJoueur(m_j);
         }
 
     }
