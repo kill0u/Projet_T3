@@ -9,17 +9,27 @@ namespace DiabManager.Metiers
 {
     /** La classe définissant le temps qui passe.
      * Cette classe définit le temps de la journée et le fait défiler automatiquement (via un timer)
+     * @author Geoffrey Kugelmann
+     * @version 1.1
      */ 
     class Temps
     {
+        /**Singleton de la classe Temps.
+         * Garde la référence à la classe Temps active actuellement (afin de n'avoir qu'une instance de temps en même temps)
+         */ 
+        private static Temps m_tempsInstance = new Temps();
+
+
         /** Heure de la journée. Heure:minutes:secondes de la journée actuelle
          */
         private TimeSpan m_time;
 
 
-        /** Coefficient de conversion du temps. 
-            Coefficient définissant le lien entre le temps réel (vu par l'utilisateur) et le temps vu depuis le jeu (10mins dans le jeu = 30s)*/
-        //private double m_timeCoeff;
+        /** Récupère l'instance de la partie actuelle.
+         * Permet de savoir à quel partie se réfère le temps actuel (la partie s'initialise lors de la mise en marche du timer)
+         */ 
+        private Partie m_partie;
+
 
         /**Timer pour faire passer le temps.
          Le Timer qui fait défiler automatiquement le temps, et lance un event à chaque tick*/
@@ -39,6 +49,14 @@ namespace DiabManager.Metiers
             SetTimer();
         }
 
+        /** Renvoie l'instance de temps actuel
+         */ 
+        public static Temps getInstance()
+        {
+            return m_tempsInstance;
+        }
+
+
         /** Mets en place le timer.
          */
         private void SetTimer()
@@ -51,10 +69,12 @@ namespace DiabManager.Metiers
         }
 
 
-        /**Démarre le timer
+        /**Démarre le timer et enregistre la partie actuelle
          */ 
-        public void StartTime()
+        public void StartTime(Partie p)
         {
+            m_partie = p;
+
             m_dayTimer.Start();
         }
 
@@ -66,15 +86,26 @@ namespace DiabManager.Metiers
             //On ajoute le temps au panel
             m_time = m_time.Add(new TimeSpan(0, 10, 0));
 
-            //si on dépasse un jour, on réinitialise
+            //si on dépasse un jour
             if(m_time.Days > 0)
             {
+                //on réinitialise
                 m_time = new TimeSpan(0, 0, 0);
+
+                //On ajoute un jour sur la partie
+                m_partie.AddDay();
+
             }
 
             Console.WriteLine(m_time.ToString());
         }
 
-
+        /**Retourne l'heure actuelle.
+         * Retourne l'heure du jours actuelle 
+         */ 
+        public TimeSpan getHeureJournee()
+        {
+            return m_time;
+        }
     }
 }
