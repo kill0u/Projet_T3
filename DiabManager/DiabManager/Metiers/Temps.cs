@@ -78,8 +78,12 @@ namespace DiabManager.Metiers
          */ 
         private void TickEvent(Object source, ElapsedEventArgs e)
         {
-            //On ajoute le temps au panel
+            //On ajoute le temps 
             m_time = m_time.Add(new TimeSpan(0, 10, 0));
+
+            //On mets à jour les actions disponibles (vues que l'heure à changé)
+            Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
+
 
             //si on dépasse un jour
             if(m_time.Days > 0)
@@ -88,7 +92,8 @@ namespace DiabManager.Metiers
                 m_time = new TimeSpan(0, 0, 0);
 
                 //On ajoute un jour sur la partie
-                //m_partie.AddDay();
+                m_partie.AddDay();
+
 
             }
         }
