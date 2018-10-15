@@ -28,12 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.pnlActions = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // pnlActions
+            // 
+            this.pnlActions.Location = new System.Drawing.Point(136, 90);
+            this.pnlActions.Name = "pnlActions";
+            this.pnlActions.Size = new System.Drawing.Size(327, 235);
+            this.pnlActions.TabIndex = 0;
+            // 
+            // frmJeu
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pnlActions);
+            this.Name = "frmJeu";
             this.Text = "frmJeu";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel pnlActions;
     }
 }

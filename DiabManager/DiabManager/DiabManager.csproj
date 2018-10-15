@@ -75,6 +75,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Metiers\Temps.cs" />
+    <EmbeddedResource Include="frmJeu.resx">
+      <DependentUpon>frmJeu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </EmbeddedResource>
