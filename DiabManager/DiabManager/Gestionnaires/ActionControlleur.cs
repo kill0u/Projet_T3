@@ -28,6 +28,10 @@ namespace DiabManager.Gestionnaires
             get { return new Dictionary<Actions, bool>(m_listActions); }
         }
 
+        /// <summary>
+        /// Référence vers la classe temps
+        /// </summary>
+        private Temps m_temps = Temps.getInstance();
 
         private ActionControlleur()
         {
@@ -44,10 +48,23 @@ namespace DiabManager.Gestionnaires
             m_listActions.Add(a, false);
         }
 
-
-        public void UpdateAction()
+        /// <summary>
+        /// Mets à jour les actions disponibles
+        /// </summary>
+        /// Les actions disponibles dépendent des heures de la journée, cette fonction regarde toutes les actions, et mets à jour m_listActions
+        public void UpdateAction(TimeSpan temps)
         {
-
+            foreach(var a in m_listActions)
+            {
+                if(a.Key.isTempsDansPlage(temps))
+                {
+                    m_listActions[a.Key] = true;
+                }
+                else
+                {
+                    m_listActions[a.Key] = false;
+                }
+            }
         }
 
 
