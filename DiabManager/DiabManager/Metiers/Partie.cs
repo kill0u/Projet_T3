@@ -86,8 +86,8 @@ namespace DiabManager.Metiers
          */
          public void JeuEnCours(Object source, ElapsedEventArgs e)
         {
-            //IHM.IHM_Actions.Update();
-            //IHM.IHM_Joueurs.Update();
+            IHM.IHM_Actions.Update();
+            //IHM.IHM_Joueur.Update();
         }
 
         /// <summary>
