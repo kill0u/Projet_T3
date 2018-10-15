@@ -65,6 +65,8 @@ namespace DiabManager.Gestionnaires
                     m_listActions[a.Key] = false;
                 }
             }
+
+            IHM.IHM_Actions.UpdateButton();
         }
 
 

@@ -35,6 +35,10 @@ namespace DiabManager.Metiers
         /** L'action modifie la glycémie d'un certain montant
          */ 
         private double m_modifGlycemie;
+        public double ModifGlycemie
+        {
+            get { return m_modifGlycemie; }
+        }
 
         /// <summary>
         /// Définit la plage horaire de disponibilités pour une action
