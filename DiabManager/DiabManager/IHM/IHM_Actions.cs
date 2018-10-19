@@ -36,7 +36,7 @@ namespace DiabManager.IHM
         {
             IHM_Joueur.Update();
 
-            Actions action = new Actions("default", "default", new TimeSpan(), 0, null);
+            Actions action = null;
             foreach (var a in m_actionControlleur.ListActions)
             {
                 if (a.Key.Nom == nom)
@@ -45,8 +45,8 @@ namespace DiabManager.IHM
                     break;
                 }
             }
-            //TODO
-            IHM_Joueur.getJoueur().calculGlycemieCourante(action.ModifGlycemie);
+            //Réalise le code de l'action
+            action.makeAction();
         }
     }
 }

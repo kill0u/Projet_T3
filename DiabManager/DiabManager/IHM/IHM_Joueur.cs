@@ -16,6 +16,13 @@ namespace DiabManager.IHM
     {
         private static Joueur m_j; /**<Le joueur courant. */
 
+        private static frmJeu m_frm;
+
+        public static void setForm(frmJeu frm)
+        {
+            m_frm = frm;
+        }
+
         /**
          * Cette procédure permet de lier le joueur courant avec le joueur donné en paramètres.
          * @param j Le joueur.
@@ -66,7 +73,7 @@ namespace DiabManager.IHM
         {
             ///faire tous les calculs avant de récupérer toutes les infos.
             string[] infos = getInfos();
-            //setFrmJeu(infos)
+            m_frm.setInfosJoueur(infos);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace DiabManager
         public frmJeu()
         {
             InitializeComponent();
+ 
         }
 
         public void setActiveButton(Object listActions)
@@ -26,12 +27,18 @@ namespace DiabManager
             Point p = new Point(10, 10);
             foreach(var a in liste)
             {
-                if(a.Value)
+                if (a.Value)
                 {
-                    Button b = creerButton(a.Key.Nom, a.Key.Nom, p, new Size(100, 50));
-                    b.Click += boutonClick;
-                    pnlActions.Controls.Add(b);
 
+                    Button b = creerButton(a.Key.Nom, a.Key.Nom, p, new Size(100, 50));
+                    b.Click += new System.EventHandler(boutonClick);
+                   
+                    //Etant donné que cette fonction est appelé depuis un timer (=thread), il faut utiliser une fonction qui va déléguer ca au thread principal pour pouvoir utilisé controls
+                    this.BeginInvoke((Action)(() => {
+                        pnlActions.Controls.Add(b);
+                    }));
+                        
+                    
                     p.X += 110;
 
                     if(p.X + 100 >= pnlActions.Width)
@@ -43,9 +50,17 @@ namespace DiabManager
             }
         }
 
+        public void setInfosJoueur(string[] infos)
+        {
+            lblNom.Text = infos[1] + " " + infos[0];
+
+            lblGlycemie.Text = infos[9];
+        }
+
         private void boutonClick(object sender, EventArgs e)
         {
-            IHM.IHM_Actions.EffectuerAction(((Button)sender).Name);
+            Button b = (Button)sender;
+            IHM.IHM_Actions.EffectuerAction(b.Name);
         }
 
         /** Création dynamique d'un bouton.

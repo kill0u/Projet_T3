@@ -64,6 +64,7 @@ namespace DiabManager.Metiers
         public void Demarrer()
         {
             m_ac = Gestionnaires.ActionControlleur.getInstance();
+            m_ac.chargerAction();
             //Met en place le temps.
             m_t = Temps.getInstance();
             m_t.StartTime(this);
@@ -87,7 +88,7 @@ namespace DiabManager.Metiers
          public void JeuEnCours(Object source, ElapsedEventArgs e)
         {
             IHM.IHM_Actions.Update();
-            //IHM.IHM_Joueur.Update();
+            IHM.IHM_Joueur.Update();
         }
 
         /// <summary>
