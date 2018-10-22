@@ -42,8 +42,8 @@ namespace DiabManager.Metiers
          */ 
         private Temps()
         {
-            //Une journée commence à 00h00
-            m_time = new TimeSpan(0, 0, 0);
+            //Une journée commence à 07h00
+            m_time = new TimeSpan(7, 0, 0);
 
             //Mise en place du timer
             SetTimer();
@@ -93,11 +93,12 @@ namespace DiabManager.Metiers
 
 
             }
-            IHM.IHM_Actions.UpdateButton();
 
 
             //On mets à jour les actions disponibles (vues que l'heure à changé)
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
+
+            IHM.IHM_Actions.updateTemps(m_time);
         }
 
         /**Retourne l'heure actuelle.

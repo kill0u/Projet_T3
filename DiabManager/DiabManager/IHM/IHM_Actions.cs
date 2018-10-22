@@ -48,5 +48,10 @@ namespace DiabManager.IHM
             //Réalise le code de l'action
             action.makeAction();
         }
+
+        public static void updateTemps(TimeSpan temps)
+        {
+            m_frm.setTemps(temps);
+        }
     }
 }

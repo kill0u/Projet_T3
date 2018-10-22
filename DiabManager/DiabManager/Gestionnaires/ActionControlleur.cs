@@ -55,8 +55,9 @@ namespace DiabManager.Gestionnaires
         public void UpdateAction(TimeSpan temps)
         {
 
-            foreach (var a in m_listActions)
+            for(int i = 0; i < m_listActions.Count; i++)
             {
+                var a = m_listActions.ElementAt(i);
                 if(a.Key.isTempsDansPlage(temps))
                 {
                     m_listActions[a.Key] = true;
@@ -67,12 +68,14 @@ namespace DiabManager.Gestionnaires
                 }
             }
 
+            IHM.IHM_Actions.UpdateButton();
+
         }
 
         public void chargerAction()
         {
-            AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 20, 0), 1.5, new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
-            AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(0, 20, 0), -1.5, new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
+            AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 20, 0), new Tuple<double,double>(0.2, 1), new TimeSpan(7, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(22, 0, 0)));
+            AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(0, 20, 0), new Tuple<double, double>(-0.2, 1), new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
         }
 
 
