@@ -26,18 +26,6 @@ namespace DiabManager.Metiers
         private DateTime m_d = new DateTime();
 
         /// <summary>
-        /// Le Stylo d'insuline.
-        /// </summary>
-        private Stylo m_s = new Stylo();
-        /// <summary>
-        /// Accesseurs du Stylo d'insuline.
-        /// </summary>
-        public Stylo s
-        {
-            get { return m_s; }
-            set { m_s = value; }
-        }
-        /// <summary>
         /// Gestionnaire des Actions.
         /// </summary>
         private Gestionnaires.ActionControlleur m_ac;
@@ -56,6 +44,7 @@ namespace DiabManager.Metiers
         public void AddDay()
         {
             m_d.AddDays(1);
+            IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
         }
         
         /// <summary>

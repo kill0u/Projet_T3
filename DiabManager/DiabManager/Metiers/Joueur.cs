@@ -13,6 +13,19 @@ namespace DiabManager.Metiers
      */
     class Joueur
     {
+
+        /// <summary>
+        /// Le Stylo d'insuline.
+        /// </summary>
+        private Stylo m_stylo = new Stylo();
+        /// <summary>
+        /// Accesseurs du Stylo d'insuline.
+        /// </summary>
+        public Stylo Stylo
+        {
+            get { return m_stylo; }
+            set { m_stylo = value; }
+        }
         private string m_nom; /**<Le nom du joueur (type string). */
         public string Nom /**<Le nom du joueur. L'accesseur du nom du joueur. */
         {
