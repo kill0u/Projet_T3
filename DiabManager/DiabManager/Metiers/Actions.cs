@@ -71,12 +71,12 @@ namespace DiabManager.Metiers
             m_nbHoraire = values.Length / 2;
 
             m_plageHoraire = new TimeSpan[m_nbHoraire, 2];
-            
+            int j = 0;
             for(int i = 0; i < m_nbHoraire; i++)
             {
-                m_plageHoraire[i, 0] = values[i];
-                i++;
-                m_plageHoraire[i, 1] = values[i];
+                m_plageHoraire[i, 0] = values[j];
+                j++;
+                m_plageHoraire[i, 1] = values[j];
             }
         }
 
@@ -88,6 +88,13 @@ namespace DiabManager.Metiers
                     return true;
             }
             return false;
+        }
+
+        public void makeAction()
+        {
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(m_modifGlycemie);
+
+            //TODO passez le temps
         }
     }
 }
