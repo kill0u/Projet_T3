@@ -37,12 +37,20 @@
             this.lblAffTemps = new System.Windows.Forms.Label();
             this.lblTemps = new System.Windows.Forms.Label();
             this.pnlGestionTemps = new System.Windows.Forms.Panel();
-            this.btnPause = new System.Windows.Forms.Button();
-            this.btnAvanceeTemps = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.lblVitesse = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnAvanceeTemps = new System.Windows.Forms.Button();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDoseActu = new System.Windows.Forms.Label();
+            this.progressBarInsuline = new System.Windows.Forms.ProgressBar();
+            this.btnDiminuer = new System.Windows.Forms.Button();
+            this.btnAugmenter = new System.Windows.Forms.Button();
+            this.btnPiqure = new System.Windows.Forms.Button();
+            this.lblDose = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlActions
@@ -128,24 +136,14 @@
             this.pnlGestionTemps.Size = new System.Drawing.Size(169, 27);
             this.pnlGestionTemps.TabIndex = 4;
             // 
-            // btnPause
+            // lblVitesse
             // 
-            this.btnPause.Location = new System.Drawing.Point(49, 1);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(25, 23);
-            this.btnPause.TabIndex = 0;
-            this.btnPause.Text = "❚❚";
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
-            // 
-            // btnAvanceeTemps
-            // 
-            this.btnAvanceeTemps.Location = new System.Drawing.Point(80, 1);
-            this.btnAvanceeTemps.Name = "btnAvanceeTemps";
-            this.btnAvanceeTemps.Size = new System.Drawing.Size(40, 23);
-            this.btnAvanceeTemps.TabIndex = 1;
-            this.btnAvanceeTemps.Text = "▶▶";
-            this.btnAvanceeTemps.UseVisualStyleBackColor = true;
+            this.lblVitesse.AutoSize = true;
+            this.lblVitesse.Location = new System.Drawing.Point(127, 4);
+            this.lblVitesse.Name = "lblVitesse";
+            this.lblVitesse.Size = new System.Drawing.Size(18, 13);
+            this.lblVitesse.TabIndex = 3;
+            this.lblVitesse.Text = "1x";
             // 
             // button2
             // 
@@ -156,20 +154,99 @@
             this.button2.Text = "◀ ◀";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // lblVitesse
+            // btnAvanceeTemps
             // 
-            this.lblVitesse.AutoSize = true;
-            this.lblVitesse.Location = new System.Drawing.Point(127, 4);
-            this.lblVitesse.Name = "lblVitesse";
-            this.lblVitesse.Size = new System.Drawing.Size(18, 13);
-            this.lblVitesse.TabIndex = 3;
-            this.lblVitesse.Text = "1x";
+            this.btnAvanceeTemps.Location = new System.Drawing.Point(80, 1);
+            this.btnAvanceeTemps.Name = "btnAvanceeTemps";
+            this.btnAvanceeTemps.Size = new System.Drawing.Size(40, 23);
+            this.btnAvanceeTemps.TabIndex = 1;
+            this.btnAvanceeTemps.Text = "▶▶";
+            this.btnAvanceeTemps.UseVisualStyleBackColor = true;
+            // 
+            // btnPause
+            // 
+            this.btnPause.Location = new System.Drawing.Point(49, 1);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(25, 23);
+            this.btnPause.TabIndex = 0;
+            this.btnPause.Text = "❚❚";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblDose);
+            this.panel1.Controls.Add(this.btnPiqure);
+            this.panel1.Controls.Add(this.btnAugmenter);
+            this.panel1.Controls.Add(this.btnDiminuer);
+            this.panel1.Controls.Add(this.progressBarInsuline);
+            this.panel1.Controls.Add(this.lblDoseActu);
+            this.panel1.Location = new System.Drawing.Point(536, 332);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(242, 100);
+            this.panel1.TabIndex = 5;
+            // 
+            // lblDoseActu
+            // 
+            this.lblDoseActu.AutoSize = true;
+            this.lblDoseActu.Location = new System.Drawing.Point(7, 4);
+            this.lblDoseActu.Name = "lblDoseActu";
+            this.lblDoseActu.Size = new System.Drawing.Size(35, 13);
+            this.lblDoseActu.TabIndex = 0;
+            this.lblDoseActu.Text = "label1";
+            // 
+            // progressBarInsuline
+            // 
+            this.progressBarInsuline.Location = new System.Drawing.Point(4, 21);
+            this.progressBarInsuline.Name = "progressBarInsuline";
+            this.progressBarInsuline.Size = new System.Drawing.Size(235, 23);
+            this.progressBarInsuline.TabIndex = 1;
+            // 
+            // btnDiminuer
+            // 
+            this.btnDiminuer.Location = new System.Drawing.Point(4, 50);
+            this.btnDiminuer.Name = "btnDiminuer";
+            this.btnDiminuer.Size = new System.Drawing.Size(75, 23);
+            this.btnDiminuer.TabIndex = 2;
+            this.btnDiminuer.Text = "Diminuer";
+            this.btnDiminuer.UseVisualStyleBackColor = true;
+            this.btnDiminuer.Click += new System.EventHandler(this.btnDiminuer_Click);
+            // 
+            // btnAugmenter
+            // 
+            this.btnAugmenter.Location = new System.Drawing.Point(164, 50);
+            this.btnAugmenter.Name = "btnAugmenter";
+            this.btnAugmenter.Size = new System.Drawing.Size(75, 23);
+            this.btnAugmenter.TabIndex = 3;
+            this.btnAugmenter.Text = "Augmenter";
+            this.btnAugmenter.UseVisualStyleBackColor = true;
+            this.btnAugmenter.Click += new System.EventHandler(this.btnAugmenter_Click);
+            // 
+            // btnPiqure
+            // 
+            this.btnPiqure.Location = new System.Drawing.Point(83, 74);
+            this.btnPiqure.Name = "btnPiqure";
+            this.btnPiqure.Size = new System.Drawing.Size(75, 23);
+            this.btnPiqure.TabIndex = 4;
+            this.btnPiqure.Text = "SE PIQUER !";
+            this.btnPiqure.UseVisualStyleBackColor = true;
+            this.btnPiqure.Click += new System.EventHandler(this.btnPiqure_Click);
+            // 
+            // lblDose
+            // 
+            this.lblDose.AutoSize = true;
+            this.lblDose.Location = new System.Drawing.Point(83, 55);
+            this.lblDose.Name = "lblDose";
+            this.lblDose.Size = new System.Drawing.Size(35, 13);
+            this.lblDose.TabIndex = 5;
+            this.lblDose.Text = "label1";
             // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlGestionTemps);
             this.Controls.Add(this.lblTemps);
             this.Controls.Add(this.lblAffTemps);
@@ -181,6 +258,8 @@
             this.pnlInfos.PerformLayout();
             this.pnlGestionTemps.ResumeLayout(false);
             this.pnlGestionTemps.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,5 +280,12 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnAvanceeTemps;
         private System.Windows.Forms.Label lblVitesse;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnPiqure;
+        private System.Windows.Forms.Button btnAugmenter;
+        private System.Windows.Forms.Button btnDiminuer;
+        private System.Windows.Forms.ProgressBar progressBarInsuline;
+        private System.Windows.Forms.Label lblDoseActu;
+        private System.Windows.Forms.Label lblDose;
     }
 }
