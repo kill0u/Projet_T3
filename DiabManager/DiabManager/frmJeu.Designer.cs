@@ -153,6 +153,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "◀ ◀";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnAvanceeTemps
             // 
@@ -162,6 +163,7 @@
             this.btnAvanceeTemps.TabIndex = 1;
             this.btnAvanceeTemps.Text = "▶▶";
             this.btnAvanceeTemps.UseVisualStyleBackColor = true;
+            this.btnAvanceeTemps.Click += new System.EventHandler(this.btnAvanceeTemps_Click);
             // 
             // btnPause
             // 

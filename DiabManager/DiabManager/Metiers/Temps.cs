@@ -33,7 +33,13 @@ namespace DiabManager.Metiers
 
         /**Timer pour faire passer le temps.
          Le Timer qui fait défiler automatiquement le temps, et lance un event à chaque tick*/
-        private Timer m_dayTimer; 
+        private Timer m_dayTimer;
+
+        private double m_coeffVitesse = 1;
+        public double CoeffVitesse
+        {
+            get { return m_coeffVitesse; }
+        }
     
 
         /**Constructeur: initialise les infos importantes.
@@ -76,7 +82,8 @@ namespace DiabManager.Metiers
         /// <param name="coeff">Coeffcient de changement de vitesse </param>
         public void changeSpeed(double coeff)
         {
-            m_dayTimer.Interval *= coeff;
+            m_coeffVitesse = coeff;
+            m_dayTimer.Interval = 1000 / m_coeffVitesse;
         }
 
         /**Démarre le timer et enregistre la partie actuelle
