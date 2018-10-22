@@ -134,9 +134,9 @@ namespace DiabManager.Metiers
          * @param coeff Le coefficient de l'action, qui permet de modifier la glycémie courante en fonction de l'action
          * 
          */ 
-        public void calculGlycemieCourante(double coeff)
+        public void calculGlycemieCourante(Tuple<double,double> glycemie)
         {
-            this.m_glycemieCourante = this.m_glycemieCourante * coeff;
+            this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
         }
     }
 }

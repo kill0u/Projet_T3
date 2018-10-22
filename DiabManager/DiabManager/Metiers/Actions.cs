@@ -33,11 +33,21 @@ namespace DiabManager.Metiers
         private TimeSpan m_temps;
 
         /** L'action modifie la glycémie d'un certain montant
+         * Multiplie la glycémie par ce nombre
          */ 
         private double m_modifGlycemie;
         public double ModifGlycemie
         {
             get { return m_modifGlycemie; }
+        }
+
+        /** L'action modifie la glycémie d'un certain montant
+         * additionne la glycémie par ce nombre
+         */
+        private double m_addGlycemie;
+        public double AddGlycemie
+        {
+            get { return m_addGlycemie; }
         }
 
         /// <summary>
@@ -61,12 +71,13 @@ namespace DiabManager.Metiers
         /// <param name="temps">Durée de l'action</param>
         /// <param name="modifGlycemie">Modification de la glycémie</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
-        public Actions(string nom, string description, TimeSpan temps, double modifGlycemie, params TimeSpan[] values) 
+        public Actions(string nom, string description, TimeSpan temps, Tuple<double, double> glycemie, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
             m_temps = temps;
-            m_modifGlycemie = modifGlycemie;
+            m_modifGlycemie = glycemie.Item2;
+            m_addGlycemie = glycemie.Item1;
 
             m_nbHoraire = values.Length / 2;
 
@@ -77,6 +88,7 @@ namespace DiabManager.Metiers
                 m_plageHoraire[i, 0] = values[j];
                 j++;
                 m_plageHoraire[i, 1] = values[j];
+                j++;
             }
         }
 
@@ -92,7 +104,7 @@ namespace DiabManager.Metiers
 
         public void makeAction()
         {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(m_modifGlycemie);
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie));
 
             //TODO passez le temps
         }

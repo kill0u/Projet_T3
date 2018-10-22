@@ -30,10 +30,12 @@
         {
             this.pnlActions = new System.Windows.Forms.Panel();
             this.pnlInfos = new System.Windows.Forms.Panel();
-            this.lblAffGlycemie = new System.Windows.Forms.Label();
-            this.lblGlycemie = new System.Windows.Forms.Label();
-            this.lblAffNom = new System.Windows.Forms.Label();
             this.lblNom = new System.Windows.Forms.Label();
+            this.lblAffNom = new System.Windows.Forms.Label();
+            this.lblGlycemie = new System.Windows.Forms.Label();
+            this.lblAffGlycemie = new System.Windows.Forms.Label();
+            this.lblAffTemps = new System.Windows.Forms.Label();
+            this.lblTemps = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,23 +57,14 @@
             this.pnlInfos.Size = new System.Drawing.Size(242, 235);
             this.pnlInfos.TabIndex = 1;
             // 
-            // lblAffGlycemie
+            // lblNom
             // 
-            this.lblAffGlycemie.AutoSize = true;
-            this.lblAffGlycemie.Location = new System.Drawing.Point(4, 4);
-            this.lblAffGlycemie.Name = "lblAffGlycemie";
-            this.lblAffGlycemie.Size = new System.Drawing.Size(56, 13);
-            this.lblAffGlycemie.TabIndex = 0;
-            this.lblAffGlycemie.Text = "Glycémie: ";
-            // 
-            // lblGlycemie
-            // 
-            this.lblGlycemie.AutoSize = true;
-            this.lblGlycemie.Location = new System.Drawing.Point(4, 21);
-            this.lblGlycemie.Name = "lblGlycemie";
-            this.lblGlycemie.Size = new System.Drawing.Size(16, 13);
-            this.lblGlycemie.TabIndex = 1;
-            this.lblGlycemie.Text = "0 ";
+            this.lblNom.AutoSize = true;
+            this.lblNom.Location = new System.Drawing.Point(10, 202);
+            this.lblNom.Name = "lblNom";
+            this.lblNom.Size = new System.Drawing.Size(27, 13);
+            this.lblNom.TabIndex = 3;
+            this.lblNom.Text = "nom";
             // 
             // lblAffNom
             // 
@@ -82,20 +75,49 @@
             this.lblAffNom.TabIndex = 2;
             this.lblAffNom.Text = "Nom du joueur: ";
             // 
-            // lblNom
+            // lblGlycemie
             // 
-            this.lblNom.AutoSize = true;
-            this.lblNom.Location = new System.Drawing.Point(10, 202);
-            this.lblNom.Name = "lblNom";
-            this.lblNom.Size = new System.Drawing.Size(27, 13);
-            this.lblNom.TabIndex = 3;
-            this.lblNom.Text = "nom";
+            this.lblGlycemie.AutoSize = true;
+            this.lblGlycemie.Location = new System.Drawing.Point(4, 21);
+            this.lblGlycemie.Name = "lblGlycemie";
+            this.lblGlycemie.Size = new System.Drawing.Size(16, 13);
+            this.lblGlycemie.TabIndex = 1;
+            this.lblGlycemie.Text = "0 ";
+            // 
+            // lblAffGlycemie
+            // 
+            this.lblAffGlycemie.AutoSize = true;
+            this.lblAffGlycemie.Location = new System.Drawing.Point(4, 4);
+            this.lblAffGlycemie.Name = "lblAffGlycemie";
+            this.lblAffGlycemie.Size = new System.Drawing.Size(56, 13);
+            this.lblAffGlycemie.TabIndex = 0;
+            this.lblAffGlycemie.Text = "Glycémie: ";
+            // 
+            // lblAffTemps
+            // 
+            this.lblAffTemps.AutoSize = true;
+            this.lblAffTemps.Location = new System.Drawing.Point(536, 13);
+            this.lblAffTemps.Name = "lblAffTemps";
+            this.lblAffTemps.Size = new System.Drawing.Size(42, 13);
+            this.lblAffTemps.TabIndex = 2;
+            this.lblAffTemps.Text = "Heure: ";
+            // 
+            // lblTemps
+            // 
+            this.lblTemps.AutoSize = true;
+            this.lblTemps.Location = new System.Drawing.Point(575, 13);
+            this.lblTemps.Name = "lblTemps";
+            this.lblTemps.Size = new System.Drawing.Size(31, 13);
+            this.lblTemps.TabIndex = 3;
+            this.lblTemps.Text = "0:0:0";
             // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblTemps);
+            this.Controls.Add(this.lblAffTemps);
             this.Controls.Add(this.pnlInfos);
             this.Controls.Add(this.pnlActions);
             this.Name = "frmJeu";
@@ -103,6 +125,7 @@
             this.pnlInfos.ResumeLayout(false);
             this.pnlInfos.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -114,5 +137,7 @@
         private System.Windows.Forms.Label lblAffNom;
         private System.Windows.Forms.Label lblGlycemie;
         private System.Windows.Forms.Label lblAffGlycemie;
+        private System.Windows.Forms.Label lblAffTemps;
+        private System.Windows.Forms.Label lblTemps;
     }
 }
