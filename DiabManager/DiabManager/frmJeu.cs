@@ -21,7 +21,9 @@ namespace DiabManager
 
         public void setActiveButton(Object listActions)
         {
-            pnlActions.Controls.Clear();
+            this.BeginInvoke((Action)(() => {
+                pnlActions.Controls.Clear();
+            }));
 
             Dictionary<Actions, bool> liste = (Dictionary<Actions, bool>)listActions;
             Point p = new Point(10, 10);
@@ -52,9 +54,21 @@ namespace DiabManager
 
         public void setInfosJoueur(string[] infos)
         {
-            lblNom.Text = infos[1] + " " + infos[0];
 
-            lblGlycemie.Text = infos[9];
+            this.BeginInvoke((Action)(() => {
+                lblNom.Text = infos[1] + " " + infos[0];
+
+                lblGlycemie.Text = infos[9];
+            }));
+            
+        }
+
+        public void setTemps(TimeSpan temps)
+        {
+            this.BeginInvoke((Action)(() => {
+                lblTemps.Text = temps.ToString();
+
+            }));
         }
 
         private void boutonClick(object sender, EventArgs e)
