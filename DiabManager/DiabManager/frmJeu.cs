@@ -100,6 +100,8 @@ namespace DiabManager
             return btn;
         }
 
+        
+
         private void btnDiminuer_Click(object sender, EventArgs e)
         {
             if (IHM.IHM_Joueur.getJoueur().Stylo.dose != 0)
@@ -107,7 +109,7 @@ namespace DiabManager
                 IHM.IHM_Joueur.getJoueur().Stylo.dose--;
                 modifStyloInsuline();
             }
-                
+
         }
 
         private void btnAugmenter_Click(object sender, EventArgs e)
@@ -117,14 +119,14 @@ namespace DiabManager
                 IHM.IHM_Joueur.getJoueur().Stylo.dose++;
                 modifStyloInsuline();
             }
-            
+
         }
         /// <summary>
         /// Fonction qui modifie les informations affichés du stylo d'insuline.
         /// </summary>
         private void modifStyloInsuline()
         {
-            if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu!=0)
+            if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu != 0)
             {
                 progressBarInsuline.Value = IHM.IHM_Joueur.getJoueur().Stylo.dose * 100 / IHM.IHM_Joueur.getJoueur().Stylo.DoseActu;
             }
@@ -139,6 +141,30 @@ namespace DiabManager
             IHM.IHM_Joueur.getJoueur().Stylo.DoseActu -= IHM.IHM_Joueur.getJoueur().Stylo.dose;
             if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu < IHM.IHM_Joueur.getJoueur().Stylo.dose) { IHM.IHM_Joueur.getJoueur().Stylo.dose = IHM.IHM_Joueur.getJoueur().Stylo.DoseActu; }
             modifStyloInsuline();
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            if (Temps.getInstance().PlayPause())
+            {
+                btnPause.Text = "❚❚";
+            }
+            else
+            {
+                btnPause.Text = "▶";
+            }
+        }
+
+        private void btnAvanceeTemps_Click(object sender, EventArgs e)
+        {
+            Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse * 2);
+            lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse / 2);
+            lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
         }
     }
 }
