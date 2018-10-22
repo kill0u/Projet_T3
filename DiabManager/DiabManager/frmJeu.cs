@@ -99,5 +99,17 @@ namespace DiabManager
             btn.UseVisualStyleBackColor = false;
             return btn;
         }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            if (Temps.getInstance().PlayPause())
+            {
+                btnPause.Text = "❚❚";
+            }
+            else
+            {          
+                btnPause.Text = "▶";
+            }
+        }
     }
 }

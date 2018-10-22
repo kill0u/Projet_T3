@@ -30,7 +30,7 @@ namespace DiabManager.Metiers
         /** Temps pris par l'action.
          * Chaque action prends du temps à se faire
          */ 
-        private TimeSpan m_temps;
+        private TimeSpan m_duree;
 
         /** L'action modifie la glycémie d'un certain montant
          * Multiplie la glycémie par ce nombre
@@ -68,14 +68,14 @@ namespace DiabManager.Metiers
         /// Déclarer une action (nom, description, durée, modif de glycémie, plage horaire, composée de 2 valeurs)
         /// <param name="nom">Nom de l'action</param>
         /// <param name="description">Description longue de l'action</param>
-        /// <param name="temps">Durée de l'action</param>
-        /// <param name="modifGlycemie">Modification de la glycémie</param>
+        /// <param name="duree">Durée de l'action</param>
+        /// <param name="glycemie">Modification de la glycémie</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
-        public Actions(string nom, string description, TimeSpan temps, Tuple<double, double> glycemie, params TimeSpan[] values) 
+        public Actions(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
-            m_temps = temps;
+            m_duree = duree;
             m_modifGlycemie = glycemie.Item2;
             m_addGlycemie = glycemie.Item1;
 
@@ -92,21 +92,32 @@ namespace DiabManager.Metiers
             }
         }
 
+        /// <summary>
+        /// Regarde si un heure est compris dans une plage horaire
+        /// </summary>
+        /// Parcourt la plage horaire de l'action, et pour chacune, regarde si l'heure actuelle correspond
+        /// <param name="temps">Heure actuelle de la journée</param>
+        /// <returns>L'heure actuelle est dans la plage horaire (true) ou non (false)</returns>
         public bool isTempsDansPlage(TimeSpan temps)
         {
             for(int i = 0; i < m_nbHoraire; i++)
             {
-                if (temps > m_plageHoraire[i, 0] && temps < m_plageHoraire[i, 1])
+                if (temps >= m_plageHoraire[i, 0] && temps < m_plageHoraire[i, 1])
                     return true;
             }
             return false;
         }
 
+        /// <summary>
+        /// Effectue l'action
+        /// </summary>
+        /// Lorsqu'on clique sur un bouton, on effectue l'action correspondante, dépendant du type de l'action
         public void makeAction()
         {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie));
 
-            //TODO passez le temps
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie));
+            Temps.getInstance().addTime(m_duree);
+
         }
     }
 }

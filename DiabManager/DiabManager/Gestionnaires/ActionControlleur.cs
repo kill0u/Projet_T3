@@ -33,6 +33,9 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         private Temps m_temps = Temps.getInstance();
 
+        /// <summary>
+        /// Constructeur privé, pour éviter une instanciation de <see cref="ActionControlleur"/> .
+        /// </summary>
         private ActionControlleur()
         {
 
@@ -51,6 +54,7 @@ namespace DiabManager.Gestionnaires
         /// <summary>
         /// Mets à jour les actions disponibles
         /// </summary>
+        /// <param name="temps">The temps.</param>
         /// Les actions disponibles dépendent des heures de la journée, cette fonction regarde toutes les actions, et mets à jour m_listActions
         public void UpdateAction(TimeSpan temps)
         {
@@ -72,16 +76,20 @@ namespace DiabManager.Gestionnaires
 
         }
 
+        /// <summary>
+        /// Charge toutes les actions disponibles
+        /// </summary>
         public void chargerAction()
         {
-            AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 20, 0), new Tuple<double,double>(0.2, 1), new TimeSpan(7, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(22, 0, 0)));
-            AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(0, 20, 0), new Tuple<double, double>(-0.2, 1), new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
+            AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 30, 0), new Tuple<double,double>(0.2, 1), new TimeSpan(7, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(22, 0, 0)));
+            AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(1, 30, 0), new Tuple<double, double>(-0.2, 1), new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
         }
 
 
-        /** Renvoie l'instance du controlleur actuel
-         * @return instance du controlleur
-         */
+        /// <summary>
+        /// Renvoie l'instance du controlleur actuel
+        /// </summary>
+        /// <returns>instance du controlleur</returns>
         public static ActionControlleur getInstance()
         {
             return m_actionControlleurInstance;

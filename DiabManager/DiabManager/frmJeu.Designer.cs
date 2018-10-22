@@ -36,7 +36,13 @@
             this.lblAffGlycemie = new System.Windows.Forms.Label();
             this.lblAffTemps = new System.Windows.Forms.Label();
             this.lblTemps = new System.Windows.Forms.Label();
+            this.pnlGestionTemps = new System.Windows.Forms.Panel();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.btnAvanceeTemps = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.lblVitesse = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
+            this.pnlGestionTemps.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlActions
@@ -111,11 +117,60 @@
             this.lblTemps.TabIndex = 3;
             this.lblTemps.Text = "0:0:0";
             // 
+            // pnlGestionTemps
+            // 
+            this.pnlGestionTemps.Controls.Add(this.lblVitesse);
+            this.pnlGestionTemps.Controls.Add(this.button2);
+            this.pnlGestionTemps.Controls.Add(this.btnAvanceeTemps);
+            this.pnlGestionTemps.Controls.Add(this.btnPause);
+            this.pnlGestionTemps.Location = new System.Drawing.Point(-1, -1);
+            this.pnlGestionTemps.Name = "pnlGestionTemps";
+            this.pnlGestionTemps.Size = new System.Drawing.Size(169, 27);
+            this.pnlGestionTemps.TabIndex = 4;
+            // 
+            // btnPause
+            // 
+            this.btnPause.Location = new System.Drawing.Point(49, 1);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(25, 23);
+            this.btnPause.TabIndex = 0;
+            this.btnPause.Text = "❚❚";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // btnAvanceeTemps
+            // 
+            this.btnAvanceeTemps.Location = new System.Drawing.Point(80, 1);
+            this.btnAvanceeTemps.Name = "btnAvanceeTemps";
+            this.btnAvanceeTemps.Size = new System.Drawing.Size(40, 23);
+            this.btnAvanceeTemps.TabIndex = 1;
+            this.btnAvanceeTemps.Text = "▶▶";
+            this.btnAvanceeTemps.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(3, 1);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(40, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "◀ ◀";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // lblVitesse
+            // 
+            this.lblVitesse.AutoSize = true;
+            this.lblVitesse.Location = new System.Drawing.Point(127, 4);
+            this.lblVitesse.Name = "lblVitesse";
+            this.lblVitesse.Size = new System.Drawing.Size(18, 13);
+            this.lblVitesse.TabIndex = 3;
+            this.lblVitesse.Text = "1x";
+            // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pnlGestionTemps);
             this.Controls.Add(this.lblTemps);
             this.Controls.Add(this.lblAffTemps);
             this.Controls.Add(this.pnlInfos);
@@ -124,6 +179,8 @@
             this.Text = "frmJeu";
             this.pnlInfos.ResumeLayout(false);
             this.pnlInfos.PerformLayout();
+            this.pnlGestionTemps.ResumeLayout(false);
+            this.pnlGestionTemps.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,5 +196,10 @@
         private System.Windows.Forms.Label lblAffGlycemie;
         private System.Windows.Forms.Label lblAffTemps;
         private System.Windows.Forms.Label lblTemps;
+        private System.Windows.Forms.Panel pnlGestionTemps;
+        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAvanceeTemps;
+        private System.Windows.Forms.Label lblVitesse;
     }
 }
