@@ -54,7 +54,8 @@ namespace DiabManager.Gestionnaires
         /// Les actions disponibles dépendent des heures de la journée, cette fonction regarde toutes les actions, et mets à jour m_listActions
         public void UpdateAction(TimeSpan temps)
         {
-            foreach(var a in m_listActions)
+
+            foreach (var a in m_listActions)
             {
                 if(a.Key.isTempsDansPlage(temps))
                 {
@@ -66,11 +67,16 @@ namespace DiabManager.Gestionnaires
                 }
             }
 
-            IHM.IHM_Actions.UpdateButton();
+        }
+
+        public void chargerAction()
+        {
+            AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 20, 0), 1.5, new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
+            AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(0, 20, 0), -1.5, new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
         }
 
 
-        /** Renvoie l'instance ddu controlleur actuel
+        /** Renvoie l'instance du controlleur actuel
          * @return instance du controlleur
          */
         public static ActionControlleur getInstance()

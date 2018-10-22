@@ -57,7 +57,7 @@ namespace DiabManager.Metiers
         private void SetTimer()
         {
             //Le timer tick toutes les 30 s
-            m_dayTimer = new Timer(30000);
+            m_dayTimer = new Timer(1000);
 
             m_dayTimer.Elapsed += TickEvent;
             m_dayTimer.AutoReset = true;
@@ -81,10 +81,7 @@ namespace DiabManager.Metiers
             //On ajoute le temps 
             m_time = m_time.Add(new TimeSpan(0, 10, 0));
 
-            //On mets à jour les actions disponibles (vues que l'heure à changé)
-            Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
-
-
+            
             //si on dépasse un jour
             if(m_time.Days > 0)
             {
@@ -96,6 +93,11 @@ namespace DiabManager.Metiers
 
 
             }
+            IHM.IHM_Actions.UpdateButton();
+
+
+            //On mets à jour les actions disponibles (vues que l'heure à changé)
+            Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
         }
 
         /**Retourne l'heure actuelle.
