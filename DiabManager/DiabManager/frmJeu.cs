@@ -16,39 +16,51 @@ namespace DiabManager
         public frmJeu()
         {
             InitializeComponent();
- 
+
+        }
+
+        public void loadActions(Object liste)
+        {
+            Dictionary<Actions, bool> listeActions = (Dictionary<Actions, bool>)liste;
+            Point p = new Point(10, 10);
+            foreach(var a in listeActions)
+            {
+                Button b = new Button();
+                b.Location = p;
+                b.Text = a.Key.Nom;
+                b.Name = a.Key.Nom;
+                b.Size = new Size(100, 50);
+                b.Click += new System.EventHandler(boutonClick);
+
+
+                pnlActions.Controls.Add(b);
+
+                p.X += 110;
+
+                if (p.X + 100 >= pnlActions.Width)
+                {
+                    p.X = 10;
+                    p.Y += 60;
+                }
+            }
         }
 
         public void setActiveButton(Object listActions)
         {
-            this.BeginInvoke((Action)(() => {
-                pnlActions.Controls.Clear();
-            }));
-
             Dictionary<Actions, bool> liste = (Dictionary<Actions, bool>)listActions;
-            Point p = new Point(10, 10);
             foreach(var a in liste)
             {
-                if (a.Value)
-                {
+                            
+                //Etant donné que cette fonction est appelé depuis un timer (=thread), il faut utiliser une fonction qui va déléguer ca au thread principal pour pouvoir utilisé controls
+                this.BeginInvoke((Action)(() => {
 
-                    Button b = creerButton(a.Key.Nom, a.Key.Nom, p, new Size(100, 50));
-                    b.Click += new System.EventHandler(boutonClick);
-                   
-                    //Etant donné que cette fonction est appelé depuis un timer (=thread), il faut utiliser une fonction qui va déléguer ca au thread principal pour pouvoir utilisé controls
-                    this.BeginInvoke((Action)(() => {
-                        pnlActions.Controls.Add(b);
-                    }));
+                    Control[] l = pnlActions.Controls.Find(a.Key.Nom, true);
+                    Button b = (Button)l[0];
+                    b.Enabled = a.Value;
+
+                }));
                         
-                    
-                    p.X += 110;
-
-                    if(p.X + 100 >= pnlActions.Width)
-                    {
-                        p.X = 10;
-                        p.Y += 60;
-                    }
-                }
+                
             }
         }
 
@@ -77,30 +89,7 @@ namespace DiabManager
             IHM.IHM_Actions.EffectuerAction(b.Name);
         }
 
-        /** Création dynamique d'un bouton.
-        * Fonction permetant la création dynamique d'un label
-        *  @param texte : texte du buton
-        *  @param nombutton : nom du bouton
-        *  @param location : position du buton
-        *  @param size : taille du buton
-        */
-        private Button creerButton(String texte, String nombutton, Point location, Size size)
-        {
-            Button btn = new Button();
-            btn.BackColor = System.Drawing.Color.Aqua;
-            btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            btn.Font = new System.Drawing.Font("Harlow Solid Italic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            btn.Location = location;
-            btn.Name = nombutton;
-            btn.Size = size;
-            btn.TabIndex = 0;
-            btn.Text = texte;
-            btn.UseVisualStyleBackColor = false;
-            return btn;
-        }
-
-        
+       
 
         private void btnDiminuer_Click(object sender, EventArgs e)
         {
@@ -165,6 +154,15 @@ namespace DiabManager
         {
             Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse / 2);
             lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+        }
+
+        private void frmJeu_Shown(object sender, EventArgs e)
+        {
+            //Mise en place du jeu
+            IHM.IHM_Actions.Update();
+            IHM.IHM_Actions.updateTemps(Temps.getInstance().getHeureJournee());
+            IHM.IHM_Joueur.Update();
+            Gestionnaires.ActionControlleur.getInstance().UpdateAction(Temps.getInstance().getHeureJournee());
         }
     }
 }

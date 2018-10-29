@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiabManager.Metiers;
+using System.IO;
+using System.Globalization;
 
 namespace DiabManager.Gestionnaires
 {
@@ -76,13 +78,50 @@ namespace DiabManager.Gestionnaires
 
         }
 
-        /// <summary>
-        /// Charge toutes les actions disponibles
-        /// </summary>
+        /// <summary>Charge toutes les actions disponibles</summary>
         public void chargerAction()
         {
-            AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 30, 0), new Tuple<double,double>(0.2, 1), new TimeSpan(7, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(22, 0, 0)));
-            AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(1, 30, 0), new Tuple<double, double>(-0.2, 1), new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
+            //Forme du chargement :
+            //TYPE; NOM; DESCRIPTION; ETAT; DUREE; ADD, FOIS; HEURE1; HEURE2; HEUREN
+            //etat[travail, matin, midi, soir, dormir]
+            var path = @"actions.csv"; 
+            using (var reader = new StreamReader(path))
+            {
+
+
+                while (!reader.EndOfStream)
+                {
+                    // Read current line fields, pointer moves to the next line.
+                    string line = reader.ReadLine();
+                    if(!string.IsNullOrWhiteSpace(line)) { 
+                        string[] fields = line.Split(';');
+                        TimeSpan[] plageHoraire = new TimeSpan[30];
+                        int j = 0;
+                        for(int i = 6; i < fields.Length;i++)
+                        {
+                            if (!string.IsNullOrWhiteSpace(fields[j]))
+                            {
+                                plageHoraire[j] = TimeSpan.Parse(fields[i]);
+                                j++; 
+                            }
+                        }
+                        string nom = fields[1];
+                        string desc = fields[2];
+                        TimeSpan duree = TimeSpan.Parse(fields[4]);
+                        double addGlyc = double.Parse(fields[5].Split(',')[0], CultureInfo.InvariantCulture);
+                        double foisGlyc = double.Parse(fields[5].Split(',')[1], CultureInfo.InvariantCulture);
+
+                        AddAction(new Actions(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), plageHoraire));
+                    }
+                }
+            }
+
+
+            //AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 30, 0), new Tuple<double,double>(0.2, 1), new TimeSpan(7, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(22, 0, 0)));
+            //AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(1, 30, 0), new Tuple<double, double>(-0.2, 1), new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
+
+
+            IHM.IHM_Actions.LoadAction();
         }
 
 
