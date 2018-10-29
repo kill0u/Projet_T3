@@ -19,6 +19,7 @@ namespace DiabManager.Metiers
          */ 
         private static Temps m_tempsInstance = new Temps();
 
+        private const int dureeTemps = 10000;
 
         /** Heure de la journée. Heure:minutes:secondes de la journée actuelle
          */
@@ -63,7 +64,7 @@ namespace DiabManager.Metiers
         private void SetTimer()
         {
             //Le timer tick toutes les 30 s
-            m_dayTimer = new Timer(1000);
+            m_dayTimer = new Timer(dureeTemps);
 
             m_dayTimer.Elapsed += TickEvent;
             m_dayTimer.AutoReset = true;
@@ -83,7 +84,7 @@ namespace DiabManager.Metiers
         public void changeSpeed(double coeff)
         {
             m_coeffVitesse = coeff;
-            m_dayTimer.Interval = 1000 / m_coeffVitesse;
+            m_dayTimer.Interval = dureeTemps / m_coeffVitesse;
         }
 
         /**Démarre le timer et enregistre la partie actuelle

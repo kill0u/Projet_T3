@@ -49,6 +49,11 @@ namespace DiabManager.IHM
             action.makeAction();
         }
 
+        public static void LoadAction()
+        {
+            m_frm.loadActions(m_actionControlleur.ListActions);
+        }
+
         public static void updateTemps(TimeSpan temps)
         {
             m_frm.setTemps(temps);
