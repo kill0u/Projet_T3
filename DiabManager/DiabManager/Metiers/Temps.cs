@@ -33,7 +33,13 @@ namespace DiabManager.Metiers
 
         /**Timer pour faire passer le temps.
          Le Timer qui fait défiler automatiquement le temps, et lance un event à chaque tick*/
-        private Timer m_dayTimer; 
+        private Timer m_dayTimer;
+
+        private double m_coeffVitesse = 1;
+        public double CoeffVitesse
+        {
+            get { return m_coeffVitesse; }
+        }
     
 
         /**Constructeur: initialise les infos importantes.
@@ -63,6 +69,22 @@ namespace DiabManager.Metiers
             m_dayTimer.AutoReset = true;
         }
 
+        /// <summary>Change l'etat du jeu (en cours ou en pause)</summary>
+        /// <returns>Etat actuel du jeu (false = pause)</returns>
+        public bool PlayPause()
+        {
+            m_dayTimer.AutoReset = !m_dayTimer.AutoReset;
+            return m_dayTimer.AutoReset;
+        }
+
+
+        /// <summary>Change la vitesse de défilement du jeu</summary>
+        /// <param name="coeff">Coeffcient de changement de vitesse </param>
+        public void changeSpeed(double coeff)
+        {
+            m_coeffVitesse = coeff;
+            m_dayTimer.Interval = 1000 / m_coeffVitesse;
+        }
 
         /**Démarre le timer et enregistre la partie actuelle
          */ 
@@ -78,8 +100,10 @@ namespace DiabManager.Metiers
          */ 
         private void TickEvent(Object source, ElapsedEventArgs e)
         {
-            //On ajoute le temps 
-            m_time = m_time.Add(new TimeSpan(0, 10, 0));
+            //On ne fait l'action que si le timer est en cours
+            if(m_dayTimer.AutoReset)
+                //On ajoute le temps 
+                m_time = m_time.Add(new TimeSpan(0, 10, 0));
 
             
             //si on dépasse un jour
@@ -109,6 +133,31 @@ namespace DiabManager.Metiers
             return m_time;
         }
 
+
+        public void addTime(TimeSpan temps)
+        {
+
+            m_time = m_time.Add(temps);
+
+
+
+            //si on dépasse un jour
+            if (m_time.Days > 0)
+            {
+                //on réinitialise
+                m_time = new TimeSpan(0, 0, 0);
+
+                //On ajoute un jour sur la partie
+                m_partie.AddDay();
+
+
+            }
+            //On mets à jour les actions disponibles (vues que l'heure à changé)
+            Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
+
+            IHM.IHM_Actions.updateTemps(m_time);
+
+        }
 
         /** Renvoie l'instance de temps actuel
         * @return instance du controleur
