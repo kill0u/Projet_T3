@@ -108,9 +108,10 @@ namespace DiabManager.Metiers
         /// <param name="glycemie">Le taux de glycemie du joueur, quand il démarre la partie. En double.</param>
         /// <param name="glycemieObjectifBas">La valeur basse de l'objectif du taux de glycémie du joueur. En double.</param>
         /// <param name="glycemieObjectifHaut">La valeur haute de l'objectif du taux de glycémie du joueur. En double.</param>
-        public Joueur(string nom, string prenom, char sexe, int taille, double poids, double glycemie, double glycemieObjectifBas, double glycemieObjectifHaut)
+        public Joueur(string nom, int age,string prenom, char sexe, int taille, double poids, double glycemie, double glycemieObjectifBas, double glycemieObjectifHaut)
         {
             this.m_nom = nom;
+            this.m_age = age;
             this.m_prenom = prenom;
             this.m_sexe = sexe;
             this.m_taille = taille;
