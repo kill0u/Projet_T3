@@ -12,11 +12,18 @@ namespace DiabManager
 {
     /**
      * @author Killian Matter
-     * @version 1.1
+     * @version 1.5
      */
     public partial class frmMenu : Form
     {
         #region variables local
+        private Boolean m_difficulte; /**<La Difficulté du jeu, si true Difficulté difficile sinon facile */
+        public Boolean difficulte /**<La Difficulté du jeu . L'accesseur de la Difficulté du jeu. */
+        {
+            get { return m_difficulte; }
+            set { this.m_difficulte = value; }
+        }
+
         Color couleurOrigin = Color.Aqua;
         private Point p = new Point(280, 35);
         private Size s = new Size(520, 101);
@@ -29,6 +36,9 @@ namespace DiabManager
         private Button btndDifficile;
         private Button btnRetour;
         //troixieme affichage
+        private Button btnProfil1;
+        private Button btnProfil2;
+        private Button btnProfil3;
         private GroupBox grbSexe;
         private RadioButton rdbSfem;
         private RadioButton rdbSmasc;
@@ -71,20 +81,24 @@ namespace DiabManager
 
             p = new Point(360, 173);
             s = new Size(244, 52);
-            btnLancePart = creerButton("Lancer Partie", "btnPartie",p,s);//creation du bouton de lancement de partie
+            //creation du bouton de lancement de partie
+            btnLancePart = creerButton("Lancer Partie", "btnPartie",p,s);
             ajoutEvClick(btnLancePart, new EventHandler(LancerPart_Click));
 
             p = new Point(360, 240);
-            btnLancerTuto = creerButton("Lancer Tutoriel", "btnTuto",p,s);//creation du bouton de lancement de tuto
+            //creation du bouton de lancement de tuto
+            btnLancerTuto = creerButton("Lancer Tutoriel", "btnTuto",p,s);
             ajoutEvClick(btnLancerTuto, new EventHandler(btnLancerTuto_Click));
 
             s = new Size(154, 32);
             p = new Point(408, 310);
+            //creation du bouton retour
             btnRetour = creerButton("Retour", "btnRetour", p, s);
             ajoutEvClick(btnRetour, new EventHandler(btnRetour_Click));
             this.Controls.Add(btnRetour);
             btnRetour.Visible = false;
             p.X += 165;
+            //creation du bouton valider
             btnValider = creerButton("Valider", "btnValider", p, s);
             ajoutEvClick(btnValider, new EventHandler(btnValider_Click));
             this.Controls.Add(btnValider);
@@ -96,6 +110,7 @@ namespace DiabManager
         }
 
         #region evenements
+        //events
         private void Titre_Click(object sender, EventArgs e)
         {
             changercolor();
@@ -130,6 +145,9 @@ namespace DiabManager
                     if(c != Titre)
                         c.Visible = false;
                 }
+                btnProfil1.Visible = false;
+                btnProfil2.Visible = false;
+                btnProfil3.Visible = false;
                 btnValider.Visible = false;
                 btndDifficile.Visible = true;
                 btndFacile.Visible = true;
@@ -137,24 +155,48 @@ namespace DiabManager
         }
         private void btndFacile_Click(object sender, EventArgs e)
         {
-            affDifFacile();
+            affFormJoueur();
+            m_difficulte = false;
+        }
+        private void btndDifficile_Click(object sender, EventArgs e)
+        {
+            affFormJoueur();
+            m_difficulte = true;
+        }
+        private void btnProfils_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            if(b.Text== "Profil 1")
+            {
+                remplirFormulaireJoueur("Anne", 18, "Metzger", 'F', 160, 55, 2.5, 0.8, 1.3);
+            }
+            else if(b.Text == "Profil 2")
+            {
+                remplirFormulaireJoueur("Jean", 10, "Holler", 'H', 130, 30, 2.8, 1.8, 2.3);
+            }
+            else
+            {
+                remplirFormulaireJoueur("Camille", 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
+            }
         }
         private void btnValider_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(rdbCocher());
-            //IHM.IHM_Joueur.addJoueur(new Metiers.Joueur("Krebs", "leo", rdbCocher(), 180, 65.5, 2.5, 0.8, 1.3));
+            creerJoueur();
+            this.Close();
         }
+
+
         //les keypress
         private void NoLetter_keyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar))
+            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
             {
                 e.Handled = true; // On interdit les lettres
             }
         }
         private void NoDigit_keyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar))
+            if (char.IsDigit(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
             {
                 e.Handled = true; //On interdit les nombres
             }
@@ -179,6 +221,10 @@ namespace DiabManager
         }
         #endregion
 
+        #region fonctions
+        /** Changement de couleur du theme
+         * fonction qui change la couleur du theme ( le bleu aqua)
+         */
         private void changercolor()
         {
             DialogResult result = cdPicker.ShowDialog();
@@ -199,6 +245,9 @@ namespace DiabManager
                 Titre.ForeColor = cdPicker.Color;
             }
         }
+        /** affiche les bouton pour choisir la difficulté
+         * fonction qui fait l'affichage des bouton de choix pour la difficulté
+         */
         private void affDifficulte()
         {
             foreach(Button c in this.Controls.OfType<Button>())
@@ -212,14 +261,17 @@ namespace DiabManager
             btndFacile.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             p = new Point(360, 240);
             btndDifficile = creerButton("Difficile", "btnDifficile", p, s);
-            ajoutEvClick(btndDifficile, new EventHandler(btnLancerTuto_Click));
+            ajoutEvClick(btndDifficile, new EventHandler(btndDifficile_Click));
             btndDifficile.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             this.Controls.Add(btndFacile);
             this.Controls.Add(btndDifficile);
             btnRetour.Visible = true;
 
         }
-        private void affDifFacile()
+        /** affiche le formulaire pour faire le joueur
+         * fonction affichant les textbox nécessaire pour les données demander au joueur 
+         */
+        private void affFormJoueur()
         {
             btndDifficile.Visible = false;
             btndFacile.Visible = false;
@@ -227,12 +279,13 @@ namespace DiabManager
             int y = 140;
             p = new Point(706, 149);
             s = new Size(110, 132);
-            //creation du group box
+            #region creation du group box
             grbSexe = creerGroupbox("Sexe", "grbSexe", p, s);
             grbSexe.ForeColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             p = new Point(x, y);
             s = new Size(100, 30);
-            //creation des label et des textbox
+            #endregion
+            #region creation des label et des textbox
             txtAge = creerTextbox("txtAge", p, s);
             ajoutEvKeypress(txtAge, new KeyPressEventHandler(NoLetter_keyPress));
             p.Y += 30;
@@ -257,7 +310,8 @@ namespace DiabManager
             p.Y += 30;
             txtObjGlycBas = creerTextbox("txtObjGlycBas", p, s);
             ajoutEvKeypress(txtObjGlycBas, new KeyPressEventHandler(NoLetter_keyPress));
-            //creation des label
+            #endregion
+            #region creation des label
             x = 210;
             y = 140;
             p = new Point(x, y);
@@ -278,6 +332,23 @@ namespace DiabManager
             lblObjGlycHaut = creerLabel("Objectif max","txtObjGlycHaut", p, s);
             p.Y += 30;
             lblObjGlycBas = creerLabel("Objectif min","txtObjGlycBas", p, s);
+            #endregion
+            #region creation des buttons profils
+            p = new Point(50, 140);
+            s = new Size(150, 40);
+            btnProfil1 = creerButton("Profil 1", "btnProfil1", p, s);
+            ajoutEvClick(btnProfil1, new EventHandler(btnProfils_Click));
+            btnProfil1.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
+            p.Y += 50;
+            btnProfil2 = creerButton("Profil 2", "btnProfil2", p, s);
+            ajoutEvClick(btnProfil2, new EventHandler(btnProfils_Click));
+            btnProfil2.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
+            p.Y += 50;
+            btnProfil3 = creerButton("Profil 3", "btnProfil3", p, s);
+            ajoutEvClick(btnProfil3, new EventHandler(btnProfils_Click));
+            btnProfil3.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
+            #endregion
+            #region ajout des objets au panel
             this.Controls.Add(grbSexe);
             this.Controls.Add(txtAge);
             this.Controls.Add(txtNom);
@@ -296,9 +367,90 @@ namespace DiabManager
             this.Controls.Add(lblGlyc);
             this.Controls.Add(lblObjGlycHaut);
             this.Controls.Add(lblObjGlycBas);
+
+            this.Controls.Add(btnProfil1);
+            this.Controls.Add(btnProfil2);
+            this.Controls.Add(btnProfil3);
+            #endregion
+
             grbSexe.Visible = true;
             btnValider.Visible = true;
+            btnProfil1.Visible = true;
+            btnProfil2.Visible = true;
+            btnProfil3.Visible = true;
         }
+        /** récupération du texte du radiobutton cocher
+         * foncton qui récupère le texte du radiobutton qui est cocher
+         */
+        private String rdbCocher()
+        {
+            string res = "";
+            foreach (RadioButton r in this.grbSexe.Controls.OfType<RadioButton>())
+            {
+                if (r.Checked)
+                {
+                    res = r.Text;
+                }
+            }
+            return res;
+        }
+        /** creer le joueur a partir du formulaire du menu
+         * fonction créant un joueur a partir du formulaire
+         */
+        private void creerJoueur()
+        {
+            string prenom = txtPrenom.Text;
+            int age = int.Parse(txtAge.Text);
+            string nom = txtNom.Text;
+            char sex = char.Parse(rdbCocher());
+            int taille = int.Parse(txtTaille.Text);
+            double poids = double.Parse(txtPoid.Text);
+            double glycemie = double.Parse(txtGlyc.Text);
+            double glycemieObjBas = double.Parse(txtObjGlycBas.Text);
+            double glycemieObjHaut = double.Parse(txtObjGlycHaut.Text);
+
+            IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut));
+        }
+        /** remplis les formulaires pour des profils déja existant
+         * fonction remplissant le formulaire pour un profil pré fait
+         */
+        private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
+        {
+            Boolean check = true;
+            foreach (TextBox t in this.Controls.OfType<TextBox>())
+            {
+                if (t.Text == string.Empty)
+                {
+                    check = false;
+                }
+            }
+            if (check)
+            {
+                txtAge.Text = age.ToString();
+                txtNom.Text = nom;
+                txtPrenom.Text = prenom;
+                txtPoid.Text = poids.ToString();
+                txtGlyc.Text = glyc.ToString();
+                txtObjGlycBas.Text = glycObBas.ToString();
+                txtObjGlycHaut.Text = glycObHaut.ToString();
+                txtTaille.Text = taille.ToString();
+                if (sex == 'H')
+                {
+                    rdbSmasc.Checked = true;
+                    rdbSfem.Checked = false;
+                }
+                else
+                {
+                    rdbSmasc.Checked = false;
+                    rdbSfem.Checked = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chaque champ doit être renseigné");
+            }
+        }
+        #endregion
 
         #region fonction génération dynamique de composant
         /** Création dynamique de label.
@@ -392,7 +544,12 @@ namespace DiabManager
             rdb.UseVisualStyleBackColor = true;
             return rdb;
         }
-
+        /** Création dynamique d'un textbox.
+       * Fonction permetant la création dynamique d'un textbox
+       *  @param nomTxt : nom du textbox
+       *  @param loc : Localisation du textbox
+       *  @param size : taille du textbox
+       */
         private TextBox creerTextbox(String nomTxt, Point loc, Size size)
         {
             TextBox txt = new TextBox();
@@ -411,24 +568,17 @@ namespace DiabManager
         private void ajoutEvClick(Control c,EventHandler eHand) {
             c.Click += eHand;
         }
-
+        /** Ajout dynamique d'évenement keypress
+         * Fonction ajoutant un evenement dynamiquement
+         * @param c : controleur auquel on ajoute l'évenement
+         * @param eHand : evenement ajouté
+         */
         private void ajoutEvKeypress(Control c,KeyPressEventHandler eHand)
         {
             c.KeyPress += eHand;
         }
         #endregion
 
-        private String rdbCocher()
-        {
-            string res = "";
-            foreach (RadioButton r in this.grbSexe.Controls.OfType<RadioButton>())
-            {
-                if (r.Checked)
-                {
-                    res = r.Text;
-                }
-            }
-            return res;
-        }
+        
     }
 }
