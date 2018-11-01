@@ -12,7 +12,7 @@ namespace DiabManager
 {
     /**
      * @author Killian Matter
-     * @version 1.5
+     * @version 1.6
      */
     public partial class frmMenu : Form
     {
@@ -181,8 +181,15 @@ namespace DiabManager
         }
         private void btnValider_Click(object sender, EventArgs e)
         {
-            creerJoueur();
-            this.Close();
+            if (checkFormulaire())
+            {
+                creerJoueur();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Chaque champ doit être renseigné");
+            }
         }
 
 
@@ -411,10 +418,8 @@ namespace DiabManager
 
             IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut));
         }
-        /** remplis les formulaires pour des profils déja existant
-         * fonction remplissant le formulaire pour un profil pré fait
-         */
-        private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
+
+        private Boolean checkFormulaire()
         {
             Boolean check = true;
             foreach (TextBox t in this.Controls.OfType<TextBox>())
@@ -424,30 +429,30 @@ namespace DiabManager
                     check = false;
                 }
             }
-            if (check)
+            return check;
+        }
+        /** remplis les formulaires pour des profils déja existant
+         * fonction remplissant le formulaire pour un profil pré fait
+         */
+        private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
+        {
+            txtAge.Text = age.ToString();
+            txtNom.Text = nom;
+            txtPrenom.Text = prenom;
+            txtPoid.Text = poids.ToString();
+            txtGlyc.Text = glyc.ToString();
+            txtObjGlycBas.Text = glycObBas.ToString();
+            txtObjGlycHaut.Text = glycObHaut.ToString();
+            txtTaille.Text = taille.ToString();
+            if (sex == 'H')
             {
-                txtAge.Text = age.ToString();
-                txtNom.Text = nom;
-                txtPrenom.Text = prenom;
-                txtPoid.Text = poids.ToString();
-                txtGlyc.Text = glyc.ToString();
-                txtObjGlycBas.Text = glycObBas.ToString();
-                txtObjGlycHaut.Text = glycObHaut.ToString();
-                txtTaille.Text = taille.ToString();
-                if (sex == 'H')
-                {
-                    rdbSmasc.Checked = true;
-                    rdbSfem.Checked = false;
-                }
-                else
-                {
-                    rdbSmasc.Checked = false;
-                    rdbSfem.Checked = true;
-                }
+                rdbSmasc.Checked = true;
+                rdbSfem.Checked = false;
             }
             else
             {
-                MessageBox.Show("Chaque champ doit être renseigné");
+                rdbSmasc.Checked = false;
+                rdbSfem.Checked = true;
             }
         }
         #endregion
