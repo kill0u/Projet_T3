@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiabManager.Metiers;
+using DiabManager.Metiers.ListeActions;
 using System.IO;
 using System.Globalization;
 
@@ -22,12 +23,22 @@ namespace DiabManager.Gestionnaires
         private static ActionControlleur m_actionControlleurInstance = new ActionControlleur();
 
         /** Liste de toutes les actions lancés actuellement.
-         * Liste les actions possibles pour l'utilisateurs, avec pour valeur si l'utilisateur peut les faire
+         * Liste les actions possibles pour l'utilisateur, avec pour valeur vrai si l'utilisateur peut les faire
          */ 
         private Dictionary<Actions, bool> m_listActions = new Dictionary<Actions, bool>();
         public Dictionary<Actions, bool> ListActions
         {
             get { return new Dictionary<Actions, bool>(m_listActions); }
+        }
+
+
+        /** Liste de toutes les événements possibles pour le joueur actuellement.
+         * Liste les évènements possibles pour l'utilisateur <see cref="EvenementsAleatoires"/>, avec pour valeur vrai si l'évènement est possible pour le joueur
+         */
+        private Dictionary<EvenementsAleatoire, bool> m_listEvent = new Dictionary<EvenementsAleatoire, bool>();
+        public Dictionary<EvenementsAleatoire, bool> listEvent
+        {
+            get { return new Dictionary<EvenementsAleatoire, bool>(m_listEvent); }
         }
 
         /// <summary>
@@ -117,12 +128,67 @@ namespace DiabManager.Gestionnaires
             }
 
 
-            //AddAction(new Actions("Manger", "Aller manger", new TimeSpan(0, 30, 0), new Tuple<double,double>(0.2, 1), new TimeSpan(7, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(22, 0, 0)));
-            //AddAction(new Actions("Sport", "Faire du sport", new TimeSpan(1, 30, 0), new Tuple<double, double>(-0.2, 1), new TimeSpan(0, 0, 0), new TimeSpan(23, 0, 0)));
-
-
+           
             IHM.IHM_Actions.LoadAction();
         }
+
+
+        public void chargerEvenement()
+        {
+            m_listEvent.Add(new EvenementsAleatoire("Maladie", "Maladie", new TimeSpan(10, 0, 0), new Tuple<double, double>(0.01, 1), 10, false), false);
+            m_listEvent.Add(new EvenementsAleatoire("Aller au bar", "Aller au bar", new TimeSpan(4, 0, 0), new Tuple<double, double>(0.1, 1), 20, true), false);
+        }
+
+
+
+
+
+        /// <summary>
+        /// On regarde si des évènements aléatoires sont en cours, si oui on effectue leur action
+        /// </summary>
+        public void UpdateEvenement()
+        {
+            foreach (var e in m_listEvent)
+            {
+                if(e.Value)
+                {
+                    e.Key.duringEvenement();
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// On regarde si de nouveaux évènements doivent se lancer ou si d'anciens doivent s'arreter
+        /// </summary>
+        public void CalcEvenement(TimeSpan temps)
+        {
+            Random r = new Random();
+            for (int i = 0; i < m_listEvent.Count; i++)
+            {
+                var e = m_listEvent.ElementAt(i);
+                if (!e.Value) //Si l'évènement n'est pas encore lancé
+                {
+                    int ra = r.Next(1, 101);
+                    if (ra < e.Key.ChanceInit)//on fait un aléatoire
+                    {
+                        //On lance l'évènement
+                        m_listEvent[e.Key] = true;
+                        e.Key.makeEvenement(temps);
+                    }
+                }
+                else //sinon on regarde si il faut l'arreter
+                {
+                    if(temps > e.Key.EndTime)
+                    {
+                        m_listEvent[e.Key] = false;
+                    }
+                }
+            }
+        }
+
+
 
 
         /// <summary>

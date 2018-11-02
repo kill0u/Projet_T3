@@ -25,6 +25,12 @@ namespace DiabManager.Metiers
          */
         private TimeSpan m_time;
 
+        private TimeSpan m_destTime = new TimeSpan(-1,0,0);
+        public bool isActionEnCours
+        {
+            get { return m_destTime.Hours >= 0; }
+        }
+
 
         /** Récupère l'instance de la partie actuelle.
          * Permet de savoir à quel partie se réfère le temps actuel (la partie s'initialise lors de la mise en marche du timer)
@@ -83,8 +89,12 @@ namespace DiabManager.Metiers
         /// <param name="coeff">Coeffcient de changement de vitesse </param>
         public void changeSpeed(double coeff)
         {
-            m_coeffVitesse = coeff;
-            m_dayTimer.Interval = dureeTemps / m_coeffVitesse;
+            if (m_destTime.Hours < 0) //on ne peut changer la vitesse que si on est en jeu normal
+            {
+                m_coeffVitesse = coeff;
+                m_dayTimer.Interval = dureeTemps / m_coeffVitesse;
+            }
+            
         }
 
         /**Démarre le timer et enregistre la partie actuelle
@@ -103,16 +113,34 @@ namespace DiabManager.Metiers
         {
             //On ne fait l'action que si le timer est en cours
             if(m_dayTimer.AutoReset)
+            {
                 //On ajoute le temps 
                 m_time = m_time.Add(new TimeSpan(0, 10, 0));
+
+                //on regarde si on est en train de passer une action (ie on est en train de faire avancer le temps vite)
+                if (m_destTime.Hours >= 0) 
+                {
+                    if(m_time >= m_destTime)//on a finit d'effectuer notre action, on remet le défilement du temps normal
+                    {
+                        m_destTime = new TimeSpan(-1, 0, 0);
+                        changeSpeed(m_coeffVitesse);
+                    }
+                }
+            }
+                
 
             
             //si on dépasse un jour
             if(m_time.Days > 0)
             {
-                //on réinitialise
+                //on réinitialise l'heure actuelle
                 m_time = new TimeSpan(0, 0, 0);
 
+                //on enlève un jour au temps de dest pour l'action
+                if (m_destTime.Hours >= 0)
+                {
+                    m_destTime = m_destTime.Subtract(new TimeSpan(1,0,0,0));
+                }
                 //On ajoute un jour sur la partie
                 m_partie.AddDay();
 
@@ -123,6 +151,15 @@ namespace DiabManager.Metiers
             //On mets à jour les actions disponibles (vues que l'heure à changé)
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
 
+            //On déclenche potentiellement des événements aléatoires
+            Gestionnaires.ActionControlleur.getInstance().CalcEvenement(m_time);
+
+            //On regarde si des événement aléatoires sont en cours
+            Gestionnaires.ActionControlleur.getInstance().UpdateEvenement();
+
+
+
+            //On update le temps de l'affichage
             IHM.IHM_Actions.updateTemps(m_time);
         }
 
@@ -138,25 +175,9 @@ namespace DiabManager.Metiers
         public void addTime(TimeSpan temps)
         {
 
-            m_time = m_time.Add(temps);
+            m_dayTimer.Interval = 200;
 
-
-
-            //si on dépasse un jour
-            if (m_time.Days > 0)
-            {
-                //on réinitialise
-                m_time = new TimeSpan(0, 0, 0);
-
-                //On ajoute un jour sur la partie
-                m_partie.AddDay();
-
-
-            }
-            //On mets à jour les actions disponibles (vues que l'heure à changé)
-            Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
-
-            IHM.IHM_Actions.updateTemps(m_time);
+            m_destTime = m_time.Add(temps);
 
         }
 

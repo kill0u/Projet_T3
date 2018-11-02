@@ -54,6 +54,7 @@ namespace DiabManager.Metiers
         {
             m_ac = Gestionnaires.ActionControlleur.getInstance();
             m_ac.chargerAction();
+            m_ac.chargerEvenement();
             //Met en place le temps.
             m_t = Temps.getInstance();
             m_t.StartTime(this);
