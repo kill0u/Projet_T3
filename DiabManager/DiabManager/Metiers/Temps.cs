@@ -118,7 +118,7 @@ namespace DiabManager.Metiers
                 m_time = m_time.Add(new TimeSpan(0, 10, 0));
 
                 //on regarde si on est en train de passer une action (ie on est en train de faire avancer le temps vite)
-                if (m_destTime.Hours >= 0) //on ne peut changer la vitesse que si on est en jeu normal
+                if (m_destTime.Hours >= 0) 
                 {
                     if(m_time >= m_destTime)//on a finit d'effectuer notre action, on remet le défilement du temps normal
                     {
@@ -151,6 +151,15 @@ namespace DiabManager.Metiers
             //On mets à jour les actions disponibles (vues que l'heure à changé)
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
 
+            //On déclenche potentiellement des événements aléatoires
+            Gestionnaires.ActionControlleur.getInstance().CalcEvenement(m_time);
+
+            //On regarde si des événement aléatoires sont en cours
+            Gestionnaires.ActionControlleur.getInstance().UpdateEvenement();
+
+
+
+            //On update le temps de l'affichage
             IHM.IHM_Actions.updateTemps(m_time);
         }
 
