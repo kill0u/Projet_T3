@@ -34,19 +34,23 @@ namespace DiabManager.IHM
 
         public static void EffectuerAction(string nom)
         {
-            IHM_Joueur.Update();
+            //on regarde qu'il n'y est pas déjà une action en cours
+            if(!Temps.getInstance().isActionEnCours)
+            { 
+                IHM_Joueur.Update();
 
-            Actions action = null;
-            foreach (var a in m_actionControlleur.ListActions)
-            {
-                if (a.Key.Nom == nom)
+                Actions action = null;
+                foreach (var a in m_actionControlleur.ListActions)
                 {
-                    action = a.Key;
-                    break;
+                    if (a.Key.Nom == nom)
+                    {
+                        action = a.Key;
+                        break;
+                    }
                 }
+                //Réalise le code de l'action
+                action.makeAction();
             }
-            //Réalise le code de l'action
-            action.makeAction();
         }
 
         public static void LoadAction()
