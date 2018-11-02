@@ -12,7 +12,7 @@ namespace DiabManager
 {
     /**
      * @author Killian Matter
-     * @version 1.5
+     * @version 1.7
      */
     public partial class frmMenu : Form
     {
@@ -22,6 +22,11 @@ namespace DiabManager
         {
             get { return m_difficulte; }
             set { this.m_difficulte = value; }
+        }
+        private DialogResult Exit;
+        public DialogResult MenuExit /**<Vérification si le fenetre menu c'est bien fermé */
+        {
+            get { return Exit; }
         }
 
         Color couleurOrigin = Color.Aqua;
@@ -64,7 +69,7 @@ namespace DiabManager
         public frmMenu()
         {
             InitializeComponent();
-
+            #region Titre
             //creation du Titre
             Titre = new Label();
             Titre.AutoSize = true;
@@ -78,6 +83,7 @@ namespace DiabManager
             Titre.Text = "DiabManager";
             Titre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             ajoutEvClick(Titre, new EventHandler(Titre_Click));
+            #endregion
 
             p = new Point(360, 173);
             s = new Size(244, 52);
@@ -181,10 +187,17 @@ namespace DiabManager
         }
         private void btnValider_Click(object sender, EventArgs e)
         {
-            creerJoueur();
-            this.Close();
+            if (checkFormulaire())
+            {
+                creerJoueur();
+                Exit = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Chaque champ doit être renseigné");
+            }
         }
-
 
         //les keypress
         private void NoLetter_keyPress(object sender, KeyPressEventArgs e)
@@ -411,10 +424,10 @@ namespace DiabManager
 
             IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut));
         }
-        /** remplis les formulaires pour des profils déja existant
-         * fonction remplissant le formulaire pour un profil pré fait
+        /** fonction renvoyant true si tout les formulaire sont remplit sinon false
+         * verifie que tout les champs du forulaire son bien remplit
          */
-        private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
+        private Boolean checkFormulaire()
         {
             Boolean check = true;
             foreach (TextBox t in this.Controls.OfType<TextBox>())
@@ -424,30 +437,30 @@ namespace DiabManager
                     check = false;
                 }
             }
-            if (check)
+            return check;
+        }
+        /** remplis les formulaires pour des profils déja existant
+         * fonction remplissant le formulaire pour un profil pré fait
+         */
+        private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
+        {
+            txtAge.Text = age.ToString();
+            txtNom.Text = nom;
+            txtPrenom.Text = prenom;
+            txtPoid.Text = poids.ToString();
+            txtGlyc.Text = glyc.ToString();
+            txtObjGlycBas.Text = glycObBas.ToString();
+            txtObjGlycHaut.Text = glycObHaut.ToString();
+            txtTaille.Text = taille.ToString();
+            if (sex == 'H')
             {
-                txtAge.Text = age.ToString();
-                txtNom.Text = nom;
-                txtPrenom.Text = prenom;
-                txtPoid.Text = poids.ToString();
-                txtGlyc.Text = glyc.ToString();
-                txtObjGlycBas.Text = glycObBas.ToString();
-                txtObjGlycHaut.Text = glycObHaut.ToString();
-                txtTaille.Text = taille.ToString();
-                if (sex == 'H')
-                {
-                    rdbSmasc.Checked = true;
-                    rdbSfem.Checked = false;
-                }
-                else
-                {
-                    rdbSmasc.Checked = false;
-                    rdbSfem.Checked = true;
-                }
+                rdbSmasc.Checked = true;
+                rdbSfem.Checked = false;
             }
             else
             {
-                MessageBox.Show("Chaque champ doit être renseigné");
+                rdbSmasc.Checked = false;
+                rdbSfem.Checked = true;
             }
         }
         #endregion
@@ -559,7 +572,6 @@ namespace DiabManager
             txt.TabIndex = 0;
             return txt;
         }
-
         /** Ajout dynamique d'évenement click
          * Fonction ajoutant un evenement dynamiquement
          * @param c : controleur auquel on ajoute l'évenement
