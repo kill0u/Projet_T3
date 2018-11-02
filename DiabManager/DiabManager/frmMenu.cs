@@ -12,7 +12,7 @@ namespace DiabManager
 {
     /**
      * @author Killian Matter
-     * @version 1.6
+     * @version 1.7
      */
     public partial class frmMenu : Form
     {
@@ -22,6 +22,11 @@ namespace DiabManager
         {
             get { return m_difficulte; }
             set { this.m_difficulte = value; }
+        }
+        private DialogResult Exit;
+        public DialogResult MenuExit /**<Vérification si le fenetre menu c'est bien fermé */
+        {
+            get { return Exit; }
         }
 
         Color couleurOrigin = Color.Aqua;
@@ -64,7 +69,7 @@ namespace DiabManager
         public frmMenu()
         {
             InitializeComponent();
-
+            #region Titre
             //creation du Titre
             Titre = new Label();
             Titre.AutoSize = true;
@@ -78,6 +83,7 @@ namespace DiabManager
             Titre.Text = "DiabManager";
             Titre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             ajoutEvClick(Titre, new EventHandler(Titre_Click));
+            #endregion
 
             p = new Point(360, 173);
             s = new Size(244, 52);
@@ -184,6 +190,7 @@ namespace DiabManager
             if (checkFormulaire())
             {
                 creerJoueur();
+                Exit = DialogResult.OK;
                 this.Close();
             }
             else
@@ -191,7 +198,6 @@ namespace DiabManager
                 MessageBox.Show("Chaque champ doit être renseigné");
             }
         }
-
 
         //les keypress
         private void NoLetter_keyPress(object sender, KeyPressEventArgs e)
@@ -418,7 +424,9 @@ namespace DiabManager
 
             IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut));
         }
-
+        /** fonction renvoyant true si tout les formulaire sont remplit sinon false
+         * verifie que tout les champs du forulaire son bien remplit
+         */
         private Boolean checkFormulaire()
         {
             Boolean check = true;
@@ -564,7 +572,6 @@ namespace DiabManager
             txt.TabIndex = 0;
             return txt;
         }
-
         /** Ajout dynamique d'évenement click
          * Fonction ajoutant un evenement dynamiquement
          * @param c : controleur auquel on ajoute l'évenement
