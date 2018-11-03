@@ -8,7 +8,7 @@ namespace DiabManager.Metiers
 {
     class Stylo
     {
-        private bool m_disponible;
+        private bool m_disponible=true;
         public bool Disponible
         {
             get { return m_disponible; }
