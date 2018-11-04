@@ -69,12 +69,12 @@ namespace DiabManager.Metiers
         /// <summary>
         /// Constructeur d'une action
         /// </summary>
-        /// Déclarer une action (nom, description, durée, modif de glycémie, plage horaire, composée de 2 valeurs)
         /// <param name="nom">Nom de l'action</param>
         /// <param name="description">Description longue de l'action</param>
         /// <param name="duree">Durée de l'action</param>
-        /// <param name="glycemie">Modification de la glycémie</param>
+        /// <param name="glycemie">Modification de la glycémie (addition et multiplication)</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
+        /// Déclarer une action (nom, description, durée, modif de glycémie, plage horaire, composée de 2 valeurs)
         public Actions(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, params TimeSpan[] values) 
         {
             m_nom = nom;
@@ -99,9 +99,11 @@ namespace DiabManager.Metiers
         /// <summary>
         /// Regarde si un heure est compris dans une plage horaire
         /// </summary>
-        /// Parcourt la plage horaire de l'action, et pour chacune, regarde si l'heure actuelle correspond
         /// <param name="temps">Heure actuelle de la journée</param>
-        /// <returns>L'heure actuelle est dans la plage horaire (true) ou non (false)</returns>
+        /// <returns>
+        /// L'heure actuelle est dans la plage horaire (true) ou non (false)
+        /// </returns>
+        /// Parcourt la plage horaire de l'action, et pour chacune, regarde si l'heure actuelle correspond
         public bool isTempsDansPlage(TimeSpan temps)
         {
             for(int i = 0; i < m_nbHoraire; i++)

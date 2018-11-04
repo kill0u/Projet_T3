@@ -89,7 +89,9 @@ namespace DiabManager.Gestionnaires
 
         }
 
-        /// <summary>Charge toutes les actions disponibles</summary>
+        /// <summary>
+        /// Charge toutes les actions disponibles, depuis un fichier de configuration
+        /// </summary>
         public void chargerAction()
         {
             //Forme du chargement :
@@ -133,6 +135,9 @@ namespace DiabManager.Gestionnaires
         }
 
 
+        /// <summary>
+        /// Charge tous les évènements possible
+        /// </summary>
         public void chargerEvenement()
         {
             m_listEvent.Add(new EvenementsAleatoire("Maladie", "Maladie", new TimeSpan(10, 0, 0), new Tuple<double, double>(0.01, 1), 10, false), false);
@@ -165,6 +170,7 @@ namespace DiabManager.Gestionnaires
         /// <summary>
         /// On regarde si de nouveaux évènements doivent se lancer ou si d'anciens doivent s'arreter
         /// </summary>
+        /// <param name="temps">Heure actuel</param>
         public void CalcEvenement(TimeSpan temps)
         {
             Random r = new Random();

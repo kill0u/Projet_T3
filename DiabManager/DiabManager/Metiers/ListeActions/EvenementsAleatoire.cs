@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace DiabManager.Metiers.ListeActions
 {
     /// <summary>
-    /// 
+    /// Classe gérant les évènements aléatoires se produisant dans le jeu
     /// </summary>
     class EvenementsAleatoire
     {
-        /** Nom de l'action.
-         * Le nom de l'action, la décrivant, et permettant de la décrire
+        /** Nom de l'évènement.
+         * Le nom de l'évènement permettant de le décrire
          */
         private string m_nom;
         public string Nom
@@ -20,8 +20,8 @@ namespace DiabManager.Metiers.ListeActions
             get { return m_nom; }
         }
 
-        /** Description sur l'action.
-         * Description longue de l'action
+        /** Description sur l'évènement.
+         * Description longue de l'évènement
          */
         private string m_description;
         public string Desc
@@ -29,16 +29,19 @@ namespace DiabManager.Metiers.ListeActions
             get { return m_description; }
         }
 
-        /** Temps pris par l'action.
-         * Chaque action prends du temps à se faire
+        /** Temps pris par l'évènement.
+         * Chaque évènement prends du temps à se faire
          */
         private TimeSpan m_duree;
 
+        /// <summary>
+        /// Heure de fin de l'action (calculer en additionnant la durée et l'heure de début de l'évènement)
+        /// </summary>
         private TimeSpan m_endTime;
         public TimeSpan EndTime {  get { return m_endTime; } }
 
 
-        /** L'action modifie la glycémie d'un certain montant
+        /** L'évènement modifie la glycémie d'un certain montant
          * Multiplie la glycémie par ce nombre
          */
         private double m_modifGlycemie;
@@ -47,7 +50,7 @@ namespace DiabManager.Metiers.ListeActions
             get { return m_modifGlycemie; }
         }
 
-        /** L'action modifie la glycémie d'un certain montant
+        /** L'évènement modifie la glycémie d'un certain montant
          * additionne la glycémie par ce nombre
          */
         private double m_addGlycemie;
@@ -66,6 +69,9 @@ namespace DiabManager.Metiers.ListeActions
             get { return m_chanceInit; }
         }
 
+        /// <summary>
+        /// Décrit si l'action est bloquante (one ne peut pas faire d'autre actions pendant ce temps) ou non
+        /// </summary>
         private bool m_bloquant;
 
 
@@ -95,6 +101,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <summary>
         /// Fonction se déclenchant lorsque l'évènement est lancé
         /// </summary>
+        /// <param name="start">Heure de début de l'évènement</param>
         public void makeEvenement(TimeSpan start)
         {
             m_endTime = start.Add(m_duree);
