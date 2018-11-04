@@ -7,6 +7,9 @@ using System.Timers;
 
 namespace DiabManager.Metiers
 {
+    /// <summary>
+    /// Classe définissant la partie (mise en place, courant, et fin)
+    /// </summary>
     class Partie
     {
         //Attributs

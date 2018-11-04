@@ -25,6 +25,9 @@ namespace DiabManager.Metiers
          */
         private TimeSpan m_time;
 
+        /// <summary>
+        /// Heure de fin de l'action (ou évènement) en cours
+        /// </summary>
         private TimeSpan m_destTime = new TimeSpan(-1,0,0);
         public bool isActionEnCours
         {
@@ -42,6 +45,9 @@ namespace DiabManager.Metiers
          Le Timer qui fait défiler automatiquement le temps, et lance un event à chaque tick*/
         private Timer m_dayTimer;
 
+        /// <summary>
+        /// Coefficient de changement de vitesse (pour le déroulement du jeu)
+        /// </summary>
         private double m_coeffVitesse = 1;
         public double CoeffVitesse
         {
@@ -97,8 +103,11 @@ namespace DiabManager.Metiers
             
         }
 
-        /**Démarre le timer et enregistre la partie actuelle
-         */ 
+
+        /// <summary>
+        /// Démarre le timer et enregistre la partie actuelle
+        /// </summary>
+        /// <param name="p">Référence vers la partie en cours</param>
         public void StartTime(Partie p)
         {
             m_partie = p;
@@ -173,6 +182,10 @@ namespace DiabManager.Metiers
         }
 
 
+        /// <summary>
+        /// Fonction permettant d'ajouter du temps (en le faisant défiler)
+        /// </summary>
+        /// <param name="temps">Temps à ajouté</param>
         public void addTime(TimeSpan temps)
         {
 

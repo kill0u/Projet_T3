@@ -19,10 +19,15 @@ namespace DiabManager
 
         }
 
+        /// <summary>
+        /// Transforme la liste d'action en bouton 
+        /// </summary>
+        /// <param name="liste">Liste de toutes les actions disponibles</param>
         public void loadActions(Object liste)
         {
             Dictionary<Actions, bool> listeActions = (Dictionary<Actions, bool>)liste;
             Point p = new Point(10, 10);
+            ToolTip tt = new ToolTip();
             foreach(var a in listeActions)
             {
                 Button b = new Button();
@@ -32,6 +37,7 @@ namespace DiabManager
                 b.Size = new Size(100, 50);
                 b.Click += new System.EventHandler(boutonClick);
 
+                tt.SetToolTip(b, a.Key.Desc);
 
                 pnlActions.Controls.Add(b);
 
@@ -45,6 +51,10 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Active ou désactive les boutons des actions (selon si les actions sont possibles à faire)
+        /// </summary>
+        /// <param name="listActions">Liste de toutes les actions disponibles</param>
         public void setActiveButton(Object listActions)
         {
             Dictionary<Actions, bool> liste = (Dictionary<Actions, bool>)listActions;
@@ -64,6 +74,10 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Met à jour les informations du joueur
+        /// </summary>
+        /// <param name="infos">Tableau rassemblant les infos du joueur (<see cref="Joueur"/>: nom, glycemie, etc.)</param>
         public void setInfosJoueur(string[] infos)
         {
 
@@ -75,6 +89,10 @@ namespace DiabManager
             
         }
 
+        /// <summary>
+        /// Met à jour l'heure de la journée
+        /// </summary>
+        /// <param name="temps">Heure de la journée</param>
         public void setTemps(TimeSpan temps)
         {
             this.BeginInvoke((Action)(() => {
@@ -83,6 +101,11 @@ namespace DiabManager
             }));
         }
 
+        /// <summary>
+        /// Action a effectué lors du click sur le bouton
+        /// </summary>
+        /// <param name="sender">Bouton sur lequel on appuie</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void boutonClick(object sender, EventArgs e)
         {
             Button b = (Button)sender;
@@ -131,11 +154,19 @@ namespace DiabManager
         }
 
 
+        /// <summary>
+        /// Met à jour l'action en cours
+        /// </summary>
+        /// <param name="desc">Nom et description de l'action</param>
         public void setAction(string desc)
         {
             lblActions.Text = desc;
         }
 
+        /// <summary>
+        /// Met à jour l'(es) évènement(s) en cours
+        /// </summary>
+        /// <param name="desc">Nom et description d'(es) évènement(s)</param>
         public void setEvenement(string desc)
         {
             lblEvents.Text = desc;
