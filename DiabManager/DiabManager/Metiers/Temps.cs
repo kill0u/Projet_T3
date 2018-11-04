@@ -124,6 +124,7 @@ namespace DiabManager.Metiers
                     {
                         m_destTime = new TimeSpan(-1, 0, 0);
                         changeSpeed(m_coeffVitesse);
+                        IHM.IHM_Actions.SetAction("");
                     }
                 }
             }

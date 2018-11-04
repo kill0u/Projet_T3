@@ -49,17 +49,23 @@
             this.progressBarInsuline = new System.Windows.Forms.ProgressBar();
             this.lblDoseActu = new System.Windows.Forms.Label();
             this.pnlHeure = new System.Windows.Forms.Panel();
+            this.pnlInfosEvent = new System.Windows.Forms.Panel();
+            this.lblAffActions = new System.Windows.Forms.Label();
+            this.lblActions = new System.Windows.Forms.Label();
+            this.lblEvents = new System.Windows.Forms.Label();
+            this.lblAffEvent = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
             this.pnlPiqure.SuspendLayout();
             this.pnlHeure.SuspendLayout();
+            this.pnlInfosEvent.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlActions
             // 
-            this.pnlActions.Location = new System.Drawing.Point(12, 38);
+            this.pnlActions.Location = new System.Drawing.Point(12, 159);
             this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(1632, 991);
+            this.pnlActions.Size = new System.Drawing.Size(1632, 870);
             this.pnlActions.TabIndex = 0;
             // 
             // pnlInfos
@@ -254,11 +260,59 @@
             this.pnlHeure.Size = new System.Drawing.Size(103, 13);
             this.pnlHeure.TabIndex = 6;
             // 
+            // pnlInfosEvent
+            // 
+            this.pnlInfosEvent.Controls.Add(this.lblAffEvent);
+            this.pnlInfosEvent.Controls.Add(this.lblEvents);
+            this.pnlInfosEvent.Controls.Add(this.lblActions);
+            this.pnlInfosEvent.Controls.Add(this.lblAffActions);
+            this.pnlInfosEvent.Location = new System.Drawing.Point(175, 3);
+            this.pnlInfosEvent.Name = "pnlInfosEvent";
+            this.pnlInfosEvent.Size = new System.Drawing.Size(1469, 150);
+            this.pnlInfosEvent.TabIndex = 7;
+            // 
+            // lblAffActions
+            // 
+            this.lblAffActions.AutoSize = true;
+            this.lblAffActions.Location = new System.Drawing.Point(4, 7);
+            this.lblAffActions.Name = "lblAffActions";
+            this.lblAffActions.Size = new System.Drawing.Size(108, 13);
+            this.lblAffActions.TabIndex = 0;
+            this.lblAffActions.Text = "Vous avez choisi de :";
+            // 
+            // lblActions
+            // 
+            this.lblActions.AutoSize = true;
+            this.lblActions.Location = new System.Drawing.Point(118, 7);
+            this.lblActions.Name = "lblActions";
+            this.lblActions.Size = new System.Drawing.Size(10, 13);
+            this.lblActions.TabIndex = 1;
+            this.lblActions.Text = " ";
+            // 
+            // lblEvents
+            // 
+            this.lblEvents.AutoSize = true;
+            this.lblEvents.Location = new System.Drawing.Point(4, 38);
+            this.lblEvents.Name = "lblEvents";
+            this.lblEvents.Size = new System.Drawing.Size(10, 13);
+            this.lblEvents.TabIndex = 2;
+            this.lblEvents.Text = " ";
+            // 
+            // lblAffEvent
+            // 
+            this.lblAffEvent.AutoSize = true;
+            this.lblAffEvent.Location = new System.Drawing.Point(4, 25);
+            this.lblAffEvent.Name = "lblAffEvent";
+            this.lblAffEvent.Size = new System.Drawing.Size(113, 13);
+            this.lblAffEvent.TabIndex = 3;
+            this.lblAffEvent.Text = "Vous êtes en train de :";
+            // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.pnlInfosEvent);
             this.Controls.Add(this.pnlHeure);
             this.Controls.Add(this.pnlPiqure);
             this.Controls.Add(this.pnlGestionTemps);
@@ -276,6 +330,8 @@
             this.pnlPiqure.PerformLayout();
             this.pnlHeure.ResumeLayout(false);
             this.pnlHeure.PerformLayout();
+            this.pnlInfosEvent.ResumeLayout(false);
+            this.pnlInfosEvent.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -303,5 +359,10 @@
         private System.Windows.Forms.Label lblDoseActu;
         private System.Windows.Forms.Label lblDose;
         private System.Windows.Forms.Panel pnlHeure;
+        private System.Windows.Forms.Panel pnlInfosEvent;
+        private System.Windows.Forms.Label lblActions;
+        private System.Windows.Forms.Label lblAffActions;
+        private System.Windows.Forms.Label lblEvents;
+        private System.Windows.Forms.Label lblAffEvent;
     }
 }

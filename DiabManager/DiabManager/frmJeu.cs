@@ -130,6 +130,18 @@ namespace DiabManager
 
         }
 
+
+        public void setAction(string desc)
+        {
+            lblActions.Text = desc;
+        }
+
+        public void setEvenement(string desc)
+        {
+            lblEvents.Text = desc;
+        }
+
+
         private void btnPiqure_Click(object sender, EventArgs e)
         {
             IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(-0.1 * IHM.IHM_Joueur.getJoueur().Stylo.dose, 1));

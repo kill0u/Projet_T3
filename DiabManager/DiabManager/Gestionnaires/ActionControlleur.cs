@@ -148,13 +148,16 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         public void UpdateEvenement()
         {
+            string descActive = "";
             foreach (var e in m_listEvent)
             {
                 if(e.Value)
                 {
                     e.Key.duringEvenement();
+                    descActive += e.Key.Nom + ": " + e.Key.Desc + "\n";
                 }
             }
+            IHM.IHM_Actions.SetEvenement(descActive);
         }
 
 
