@@ -48,9 +48,20 @@ namespace DiabManager.IHM
                         break;
                     }
                 }
+                SetAction(action.Nom + ": " + action.Desc);
                 //Réalise le code de l'action
                 action.makeAction();
             }
+        }
+
+        public static void SetEvenement(string desc)
+        {
+            m_frm.setEvenement(desc);
+        }
+
+        public static void SetAction(string desc)
+        {
+            m_frm.setAction(desc);
         }
 
         public static void LoadAction()

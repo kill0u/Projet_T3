@@ -24,6 +24,10 @@ namespace DiabManager.Metiers.ListeActions
          * Description longue de l'action
          */
         private string m_description;
+        public string Desc
+        {
+            get { return m_description; }
+        }
 
         /** Temps pris par l'action.
          * Chaque action prends du temps à se faire
