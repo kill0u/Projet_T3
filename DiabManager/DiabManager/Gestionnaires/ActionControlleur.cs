@@ -140,8 +140,47 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         public void chargerEvenement()
         {
-            m_listEvent.Add(new EvenementsAleatoire("Maladie", "Maladie", new TimeSpan(10, 0, 0), new Tuple<double, double>(0.01, 1), 10, false), false);
-            m_listEvent.Add(new EvenementsAleatoire("Aller au bar", "Aller au bar", new TimeSpan(4, 0, 0), new Tuple<double, double>(0.1, 1), 20, true), false);
+
+            //Forme du chargement :
+            //NOM; DESCRIPTION; ETAT; DUREE; ADD, FOIS; CHANCE; BLOQUANT; HEURE1; HEURE2; HEUREN
+            //etat[travail, matin, midi, soir, dormir]
+            var path = @"events.csv";
+            using (var reader = new StreamReader(path))
+            {
+
+
+                while (!reader.EndOfStream)
+                {
+                    // Read current line fields, pointer moves to the next line.
+                    string line = reader.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        string[] fields = line.Split(';');
+                        TimeSpan[] plageHoraire = new TimeSpan[30];
+                        int j = 0;
+                        for (int i = 7; i < fields.Length; i++)
+                        {
+                            if (!string.IsNullOrWhiteSpace(fields[j]))
+                            {
+                                plageHoraire[j] = TimeSpan.Parse(fields[i]);
+                                j++;
+                            }
+                        }
+                        string nom = fields[0];
+                        string desc = fields[1];
+                        TimeSpan duree = TimeSpan.Parse(fields[3]);
+                        double addGlyc = double.Parse(fields[4].Split(',')[0], CultureInfo.InvariantCulture);
+                        double foisGlyc = double.Parse(fields[4].Split(',')[1], CultureInfo.InvariantCulture);
+
+                        double chance = double.Parse(fields[5], CultureInfo.InvariantCulture);
+                        bool bloquant = bool.Parse(fields[6]);
+
+                        AddAction(new Actions(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), plageHoraire));
+                        m_listEvent.Add(new EvenementsAleatoire(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), chance, bloquant, plageHoraire), false);
+                    }
+                }
+            }
+            
         }
 
 
@@ -177,14 +216,20 @@ namespace DiabManager.Gestionnaires
             for (int i = 0; i < m_listEvent.Count; i++)
             {
                 var e = m_listEvent.ElementAt(i);
+
                 if (!e.Value) //Si l'évènement n'est pas encore lancé
                 {
-                    int ra = r.Next(1, 101);
-                    if (ra < e.Key.ChanceInit)//on fait un aléatoire
+                    if (e.Key.isTempsDansPlage(temps))
                     {
-                        //On lance l'évènement
-                        m_listEvent[e.Key] = true;
-                        e.Key.makeEvenement(temps);
+
+                        int ra = r.Next(0, 10001);
+                        Console.WriteLine(e.Key.Nom + ": " + ra) ;
+                        if (ra <= e.Key.ChanceInit* 100)//on fait un aléatoire
+                        {
+                            //On lance l'évènement
+                            m_listEvent[e.Key] = true;
+                            e.Key.makeEvenement(temps);
+                        }
                     }
                 }
                 else //sinon on regarde si il faut l'arreter

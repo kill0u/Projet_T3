@@ -65,8 +65,12 @@ namespace DiabManager
                 this.BeginInvoke((Action)(() => {
 
                     Control[] l = pnlActions.Controls.Find(a.Key.Nom, true);
-                    Button b = (Button)l[0];
-                    b.Enabled = a.Value;
+                    if (l.Length != 0)
+                    {
+                        Button b = (Button)l[0];
+                        b.Enabled = a.Value;
+                    }
+                    
 
                 }));
                         
@@ -96,7 +100,7 @@ namespace DiabManager
         public void setTemps(TimeSpan temps)
         {
             this.BeginInvoke((Action)(() => {
-                lblTemps.Text = temps.ToString();
+                lblTemps.Text = temps.Hours + "h" + temps.Minutes;
 
             }));
         }

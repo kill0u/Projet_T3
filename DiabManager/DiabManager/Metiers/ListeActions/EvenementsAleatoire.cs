@@ -74,6 +74,16 @@ namespace DiabManager.Metiers.ListeActions
         /// </summary>
         private bool m_bloquant;
 
+        /// <summary>
+        /// Définit la plage horaire de disponibilités pour une action
+        /// </summary>
+        /// La plage horaire est définit sur un tableau à deux dimensions, la premiere pour le nombre de plage possible, et la deuxième de taille 2 pour avoir deux bornes
+        private TimeSpan[,] m_plageHoraire;
+
+        /// <summary>
+        /// Définit le nombre de plage horaire pour l'action 
+        /// </summary>
+        private int m_nbHoraire;
 
 
         /// <summary>
@@ -85,8 +95,9 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="glycemie">Tuple de modification de la glycémie (1: de combien on ajoute, 2: de combien on multiplie)</param>
         /// <param name="chanceInit">Le pourcentage de chance que l'évènements se déclenche initialement</param>
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
+        /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double chanceInit, bool bloquant)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double chanceInit, bool bloquant, params TimeSpan[] values)
         {
             m_nom = nom;
             m_description = description;
@@ -95,8 +106,37 @@ namespace DiabManager.Metiers.ListeActions
             m_addGlycemie = glycemie.Item1;
             m_chanceInit = chanceInit;
             m_bloquant = bloquant;
+            m_nbHoraire = values.Length / 2;
+
+            m_plageHoraire = new TimeSpan[m_nbHoraire, 2];
+            int j = 0;
+            for (int i = 0; i < m_nbHoraire; i++)
+            {
+                m_plageHoraire[i, 0] = values[j];
+                j++;
+                m_plageHoraire[i, 1] = values[j];
+                j++;
+            }
         }
 
+        /// <summary>
+        /// Regarde si une heure est compris dans une plage horaire
+        /// </summary>
+        /// <param name="temps">Heure actuelle de la journée</param>
+        /// <returns>
+        /// L'heure actuelle est dans la plage horaire (true) ou non (false)
+        /// </returns>
+        /// Parcourt la plage horaire de l'évènement, et pour chacune, regarde si l'heure actuelle correspond
+        public bool isTempsDansPlage(TimeSpan temps)
+        {
+            TimeSpan heure = new TimeSpan(temps.Hours, temps.Minutes, temps.Seconds);
+            for (int i = 0; i < m_nbHoraire; i++)
+            {
+                if (heure >= m_plageHoraire[i, 0] && heure < m_plageHoraire[i, 1])
+                    return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Fonction se déclenchant lorsque l'évènement est lancé
@@ -105,8 +145,9 @@ namespace DiabManager.Metiers.ListeActions
         public void makeEvenement(TimeSpan start)
         {
             m_endTime = start.Add(m_duree);
+
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
-            if(m_bloquant)
+            if (m_bloquant)
                 Temps.getInstance().addTime(m_duree);
         }
 
