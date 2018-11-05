@@ -160,7 +160,10 @@ namespace DiabManager
         /// <param name="desc">Nom et description de l'action</param>
         public void setAction(string desc)
         {
-            lblActions.Text = desc;
+            this.BeginInvoke((Action)(() => {
+                lblActions.Text = desc;
+
+            }));
         }
 
         /// <summary>
@@ -169,7 +172,9 @@ namespace DiabManager
         /// <param name="desc">Nom et description d'(es) évènement(s)</param>
         public void setEvenement(string desc)
         {
-            lblEvents.Text = desc;
+            this.BeginInvoke((Action)(() => {
+                lblEvents.Text = desc;
+            }));
         }
 
 

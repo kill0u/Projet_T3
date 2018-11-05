@@ -444,6 +444,10 @@ namespace DiabManager
          */
         private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
         {
+            /*foreach (TextBox c in this.Controls.OfType<TextBox>())
+            {
+                c.Text = "";
+            }*/
             txtAge.Text = age.ToString();
             txtNom.Text = nom;
             txtPrenom.Text = prenom;
