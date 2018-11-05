@@ -143,14 +143,7 @@ namespace DiabManager.Metiers
             //si on dépasse un jour
             if(m_time.Days > 0)
             {
-                //on réinitialise l'heure actuelle
-                m_time = new TimeSpan(0, 0, 0);
 
-                //on enlève un jour au temps de dest pour l'action
-                if (m_destTime.Hours >= 0)
-                {
-                    m_destTime = m_destTime.Subtract(new TimeSpan(1,0,0,0));
-                }
                 //On ajoute un jour sur la partie
                 m_partie.AddDay();
 

@@ -97,7 +97,7 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// Regarde si un heure est compris dans une plage horaire
+        /// Regarde si une heure est compris dans une plage horaire
         /// </summary>
         /// <param name="temps">Heure actuelle de la journée</param>
         /// <returns>
@@ -106,9 +106,10 @@ namespace DiabManager.Metiers
         /// Parcourt la plage horaire de l'action, et pour chacune, regarde si l'heure actuelle correspond
         public bool isTempsDansPlage(TimeSpan temps)
         {
-            for(int i = 0; i < m_nbHoraire; i++)
+            TimeSpan heure = new TimeSpan(temps.Hours, temps.Minutes, temps.Seconds);
+            for (int i = 0; i < m_nbHoraire; i++)
             {
-                if (temps >= m_plageHoraire[i, 0] && temps < m_plageHoraire[i, 1])
+                if (heure >= m_plageHoraire[i, 0] && heure < m_plageHoraire[i, 1])
                     return true;
             }
             return false;
