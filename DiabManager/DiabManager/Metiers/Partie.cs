@@ -37,6 +37,13 @@ namespace DiabManager.Metiers
         /// Temps de la Journée.
         /// </summary>
         private Temps m_t;
+
+        private int m_jobj = 0;
+        public int jobj
+        {
+            get { return m_jobj; }
+            set { m_jobj = value; }
+        }
         
 
 
@@ -48,6 +55,13 @@ namespace DiabManager.Metiers
         {
             m_d.AddDays(1);
             IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
+            double objBas= double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0]);
+            double objHaut= double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]);
+            if (double.Parse(IHM.IHM_Joueur.getInfos()[9])>objBas && double.Parse(IHM.IHM_Joueur.getInfos()[9])<objHaut)
+            {
+                jobj++;
+                if (jobj==3) { Fin(); }
+            }
         }
         
         /// <summary>
@@ -82,6 +96,7 @@ namespace DiabManager.Metiers
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
+            if (double.Parse(IHM.IHM_Joueur.getInfos()[9])> double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]) || double.Parse(IHM.IHM_Joueur.getInfos()[9]) < double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0])) { jobj = 0; }
         }
 
         /// <summary>
