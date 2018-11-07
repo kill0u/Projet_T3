@@ -55,6 +55,15 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
+        /// La valeur de modification du stress du joueur
+        /// </summary>
+        private double m_addStress;
+        public double AddStress
+        {
+            get { return m_addStress; }
+        }
+
+        /// <summary>
         /// Définit la plage horaire de disponibilités pour une action
         /// </summary>
         /// La plage horaire est définit sur un tableau à deux dimensions, la premiere pour le nombre de plage possible, et la deuxième de taille 2 pour avoir deux bornes
@@ -73,16 +82,17 @@ namespace DiabManager.Metiers
         /// <param name="description">Description longue de l'action</param>
         /// <param name="duree">Durée de l'action</param>
         /// <param name="glycemie">Modification de la glycémie (addition et multiplication)</param>
+        /// <param name="stress">La valeur de modification du stress</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
-        /// Déclarer une action (nom, description, durée, modif de glycémie, plage horaire, composée de 2 valeurs)
-        public Actions(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, params TimeSpan[] values) 
+        /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
+        public Actions(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double stress, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
             m_duree = duree;
             m_modifGlycemie = glycemie.Item2;
             m_addGlycemie = glycemie.Item1;
-
+            m_addStress = stress;
             m_nbHoraire = values.Length / 2;
 
             m_plageHoraire = new TimeSpan[m_nbHoraire, 2];
@@ -123,6 +133,7 @@ namespace DiabManager.Metiers
         {
 
             IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie));
+            IHM.IHM_Joueur.getJoueur().calculStress(m_addStress);
             Temps.getInstance().addTime(m_duree);
 
         }

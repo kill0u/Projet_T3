@@ -90,8 +90,8 @@ namespace DiabManager.Metiers
             get { return m_age; }
             set { this.m_age = value; }
         }
-        private int m_stress; /**<Le stress du joueur. Le stress du joueur va modifier son taux de glycémie. */
-        public int Stress /**<Le stress du joueur. L'accesseur du stress du joueur. */
+        private double m_stress; /**<Le stress du joueur. Le stress du joueur va modifier son taux de glycémie. */
+        public double Stress /**<Le stress du joueur. L'accesseur du stress du joueur. */
         {
             get { return m_stress; }
             set { this.m_stress = value; }
@@ -101,6 +101,7 @@ namespace DiabManager.Metiers
         /// Le constructeur d'un joueur.
         /// </summary>
         /// <param name="nom">Le nom de famille du joueur. En string.</param>
+        /// <param name="age">The age.</param>
         /// <param name="prenom">Le prénom du joueur. En string.</param>
         /// <param name="sexe">Le sexe du joueur. En char.</param>
         /// <param name="taille">La taille du joueur. En int.</param>
@@ -108,7 +109,8 @@ namespace DiabManager.Metiers
         /// <param name="glycemie">Le taux de glycemie du joueur, quand il démarre la partie. En double.</param>
         /// <param name="glycemieObjectifBas">La valeur basse de l'objectif du taux de glycémie du joueur. En double.</param>
         /// <param name="glycemieObjectifHaut">La valeur haute de l'objectif du taux de glycémie du joueur. En double.</param>
-        public Joueur(string nom, int age,string prenom, char sexe, int taille, double poids, double glycemie, double glycemieObjectifBas, double glycemieObjectifHaut)
+        /// <param name="stress">La valeur de stress du joueur. En double.</param>
+        public Joueur(string nom, int age,string prenom, char sexe, int taille, double poids, double glycemie, double glycemieObjectifBas, double glycemieObjectifHaut, double stress)
         {
             this.m_nom = nom;
             this.m_age = age;
@@ -119,6 +121,7 @@ namespace DiabManager.Metiers
             this.m_glycemieCourante = glycemie;
             this.m_glycemieObjectifBas = glycemieObjectifBas;
             this.m_glycemieObjectifHaut = glycemieObjectifHaut;
+            this.m_stress = stress;
         }
 
         /**
@@ -145,12 +148,17 @@ namespace DiabManager.Metiers
 
         /**
          * Fonction permettant de calculer le taux de glycémie du joueur régulièrement au courant de la journée.
-         * @param coeff Le coefficient de l'action, qui permet de modifier la glycémie courante en fonction de l'action
-         * 
+         * @param glycemie Le coefficient de glycémie de l'action, qui permet de modifier la glycémie courante en fonction de l'action
+         * @param stress La valeur de stress, qui modifie le coefficient de modification de glycémie.
          */ 
-        public void calculGlycemieCourante(Tuple<double,double> glycemie)
+        public void calculGlycemieCourante(Tuple<double,double> glycemie, double stress)
         {
             this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+        }
+
+        public void calculStress(double stress)
+        {
+            this.m_stress += stress;
         }
     }
 }

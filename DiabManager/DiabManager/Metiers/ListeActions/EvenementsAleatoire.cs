@@ -69,6 +69,16 @@ namespace DiabManager.Metiers.ListeActions
             get { return m_chanceInit; }
         }
 
+
+        /// <summary>
+        /// La valeur de modification du stress.
+        /// </summary>
+        private double m_addStress;
+        public double AddStress
+        {
+            get { return m_addStress; }
+        }
+
         /// <summary>
         /// Décrit si l'action est bloquante (one ne peut pas faire d'autre actions pendant ce temps) ou non
         /// </summary>
@@ -95,9 +105,10 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="glycemie">Tuple de modification de la glycémie (1: de combien on ajoute, 2: de combien on multiplie)</param>
         /// <param name="chanceInit">Le pourcentage de chance que l'évènements se déclenche initialement</param>
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
+        /// <param name="stress">La valeur de modification de stress du joueur</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double chanceInit, bool bloquant, params TimeSpan[] values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double chanceInit, bool bloquant, double stress, params TimeSpan[] values)
         {
             m_nom = nom;
             m_description = description;
@@ -106,6 +117,7 @@ namespace DiabManager.Metiers.ListeActions
             m_addGlycemie = glycemie.Item1;
             m_chanceInit = chanceInit;
             m_bloquant = bloquant;
+            m_addStress = stress;
             m_nbHoraire = values.Length / 2;
 
             m_plageHoraire = new TimeSpan[m_nbHoraire, 2];
@@ -154,9 +166,11 @@ namespace DiabManager.Metiers.ListeActions
         /// <summary>
         /// Fonction se déclenchant tant que l'événement est actif
         /// </summary>
+        /// Cette fonction met à jour le taux de glycémie du joueur et également son stress.
         public void duringEvenement()
         {
             IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie));
+            IHM.IHM_Joueur.getJoueur().calculStress(m_addStress);
         }
     }
 }

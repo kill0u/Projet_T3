@@ -110,7 +110,7 @@ namespace DiabManager.Gestionnaires
                         string[] fields = line.Split(';');
                         TimeSpan[] plageHoraire = new TimeSpan[30];
                         int j = 0;
-                        for(int i = 6; i < fields.Length;i++)
+                        for(int i = 7; i < fields.Length;i++)
                         {
                             if (!string.IsNullOrWhiteSpace(fields[j]))
                             {
@@ -123,8 +123,9 @@ namespace DiabManager.Gestionnaires
                         TimeSpan duree = TimeSpan.Parse(fields[4]);
                         double addGlyc = double.Parse(fields[5].Split(',')[0], CultureInfo.InvariantCulture);
                         double foisGlyc = double.Parse(fields[5].Split(',')[1], CultureInfo.InvariantCulture);
+                        double stress = double.Parse(fields[6], CultureInfo.InvariantCulture);
 
-                        AddAction(new Actions(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), plageHoraire));
+                        AddAction(new Actions(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), stress,plageHoraire));
                     }
                 }
             }
@@ -158,7 +159,7 @@ namespace DiabManager.Gestionnaires
                         string[] fields = line.Split(';');
                         TimeSpan[] plageHoraire = new TimeSpan[30];
                         int j = 0;
-                        for (int i = 7; i < fields.Length; i++)
+                        for (int i = 8; i < fields.Length; i++)
                         {
                             if (!string.IsNullOrWhiteSpace(fields[j]))
                             {
@@ -174,9 +175,9 @@ namespace DiabManager.Gestionnaires
 
                         double chance = double.Parse(fields[5], CultureInfo.InvariantCulture);
                         bool bloquant = bool.Parse(fields[6]);
+                        double stress = double.Parse(fields[7], CultureInfo.InvariantCulture);
 
-                        AddAction(new Actions(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), plageHoraire));
-                        m_listEvent.Add(new EvenementsAleatoire(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), chance, bloquant, plageHoraire), false);
+                        m_listEvent.Add(new EvenementsAleatoire(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), chance, bloquant, stress,plageHoraire), false);
                     }
                 }
             }
