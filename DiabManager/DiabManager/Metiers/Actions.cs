@@ -132,7 +132,7 @@ namespace DiabManager.Metiers
         public void makeAction()
         {
 
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie));
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie),m_addStress);
             IHM.IHM_Joueur.getJoueur().calculStress(m_addStress);
             Temps.getInstance().addTime(m_duree);
 
