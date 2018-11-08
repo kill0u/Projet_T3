@@ -51,7 +51,7 @@ namespace DiabManager.IHM
          */ 
         public static string[] getInfos()
         {
-            string[] infos = new string[10];
+            string[] infos = new string[11];
             infos[0] = m_j.Nom;
             infos[1] = m_j.Prenom;
             infos[2] = m_j.Poids.ToString("F2");
@@ -62,6 +62,7 @@ namespace DiabManager.IHM
             infos[7] = m_j.GlycemieObjectifBas.ToString("F2") +" - "+m_j.GlycemieObjectifHaut;
             infos[8] = m_j.GlycemieMatin.ToString("F2");
             infos[9] = m_j.GlycemieCourante.ToString("F2");
+            infos[10] = m_j.Stress.ToString("F2");
             return infos;
         }
 
