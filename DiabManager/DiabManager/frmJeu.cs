@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,13 @@ namespace DiabManager
         public frmJeu()
         {
             InitializeComponent();
+            PrivateFontCollection f = new PrivateFontCollection();
+            String path = Application.ExecutablePath;
+            path = Directory.GetParent(path).ToString();
+            path = path + @"\digital-7.ttf";
+            f.AddFontFile(path);
+            lblAffTemps.Font = new Font(f.Families[0], 26,FontStyle.Bold);
+            lblTemps.Font = new Font(f.Families[0], 26, FontStyle.Bold);
 
         }
 
@@ -100,7 +109,7 @@ namespace DiabManager
         public void setTemps(TimeSpan temps)
         {
             this.BeginInvoke((Action)(() => {
-                lblTemps.Text = temps.Hours + "h" + temps.Minutes;
+                lblTemps.Text = temps.Hours + ":" + temps.Minutes;
 
             }));
         }
