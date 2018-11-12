@@ -76,6 +76,33 @@ namespace DiabManager.IHM
             string[] infos = getInfos();
             m_frm.setInfosJoueur(infos);
             m_frm.modifStyloInsuline();
+            UpdateGraph();
+
+        }
+
+        private static void UpdateGraph()
+        {
+            m_frm.BeginInvoke((Action)(() => {
+
+                var chart1 = m_frm.getGraphe();
+                if (chart1.Series[0].Points.Count == 50)
+                {
+                    chart1.Series[0].Points.RemoveAt(0);
+                    chart1.Series[1].Points.RemoveAt(0);
+                    chart1.Series[2].Points.RemoveAt(0);
+                    chart1.Series[3].Points.RemoveAt(0);
+                    chart1.Series[4].Points.RemoveAt(0);
+                }
+                chart1.Series[0].Points.AddY((double)10);//Temps.getInstance().gMax);
+                chart1.Series[1].Points.AddY((double)0);//Temps.getInstance().gMin);
+                chart1.Series[2].Points.AddY(double.Parse(getInfos()[7].Split('-')[1]));
+                chart1.Series[3].Points.AddY(double.Parse(getInfos()[7].Split('-')[0]));
+                chart1.Series[4].Points.AddY(double.Parse(getInfos()[9]));
+                //chart1.ChartAreas[0].AxisX.CustomLabels[0].Text = Temps.getInstance().getHeureJournee().ToString();
+
+
+            }));
+            
         }
     }
 }
