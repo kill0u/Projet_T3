@@ -96,7 +96,7 @@ namespace DiabManager
 
             this.BeginInvoke((Action)(() => {
                 lblNom.Text = infos[1] + " " + infos[0];
-
+                //switch;
                 lblGlycemie.Text = infos[9];
             }));
             

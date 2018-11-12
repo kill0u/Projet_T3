@@ -54,6 +54,8 @@
             this.lblEvents = new System.Windows.Forms.Label();
             this.lblActions = new System.Windows.Forms.Label();
             this.lblAffActions = new System.Windows.Forms.Label();
+            this.lblAffStress = new System.Windows.Forms.Label();
+            this.lblStress = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
             this.pnlPiqure.SuspendLayout();
@@ -72,6 +74,8 @@
             // pnlInfos
             // 
             this.pnlInfos.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pnlInfos.Controls.Add(this.lblStress);
+            this.pnlInfos.Controls.Add(this.lblAffStress);
             this.pnlInfos.Controls.Add(this.lblNom);
             this.pnlInfos.Controls.Add(this.lblAffNom);
             this.pnlInfos.Controls.Add(this.lblGlycemie);
@@ -318,6 +322,24 @@
             this.lblAffActions.TabIndex = 0;
             this.lblAffActions.Text = "Vous avez choisi de :";
             // 
+            // lblAffStress
+            // 
+            this.lblAffStress.AutoSize = true;
+            this.lblAffStress.Location = new System.Drawing.Point(4, 48);
+            this.lblAffStress.Name = "lblAffStress";
+            this.lblAffStress.Size = new System.Drawing.Size(42, 13);
+            this.lblAffStress.TabIndex = 4;
+            this.lblAffStress.Text = "Stress: ";
+            // 
+            // lblStress
+            // 
+            this.lblStress.AutoSize = true;
+            this.lblStress.Location = new System.Drawing.Point(4, 65);
+            this.lblStress.Name = "lblStress";
+            this.lblStress.Size = new System.Drawing.Size(36, 13);
+            this.lblStress.TabIndex = 5;
+            this.lblStress.Text = "Stress";
+            // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,5 +398,7 @@
         private System.Windows.Forms.Label lblAffActions;
         private System.Windows.Forms.Label lblEvents;
         private System.Windows.Forms.Label lblAffEvent;
+        private System.Windows.Forms.Label lblStress;
+        private System.Windows.Forms.Label lblAffStress;
     }
 }
