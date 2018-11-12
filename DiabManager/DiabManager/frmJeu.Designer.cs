@@ -28,8 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnlActions = new System.Windows.Forms.Panel();
             this.pnlInfos = new System.Windows.Forms.Panel();
+            this.lblStress = new System.Windows.Forms.Label();
+            this.lblAffStress = new System.Windows.Forms.Label();
             this.lblNom = new System.Windows.Forms.Label();
             this.lblAffNom = new System.Windows.Forms.Label();
             this.lblGlycemie = new System.Windows.Forms.Label();
@@ -54,13 +63,13 @@
             this.lblEvents = new System.Windows.Forms.Label();
             this.lblActions = new System.Windows.Forms.Label();
             this.lblAffActions = new System.Windows.Forms.Label();
-            this.lblAffStress = new System.Windows.Forms.Label();
-            this.lblStress = new System.Windows.Forms.Label();
+            this.GraphiqueGlycemie = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlInfos.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
             this.pnlPiqure.SuspendLayout();
             this.pnlHeure.SuspendLayout();
             this.pnlInfosEvent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GraphiqueGlycemie)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlActions
@@ -68,22 +77,41 @@
             this.pnlActions.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlActions.Location = new System.Drawing.Point(12, 159);
             this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(1632, 870);
+            this.pnlActions.Size = new System.Drawing.Size(1280, 870);
             this.pnlActions.TabIndex = 0;
             // 
             // pnlInfos
             // 
             this.pnlInfos.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pnlInfos.Controls.Add(this.GraphiqueGlycemie);
             this.pnlInfos.Controls.Add(this.lblStress);
             this.pnlInfos.Controls.Add(this.lblAffStress);
             this.pnlInfos.Controls.Add(this.lblNom);
             this.pnlInfos.Controls.Add(this.lblAffNom);
             this.pnlInfos.Controls.Add(this.lblGlycemie);
             this.pnlInfos.Controls.Add(this.lblAffGlycemie);
-            this.pnlInfos.Location = new System.Drawing.Point(1650, 75);
+            this.pnlInfos.Location = new System.Drawing.Point(1298, 75);
             this.pnlInfos.Name = "pnlInfos";
-            this.pnlInfos.Size = new System.Drawing.Size(242, 235);
+            this.pnlInfos.Size = new System.Drawing.Size(594, 442);
             this.pnlInfos.TabIndex = 1;
+            // 
+            // lblStress
+            // 
+            this.lblStress.AutoSize = true;
+            this.lblStress.Location = new System.Drawing.Point(4, 65);
+            this.lblStress.Name = "lblStress";
+            this.lblStress.Size = new System.Drawing.Size(36, 13);
+            this.lblStress.TabIndex = 5;
+            this.lblStress.Text = "Stress";
+            // 
+            // lblAffStress
+            // 
+            this.lblAffStress.AutoSize = true;
+            this.lblAffStress.Location = new System.Drawing.Point(4, 48);
+            this.lblAffStress.Name = "lblAffStress";
+            this.lblAffStress.Size = new System.Drawing.Size(42, 13);
+            this.lblAffStress.TabIndex = 4;
+            this.lblAffStress.Text = "Stress: ";
             // 
             // lblNom
             // 
@@ -283,7 +311,7 @@
             this.pnlInfosEvent.Controls.Add(this.lblAffActions);
             this.pnlInfosEvent.Location = new System.Drawing.Point(175, 3);
             this.pnlInfosEvent.Name = "pnlInfosEvent";
-            this.pnlInfosEvent.Size = new System.Drawing.Size(1469, 150);
+            this.pnlInfosEvent.Size = new System.Drawing.Size(1117, 150);
             this.pnlInfosEvent.TabIndex = 7;
             // 
             // lblAffEvent
@@ -322,23 +350,55 @@
             this.lblAffActions.TabIndex = 0;
             this.lblAffActions.Text = "Vous avez choisi de :";
             // 
-            // lblAffStress
+            // GraphiqueGlycemie
             // 
-            this.lblAffStress.AutoSize = true;
-            this.lblAffStress.Location = new System.Drawing.Point(4, 48);
-            this.lblAffStress.Name = "lblAffStress";
-            this.lblAffStress.Size = new System.Drawing.Size(42, 13);
-            this.lblAffStress.TabIndex = 4;
-            this.lblAffStress.Text = "Stress: ";
-            // 
-            // lblStress
-            // 
-            this.lblStress.AutoSize = true;
-            this.lblStress.Location = new System.Drawing.Point(4, 65);
-            this.lblStress.Name = "lblStress";
-            this.lblStress.Size = new System.Drawing.Size(36, 13);
-            this.lblStress.TabIndex = 5;
-            this.lblStress.Text = "Stress";
+            this.GraphiqueGlycemie.BackColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisX.ScaleBreakStyle.Enabled = true;
+            chartArea1.Name = "ChartArea1";
+            this.GraphiqueGlycemie.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.GraphiqueGlycemie.Legends.Add(legend1);
+            this.GraphiqueGlycemie.Location = new System.Drawing.Point(125, 4);
+            this.GraphiqueGlycemie.Name = "GraphiqueGlycemie";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series1.Legend = "Legend1";
+            series1.Name = "Glycémie Maximale";
+            series1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series2.Legend = "Legend1";
+            series2.Name = "Glycémie Minimale";
+            series2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.Lime;
+            series3.Legend = "Legend1";
+            series3.Name = "Objectif Maximal";
+            series3.ShadowColor = System.Drawing.Color.Lime;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Color = System.Drawing.Color.Lime;
+            series4.Legend = "Legend1";
+            series4.Name = "Objectif Minimal";
+            series4.ShadowColor = System.Drawing.Color.Lime;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Color = System.Drawing.Color.Fuchsia;
+            series5.Legend = "Legend1";
+            series5.Name = "Glycémie Courante";
+            series5.ShadowColor = System.Drawing.Color.Fuchsia;
+            this.GraphiqueGlycemie.Series.Add(series1);
+            this.GraphiqueGlycemie.Series.Add(series2);
+            this.GraphiqueGlycemie.Series.Add(series3);
+            this.GraphiqueGlycemie.Series.Add(series4);
+            this.GraphiqueGlycemie.Series.Add(series5);
+            this.GraphiqueGlycemie.Size = new System.Drawing.Size(466, 435);
+            this.GraphiqueGlycemie.TabIndex = 6;
+            this.GraphiqueGlycemie.Text = "chart1";
+            this.GraphiqueGlycemie.Customize += new System.EventHandler(this.GraphiqueGlycemie_Customize);
             // 
             // frmJeu
             // 
@@ -366,6 +426,7 @@
             this.pnlHeure.PerformLayout();
             this.pnlInfosEvent.ResumeLayout(false);
             this.pnlInfosEvent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GraphiqueGlycemie)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -400,5 +461,6 @@
         private System.Windows.Forms.Label lblAffEvent;
         private System.Windows.Forms.Label lblStress;
         private System.Windows.Forms.Label lblAffStress;
+        private System.Windows.Forms.DataVisualization.Charting.Chart GraphiqueGlycemie;
     }
 }
