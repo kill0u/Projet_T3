@@ -45,18 +45,6 @@ namespace DiabManager.Metiers
             set { m_jobj = value; }
         }
 
-        private int m_gMin=0;
-        public int gMin
-        {
-            get { return m_gMin; }
-        }
-
-        private int m_gMax = 10;
-        public int gMax
-        {
-            get { return m_gMax; }
-        }
-
         private int m_tfin = 0;
         public int tfin
         {
@@ -78,7 +66,7 @@ namespace DiabManager.Metiers
             if (double.Parse(IHM.IHM_Joueur.getInfos()[9])>objBas && double.Parse(IHM.IHM_Joueur.getInfos()[9])<objHaut)
             {
                 jobj++;
-                if (jobj==3) { Fin(); }
+                if (jobj==3) { Fin(true); }
             }
         }
         
@@ -120,9 +108,11 @@ namespace DiabManager.Metiers
         /// <summary>
         /// Fonction qui fini la partie.
         /// </summary>
-        public void Fin()
+        public void Fin(bool res)
         {
             m_updateTimer.Stop();
+            frmFinJeu finjeu = new frmFinJeu();
+            finjeu.ShowDialog();
         }
     }
 }
