@@ -37,17 +37,49 @@ namespace DiabManager.Metiers
         /// Temps de la Journée.
         /// </summary>
         private Temps m_t;
-        
+
+        private int m_jobj = 0;
+        public int jobj
+        {
+            get { return m_jobj; }
+            set { m_jobj = value; }
+        }
+
+        private int m_gMin=0;
+        public int gMin
+        {
+            get { return m_gMin; }
+        }
+
+        private int m_gMax = 10;
+        public int gMax
+        {
+            get { return m_gMax; }
+        }
+
+        private int m_tfin = 0;
+        public int tfin
+        {
+            get { return m_tfin; }
+            set { m_tfin = value; }
+        }
 
 
-       //Fonctions
-       /// <summary>
-       /// Fonction d'ajout d'un jour dans la partie.
-       /// </summary>
+        //Fonctions
+        /// <summary>
+        /// Fonction d'ajout d'un jour dans la partie.
+        /// </summary>
         public void AddDay()
         {
             m_d.AddDays(1);
             IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
+            double objBas= double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0]);
+            double objHaut= double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]);
+            if (double.Parse(IHM.IHM_Joueur.getInfos()[9])>objBas && double.Parse(IHM.IHM_Joueur.getInfos()[9])<objHaut)
+            {
+                jobj++;
+                if (jobj==3) { Fin(); }
+            }
         }
         
         /// <summary>
@@ -82,6 +114,7 @@ namespace DiabManager.Metiers
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
+            if (double.Parse(IHM.IHM_Joueur.getInfos()[9])> double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]) || double.Parse(IHM.IHM_Joueur.getInfos()[9]) < double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0])) { jobj = 0; }
         }
 
         /// <summary>
