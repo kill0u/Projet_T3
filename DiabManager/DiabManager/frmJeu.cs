@@ -25,7 +25,6 @@ namespace DiabManager
             f.AddFontFile(path);
             lblAffTemps.Font = new Font(f.Families[0], 26,FontStyle.Bold);
             lblTemps.Font = new Font(f.Families[0], 26, FontStyle.Bold);
-
         }
 
         /// <summary>
@@ -265,6 +264,15 @@ namespace DiabManager
             IHM.IHM_Joueur.Update();
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(Temps.getInstance().getHeureJournee());
             modifStyloInsuline();
+        }
+        public System.Windows.Forms.DataVisualization.Charting.Chart getGraphe()
+        {
+            return GraphiqueGlycemie;
+        }
+
+        private void GraphiqueGlycemie_Customize(object sender, EventArgs e)
+        {
+            
         }
     }
 }
