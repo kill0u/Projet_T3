@@ -44,13 +44,31 @@ namespace DiabManager.Metiers
             get { return m_jobj; }
             set { m_jobj = value; }
         }
-        
+
+        private int m_gMin=0;
+        public int gMin
+        {
+            get { return m_gMin; }
+        }
+
+        private int m_gMax = 10;
+        public int gMax
+        {
+            get { return m_gMax; }
+        }
+
+        private int m_tfin = 0;
+        public int tfin
+        {
+            get { return m_tfin; }
+            set { m_tfin = value; }
+        }
 
 
-       //Fonctions
-       /// <summary>
-       /// Fonction d'ajout d'un jour dans la partie.
-       /// </summary>
+        //Fonctions
+        /// <summary>
+        /// Fonction d'ajout d'un jour dans la partie.
+        /// </summary>
         public void AddDay()
         {
             m_d.AddDays(1);
