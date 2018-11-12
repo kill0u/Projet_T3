@@ -50,10 +50,12 @@
             this.lblDoseActu = new System.Windows.Forms.Label();
             this.pnlHeure = new System.Windows.Forms.Panel();
             this.pnlInfosEvent = new System.Windows.Forms.Panel();
-            this.lblAffActions = new System.Windows.Forms.Label();
-            this.lblActions = new System.Windows.Forms.Label();
-            this.lblEvents = new System.Windows.Forms.Label();
             this.lblAffEvent = new System.Windows.Forms.Label();
+            this.lblEvents = new System.Windows.Forms.Label();
+            this.lblActions = new System.Windows.Forms.Label();
+            this.lblAffActions = new System.Windows.Forms.Label();
+            this.lblAffStress = new System.Windows.Forms.Label();
+            this.lblStress = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
             this.pnlPiqure.SuspendLayout();
@@ -63,6 +65,7 @@
             // 
             // pnlActions
             // 
+            this.pnlActions.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlActions.Location = new System.Drawing.Point(12, 159);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(1632, 870);
@@ -70,6 +73,9 @@
             // 
             // pnlInfos
             // 
+            this.pnlInfos.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pnlInfos.Controls.Add(this.lblStress);
+            this.pnlInfos.Controls.Add(this.lblAffStress);
             this.pnlInfos.Controls.Add(this.lblNom);
             this.pnlInfos.Controls.Add(this.lblAffNom);
             this.pnlInfos.Controls.Add(this.lblGlycemie);
@@ -118,23 +124,28 @@
             // lblAffTemps
             // 
             this.lblAffTemps.AutoSize = true;
-            this.lblAffTemps.Location = new System.Drawing.Point(3, 0);
+            this.lblAffTemps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAffTemps.ForeColor = System.Drawing.Color.Red;
+            this.lblAffTemps.Location = new System.Drawing.Point(-2, 3);
             this.lblAffTemps.Name = "lblAffTemps";
-            this.lblAffTemps.Size = new System.Drawing.Size(42, 13);
+            this.lblAffTemps.Size = new System.Drawing.Size(111, 32);
             this.lblAffTemps.TabIndex = 2;
             this.lblAffTemps.Text = "Heure: ";
             // 
             // lblTemps
             // 
             this.lblTemps.AutoSize = true;
-            this.lblTemps.Location = new System.Drawing.Point(51, 0);
+            this.lblTemps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTemps.ForeColor = System.Drawing.Color.Red;
+            this.lblTemps.Location = new System.Drawing.Point(115, 3);
             this.lblTemps.Name = "lblTemps";
-            this.lblTemps.Size = new System.Drawing.Size(31, 13);
+            this.lblTemps.Size = new System.Drawing.Size(79, 32);
             this.lblTemps.TabIndex = 3;
             this.lblTemps.Text = "0:0:0";
             // 
             // pnlGestionTemps
             // 
+            this.pnlGestionTemps.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlGestionTemps.Controls.Add(this.lblVitesse);
             this.pnlGestionTemps.Controls.Add(this.button2);
             this.pnlGestionTemps.Controls.Add(this.btnAvanceeTemps);
@@ -185,6 +196,7 @@
             // 
             // pnlPiqure
             // 
+            this.pnlPiqure.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlPiqure.Controls.Add(this.lblDose);
             this.pnlPiqure.Controls.Add(this.btnPiqure);
             this.pnlPiqure.Controls.Add(this.btnAugmenter);
@@ -253,15 +265,18 @@
             // 
             // pnlHeure
             // 
+            this.pnlHeure.BackColor = System.Drawing.Color.Black;
             this.pnlHeure.Controls.Add(this.lblAffTemps);
             this.pnlHeure.Controls.Add(this.lblTemps);
-            this.pnlHeure.Location = new System.Drawing.Point(1789, 10);
+            this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pnlHeure.Location = new System.Drawing.Point(1686, 10);
             this.pnlHeure.Name = "pnlHeure";
-            this.pnlHeure.Size = new System.Drawing.Size(103, 13);
+            this.pnlHeure.Size = new System.Drawing.Size(206, 44);
             this.pnlHeure.TabIndex = 6;
             // 
             // pnlInfosEvent
             // 
+            this.pnlInfosEvent.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlInfosEvent.Controls.Add(this.lblAffEvent);
             this.pnlInfosEvent.Controls.Add(this.lblEvents);
             this.pnlInfosEvent.Controls.Add(this.lblActions);
@@ -270,33 +285,6 @@
             this.pnlInfosEvent.Name = "pnlInfosEvent";
             this.pnlInfosEvent.Size = new System.Drawing.Size(1469, 150);
             this.pnlInfosEvent.TabIndex = 7;
-            // 
-            // lblAffActions
-            // 
-            this.lblAffActions.AutoSize = true;
-            this.lblAffActions.Location = new System.Drawing.Point(4, 7);
-            this.lblAffActions.Name = "lblAffActions";
-            this.lblAffActions.Size = new System.Drawing.Size(108, 13);
-            this.lblAffActions.TabIndex = 0;
-            this.lblAffActions.Text = "Vous avez choisi de :";
-            // 
-            // lblActions
-            // 
-            this.lblActions.AutoSize = true;
-            this.lblActions.Location = new System.Drawing.Point(118, 7);
-            this.lblActions.Name = "lblActions";
-            this.lblActions.Size = new System.Drawing.Size(10, 13);
-            this.lblActions.TabIndex = 1;
-            this.lblActions.Text = " ";
-            // 
-            // lblEvents
-            // 
-            this.lblEvents.AutoSize = true;
-            this.lblEvents.Location = new System.Drawing.Point(4, 38);
-            this.lblEvents.Name = "lblEvents";
-            this.lblEvents.Size = new System.Drawing.Size(10, 13);
-            this.lblEvents.TabIndex = 2;
-            this.lblEvents.Text = " ";
             // 
             // lblAffEvent
             // 
@@ -307,10 +295,56 @@
             this.lblAffEvent.TabIndex = 3;
             this.lblAffEvent.Text = "Vous êtes en train de :";
             // 
+            // lblEvents
+            // 
+            this.lblEvents.AutoSize = true;
+            this.lblEvents.Location = new System.Drawing.Point(4, 38);
+            this.lblEvents.Name = "lblEvents";
+            this.lblEvents.Size = new System.Drawing.Size(10, 13);
+            this.lblEvents.TabIndex = 2;
+            this.lblEvents.Text = " ";
+            // 
+            // lblActions
+            // 
+            this.lblActions.AutoSize = true;
+            this.lblActions.Location = new System.Drawing.Point(118, 7);
+            this.lblActions.Name = "lblActions";
+            this.lblActions.Size = new System.Drawing.Size(10, 13);
+            this.lblActions.TabIndex = 1;
+            this.lblActions.Text = " ";
+            // 
+            // lblAffActions
+            // 
+            this.lblAffActions.AutoSize = true;
+            this.lblAffActions.Location = new System.Drawing.Point(4, 7);
+            this.lblAffActions.Name = "lblAffActions";
+            this.lblAffActions.Size = new System.Drawing.Size(108, 13);
+            this.lblAffActions.TabIndex = 0;
+            this.lblAffActions.Text = "Vous avez choisi de :";
+            // 
+            // lblAffStress
+            // 
+            this.lblAffStress.AutoSize = true;
+            this.lblAffStress.Location = new System.Drawing.Point(4, 48);
+            this.lblAffStress.Name = "lblAffStress";
+            this.lblAffStress.Size = new System.Drawing.Size(42, 13);
+            this.lblAffStress.TabIndex = 4;
+            this.lblAffStress.Text = "Stress: ";
+            // 
+            // lblStress
+            // 
+            this.lblStress.AutoSize = true;
+            this.lblStress.Location = new System.Drawing.Point(4, 65);
+            this.lblStress.Name = "lblStress";
+            this.lblStress.Size = new System.Drawing.Size(36, 13);
+            this.lblStress.TabIndex = 5;
+            this.lblStress.Text = "Stress";
+            // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.pnlInfosEvent);
             this.Controls.Add(this.pnlHeure);
@@ -364,5 +398,7 @@
         private System.Windows.Forms.Label lblAffActions;
         private System.Windows.Forms.Label lblEvents;
         private System.Windows.Forms.Label lblAffEvent;
+        private System.Windows.Forms.Label lblStress;
+        private System.Windows.Forms.Label lblAffStress;
     }
 }
