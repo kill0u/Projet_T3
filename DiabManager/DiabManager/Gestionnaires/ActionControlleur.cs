@@ -224,7 +224,6 @@ namespace DiabManager.Gestionnaires
                     {
 
                         int ra = r.Next(0, 10001);
-                        Console.WriteLine(e.Key.Nom + ": " + ra) ;
                         if (ra <= e.Key.ChanceInit* 100)//on fait un aléatoire
                         {
                             //On lance l'évènement
