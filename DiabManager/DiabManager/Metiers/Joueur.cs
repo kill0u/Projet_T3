@@ -158,7 +158,9 @@ namespace DiabManager.Metiers
 
         public void calculStress(double stress)
         {
-            this.m_stress += stress;
+            if (this.m_stress + stress < 0) { this.m_stress = 0; }
+            else if (this.m_stress + stress >= 100) { this.m_stress = 100; }
+            else { this.m_stress += stress; }
         }
     }
 }
