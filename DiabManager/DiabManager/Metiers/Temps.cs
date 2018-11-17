@@ -137,7 +137,6 @@ namespace DiabManager.Metiers
                     }
                 }
             }
-                
 
             
             //si on dépasse un jour
