@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace DiabManager
 {
     public partial class frmJeu : Form
     {
+        Composants.GradientPanel g;
+        public Object Gp
+        {
+            get { return g; }
+        }
+
         public frmJeu()
         {
             InitializeComponent();
@@ -25,6 +32,7 @@ namespace DiabManager
             f.AddFontFile(path);
             lblAffTemps.Font = new Font(f.Families[0], 26,FontStyle.Bold);
             lblTemps.Font = new Font(f.Families[0], 26, FontStyle.Bold);
+            g = gplFond;
         }
 
         /// <summary>
@@ -95,18 +103,40 @@ namespace DiabManager
 
             this.BeginInvoke((Action)(() => {
                 lblNom.Text = infos[1] + " " + infos[0];
-                /*switch (int.Parse(infos[10]) )
+                if (infos[4] == "H")
                 {
-                    case (&&):
-                        n++;
-                        break;
-                    case 0:
-                        z++;
-                        break;
-                    case 1:
-                        p++;
-                        break;
-                }*/
+                    if (int.Parse(infos[10]) >= 0 && int.Parse(infos[10]) < 21)
+                    {
+                        lblStress.Text = "Vous etes pas stressé - "+infos[10];
+                    }
+                    if (int.Parse(infos[10]) >= 21 && int.Parse(infos[10]) < 61)
+                    {
+                        lblStress.Text = "Vous etes stressé - " + infos[10];
+                    }
+                    if (int.Parse(infos[10]) >= 61)
+                    {
+                        lblStress.Text = "Vous etes beaucoup stressé - " + infos[10];
+                    }
+                }
+                else
+                {
+                    if (int.Parse(infos[10]) >= 0 && int.Parse(infos[10]) < 21)
+                    {
+                        lblStress.Text = "Vous etes pas stressée - " + infos[10];
+                    }
+                    if (int.Parse(infos[10]) >= 21 && int.Parse(infos[10]) < 61)
+                    {
+                        lblStress.Text = "Vous etes stressée - " + infos[10];
+                    }
+                    if (int.Parse(infos[10]) >= 61)
+                    {
+                        lblStress.Text = "Vous etes beaucoup stressée - " + infos[10];
+                    }
+                }
+                if (int.Parse(infos[10]) >=90)
+                {
+                    lblStress.Text = "Burnout - " + infos[10];
+                }
                 lblGlycemie.Text = infos[9];
             }));
             
@@ -120,8 +150,27 @@ namespace DiabManager
         {
             this.BeginInvoke((Action)(() => {
                 lblTemps.Text = temps.Hours + ":" + temps.Minutes;
-
+                if (temps.Hours >= 7)
+                {
+                    gplFond.BackColor = Color.Black;
+                    gplFond.ColorTop = Color.Plum;
+                    gplFond.ColorBottom = Color.Orchid;
+                }
+                if (temps.Hours >= 12)
+                {
+                    gplFond.BackColor = Color.White;
+                    gplFond.ColorTop = Color.LightSteelBlue;
+                    gplFond.ColorBottom = Color.MediumSpringGreen;
+                }
+                if (temps.Hours >= 20)
+                {
+                    gplFond.BackColor = Color.Black;
+                    gplFond.ColorTop = Color.MidnightBlue;
+                    gplFond.ColorBottom = Color.Indigo;
+                }
+                gplFond.Refresh();
             }));
+
         }
 
         /// <summary>
@@ -252,5 +301,13 @@ namespace DiabManager
         {
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            gplFond.ColorTop = Color.Aqua;
+            gplFond.ColorBottom = Color.DarkGreen;
+        }
+
+        
     }
 }
