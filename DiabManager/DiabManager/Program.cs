@@ -32,7 +32,7 @@ namespace DiabManager
 
                 //On créer la partie
                 Partie partie = new Partie();
-                partie.Demarrer();
+                partie.Demarrer(jeu);
 
                 jeu.ShowDialog();
             }

@@ -16,10 +16,13 @@ namespace DiabManager
 {
     public partial class frmJeu : Form
     {
-        Composants.GradientPanel g;
-        public Object Gp
+        public Composants.GradientPanel g;
+        public Composants.GradientPanel Gp
         {
-            get { return g; }
+            get
+            {
+                return g;
+            }
         }
 
         public frmJeu()
@@ -162,25 +165,7 @@ namespace DiabManager
         {
             this.BeginInvoke((Action)(() => {
                 lblTemps.Text = temps.Hours + ":" + temps.Minutes;
-                if (temps.Hours >= 7)
-                {
-                    gplFond.BackColor = Color.Black;
-                    gplFond.ColorTop = Color.Plum;
-                    gplFond.ColorBottom = Color.Orchid;
-                }
-                if (temps.Hours >= 12)
-                {
-                    gplFond.BackColor = Color.White;
-                    gplFond.ColorTop = Color.LightSteelBlue;
-                    gplFond.ColorBottom = Color.MediumSpringGreen;
-                }
-                if (temps.Hours >= 20)
-                {
-                    gplFond.BackColor = Color.Black;
-                    gplFond.ColorTop = Color.MidnightBlue;
-                    gplFond.ColorBottom = Color.Indigo;
-                }
-                gplFond.Refresh();
+                
             }));
 
         }
@@ -314,11 +299,7 @@ namespace DiabManager
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            gplFond.ColorTop = Color.Aqua;
-            gplFond.ColorBottom = Color.DarkGreen;
-        }
+       
 
         
     }

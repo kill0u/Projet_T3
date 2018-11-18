@@ -18,12 +18,24 @@ namespace DiabManager
     {
         #region variables local
         private Boolean m_difficulte; /**<La Difficulté du jeu, si true Difficulté difficile sinon facile */
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="frmMenu"/> is difficulte.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if difficulte; otherwise, <c>false</c>.
+        /// </value>
         public Boolean difficulte /**<La Difficulté du jeu . L'accesseur de la Difficulté du jeu. */
         {
             get { return m_difficulte; }
             set { this.m_difficulte = value; }
         }
         private DialogResult Exit;
+        /// <summary>
+        /// Gets the menu exit.
+        /// </summary>
+        /// <value>
+        /// The menu exit.
+        /// </value>
         public DialogResult MenuExit /**<Vérification si le fenetre menu c'est bien fermé */
         {
             get { return Exit; }
@@ -66,6 +78,9 @@ namespace DiabManager
         private Button btnValider;
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="frmMenu"/> class.
+        /// </summary>
         public frmMenu()
         {
             InitializeComponent();
@@ -117,18 +132,38 @@ namespace DiabManager
 
         #region evenements
         //events
+        /// <summary>
+        /// Handles the Click event of the Titre control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Titre_Click(object sender, EventArgs e)
         {
             changercolor();
         }
+        /// <summary>
+        /// Handles the Click event of the LancerPart control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void LancerPart_Click(object sender, EventArgs e)
         {
             affDifficulte();
         }
+        /// <summary>
+        /// Handles the Click event of the btnLancerTuto control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnLancerTuto_Click(object sender, EventArgs e)
         {
             MessageBox.Show("fonction non codé pour le moment");
         }
+        /// <summary>
+        /// Handles the Click event of the btnRetour control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnRetour_Click(object sender, EventArgs e)
         {
             if (!btnLancerTuto.Visible && btndFacile.Visible)
@@ -159,16 +194,31 @@ namespace DiabManager
                 btndFacile.Visible = true;
             }
         }
+        /// <summary>
+        /// Handles the Click event of the btndFacile control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btndFacile_Click(object sender, EventArgs e)
         {
             affFormJoueur();
             m_difficulte = false;
         }
+        /// <summary>
+        /// Handles the Click event of the btndDifficile control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btndDifficile_Click(object sender, EventArgs e)
         {
             affFormJoueur();
             m_difficulte = true;
         }
+        /// <summary>
+        /// Handles the Click event of the btnProfils control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnProfils_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
@@ -185,6 +235,11 @@ namespace DiabManager
                 remplirFormulaireJoueur("Camille", 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
             }
         }
+        /// <summary>
+        /// Handles the Click event of the btnValider control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnValider_Click(object sender, EventArgs e)
         {
             if (checkFormulaire())
@@ -200,6 +255,11 @@ namespace DiabManager
         }
 
         //les keypress
+        /// <summary>
+        /// Handles the keyPress event of the NoLetter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoLetter_keyPress(object sender, KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
@@ -207,6 +267,11 @@ namespace DiabManager
                 e.Handled = true; // On interdit les lettres
             }
         }
+        /// <summary>
+        /// Handles the keyPress event of the NoDigit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoDigit_keyPress(object sender, KeyPressEventArgs e)
         {
             if (char.IsDigit(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
@@ -214,6 +279,11 @@ namespace DiabManager
                 e.Handled = true; //On interdit les nombres
             }
         }
+        /// <summary>
+        /// Handles the KeyPress event of the NoLetterOneComma control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoLetterOneComma_KeyPress(Object sender, KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
@@ -235,9 +305,9 @@ namespace DiabManager
         #endregion
 
         #region fonctions
-        /** Changement de couleur du theme
-         * fonction qui change la couleur du theme ( le bleu aqua)
-         */
+        /// <summary>
+        /// Changercolors this instance.
+        /// </summary>
         private void changercolor()
         {
             DialogResult result = cdPicker.ShowDialog();
@@ -258,9 +328,9 @@ namespace DiabManager
                 Titre.ForeColor = cdPicker.Color;
             }
         }
-        /** affiche les bouton pour choisir la difficulté
-         * fonction qui fait l'affichage des bouton de choix pour la difficulté
-         */
+        /// <summary>
+        /// Affs the difficulte.
+        /// </summary>
         private void affDifficulte()
         {
             foreach(Button c in this.Controls.OfType<Button>())
@@ -281,9 +351,9 @@ namespace DiabManager
             btnRetour.Visible = true;
 
         }
-        /** affiche le formulaire pour faire le joueur
-         * fonction affichant les textbox nécessaire pour les données demander au joueur 
-         */
+        /// <summary>
+        /// Affs the form joueur.
+        /// </summary>
         private void affFormJoueur()
         {
             btndDifficile.Visible = false;
@@ -392,9 +462,10 @@ namespace DiabManager
             btnProfil2.Visible = true;
             btnProfil3.Visible = true;
         }
-        /** récupération du texte du radiobutton cocher
-         * foncton qui récupère le texte du radiobutton qui est cocher
-         */
+        /// <summary>
+        /// RDBs the cocher.
+        /// </summary>
+        /// <returns></returns>
         private String rdbCocher()
         {
             string res = "";
@@ -407,9 +478,10 @@ namespace DiabManager
             }
             return res;
         }
-        /** creer le joueur a partir du formulaire du menu
-         * fonction créant un joueur a partir du formulaire
-         */
+
+        /// <summary>
+        /// Creers the joueur.
+        /// </summary>
         private void creerJoueur()
         {
             string prenom = txtPrenom.Text;
@@ -424,9 +496,10 @@ namespace DiabManager
 
             IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
         }
-        /** fonction renvoyant true si tout les formulaire sont remplit sinon false
-         * verifie que tout les champs du forulaire son bien remplit
-         */
+        /// <summary>
+        /// Checks the formulaire.
+        /// </summary>
+        /// <returns></returns>
         private Boolean checkFormulaire()
         {
             Boolean check = true;
@@ -439,9 +512,18 @@ namespace DiabManager
             }
             return check;
         }
-        /** remplis les formulaires pour des profils déja existant
-         * fonction remplissant le formulaire pour un profil pré fait
-         */
+        /// <summary>
+        /// Remplirs the formulaire joueur.
+        /// </summary>
+        /// <param name="prenom">The prenom.</param>
+        /// <param name="age">The age.</param>
+        /// <param name="nom">The nom.</param>
+        /// <param name="sex">The sex.</param>
+        /// <param name="taille">The taille.</param>
+        /// <param name="poids">The poids.</param>
+        /// <param name="glyc">The glycémie.</param>
+        /// <param name="glycObBas">The objectif glycémique bas.</param>
+        /// <param name="glycObHaut">The objectif glycémique haut.</param>
         private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
         {
             /*foreach (TextBox c in this.Controls.OfType<TextBox>())
@@ -470,13 +552,14 @@ namespace DiabManager
         #endregion
 
         #region fonction génération dynamique de composant
-        /** Création dynamique de label.
-         * Fonction permetant la création dynamique d'un label
-         *  @param texte : texte du label
-         *  @param nomlabel : nom du label
-         *  @param location : position du label
-         *  @param size : taille du label
-         */
+        /// <summary>
+        /// Creers the label.
+        /// </summary>
+        /// <param name="texte">The texte.</param>
+        /// <param name="nomlabel">The nomlabel.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
         private Label creerLabel(String texte,String nomlabel,Point location, Size size)
         {
             Label lbl = new Label();
@@ -491,13 +574,15 @@ namespace DiabManager
             lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             return lbl;
         }
-        /** Création dynamique d'un bouton.
-         * Fonction permetant la création dynamique d'un bouton
-         *  @param texte : texte du bouton
-         *  @param nombutton : nom du bouton
-         *  @param location : position du buton
-         *  @param size : taille du buton
-         */
+
+        /// <summary>
+        /// Creers the button.
+        /// </summary>
+        /// <param name="texte">The texte.</param>
+        /// <param name="nombutton">The nombutton.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
         private Button creerButton(String texte, String nombutton, Point location, Size size)
         {
             Button btn = new Button();
@@ -513,13 +598,15 @@ namespace DiabManager
             btn.UseVisualStyleBackColor = false;
             return btn;
         }
-        /** Création dynamique d'un groupbox.
-         * Fonction permetant la création dynamique d'un groupbox
-         *  @param texte : texte du groupbox
-         *  @param nomGroupbox : nom du groupbox
-         *  @param location : position du groupbox
-         *  @param size : taille du groupbox
-         */
+
+        /// <summary>
+        /// Creers the groupbox.
+        /// </summary>
+        /// <param name="texte">The texte.</param>
+        /// <param name="nomGroupbox">The nom groupbox.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
         private GroupBox creerGroupbox(String texte, String nomGroupbox, Point location, Size size)
         {
             GroupBox grbx = new GroupBox();
@@ -540,14 +627,16 @@ namespace DiabManager
             grbx.Text = texte;
             return grbx;
         }
-        /** Création dynamique d'un radiobutton.
-        * Fonction permetant la création dynamique d'un radiobutton
-        *  @param texte : texte du radiobutton
-        *  @param nomRdb : nom du radiobutton
-        *  @param loc : position du radiobutton
-        *  @param size : taille du radiobutton
-        *  @param tabind : index du radiobutton afin de l'identifier
-        */
+
+        /// <summary>
+        /// Creers the RadioButton.
+        /// </summary>
+        /// <param name="texte">The texte.</param>
+        /// <param name="nomRdb">The nom RDB.</param>
+        /// <param name="loc">The loc.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="tabind">The tabind.</param>
+        /// <returns></returns>
         private RadioButton creerRadioButton(String texte, String nomRdb, Point loc, Size size,int tabind)
         {
             RadioButton rdb = new RadioButton();
@@ -561,12 +650,14 @@ namespace DiabManager
             rdb.UseVisualStyleBackColor = true;
             return rdb;
         }
-        /** Création dynamique d'un textbox.
-       * Fonction permetant la création dynamique d'un textbox
-       *  @param nomTxt : nom du textbox
-       *  @param loc : Localisation du textbox
-       *  @param size : taille du textbox
-       */
+
+        /// <summary>
+        /// Creers the textbox.
+        /// </summary>
+        /// <param name="nomTxt">The nom text.</param>
+        /// <param name="loc">The loc.</param>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
         private TextBox creerTextbox(String nomTxt, Point loc, Size size)
         {
             TextBox txt = new TextBox();
@@ -576,19 +667,16 @@ namespace DiabManager
             txt.TabIndex = 0;
             return txt;
         }
-        /** Ajout dynamique d'évenement click
-         * Fonction ajoutant un evenement dynamiquement
-         * @param c : controleur auquel on ajoute l'évenement
-         * @param eHand : evenement ajouté
-         */
+        
         private void ajoutEvClick(Control c,EventHandler eHand) {
             c.Click += eHand;
         }
-        /** Ajout dynamique d'évenement keypress
-         * Fonction ajoutant un evenement dynamiquement
-         * @param c : controleur auquel on ajoute l'évenement
-         * @param eHand : evenement ajouté
-         */
+
+        /// <summary>
+        /// Ajouts the ev keypress.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="eHand">The e hand.</param>
         private void ajoutEvKeypress(Control c,KeyPressEventHandler eHand)
         {
             c.KeyPress += eHand;

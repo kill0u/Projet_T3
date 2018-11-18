@@ -9,7 +9,7 @@ using System.Drawing.Drawing2D;
 
 namespace DiabManager.Composants
 {
-    class GradientPanel : Panel
+    public class GradientPanel : Panel
     {
         public Color ColorTop { get ; set; }
         public Color ColorBottom { get; set; }
