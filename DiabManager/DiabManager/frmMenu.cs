@@ -593,8 +593,8 @@ namespace DiabManager
         {
             c.KeyPress += eHand;
         }
+
         #endregion
 
-        
     }
 }

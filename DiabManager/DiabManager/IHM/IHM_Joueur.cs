@@ -62,7 +62,7 @@ namespace DiabManager.IHM
             infos[7] = m_j.GlycemieObjectifBas.ToString("F2") +" - "+m_j.GlycemieObjectifHaut;
             infos[8] = m_j.GlycemieMatin.ToString("F2");
             infos[9] = m_j.GlycemieCourante.ToString("F2");
-            infos[10] = m_j.Stress.ToString("F2");
+            infos[10] = m_j.Stress.ToString();
             return infos;
         }
 

@@ -171,7 +171,6 @@ namespace DiabManager.Metiers
                     m_partie.Fin(false);
                 }
             }
-                
 
             
             //si on dépasse un jour
