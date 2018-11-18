@@ -45,6 +45,21 @@ namespace DiabManager.Metiers
          Le Timer qui fait défiler automatiquement le temps, et lance un event à chaque tick*/
         private Timer m_dayTimer;
 
+        private TimeSpan m_tempsHorsPlage = new TimeSpan(0);
+
+        private int m_gMin = 0;
+        public int gMin
+        {
+            get { return m_gMin; }
+        }
+
+        private int m_gMax = 10;
+        public int gMax
+        {
+            get { return m_gMax; }
+        }
+
+
         /// <summary>
         /// Coefficient de changement de vitesse (pour le déroulement du jeu)
         /// </summary>
@@ -134,7 +149,26 @@ namespace DiabManager.Metiers
                         m_destTime = new TimeSpan(-1, 0, 0);
                         changeSpeed(m_coeffVitesse);
                         IHM.IHM_Actions.SetAction("");
+
                     }
+                }
+                //On regarde si le joueur est en dehors des taux possibles pendant plus de 6 heures
+                if (IHM.IHM_Joueur.getJoueur().GlycemieCourante < m_gMin)
+                {
+                    m_tempsHorsPlage = m_tempsHorsPlage.Add(new TimeSpan(0, 10, 0));
+                }
+                else if (IHM.IHM_Joueur.getJoueur().GlycemieCourante > m_gMax)
+                {
+                    m_tempsHorsPlage = m_tempsHorsPlage.Add(new TimeSpan(0, 10, 0));
+                }
+                else
+                {
+                    m_tempsHorsPlage = new TimeSpan(0);
+                }
+
+                if (m_tempsHorsPlage.Hours >= 6)
+                {
+                    m_partie.Fin(false);
                 }
             }
 

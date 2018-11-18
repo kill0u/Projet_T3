@@ -65,6 +65,8 @@
             this.lblActions = new System.Windows.Forms.Label();
             this.lblAffActions = new System.Windows.Forms.Label();
             this.gplFond = new DiabManager.Composants.GradientPanel();
+            this.lblEnergie = new System.Windows.Forms.Label();
+            this.lblAffEnergie = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphiqueGlycemie)).BeginInit();
             this.pnlGestionTemps.SuspendLayout();
@@ -84,6 +86,8 @@
             // pnlInfos
             // 
             this.pnlInfos.BackColor = System.Drawing.Color.Transparent;
+            this.pnlInfos.Controls.Add(this.lblEnergie);
+            this.pnlInfos.Controls.Add(this.lblAffEnergie);
             this.pnlInfos.Controls.Add(this.GraphiqueGlycemie);
             this.pnlInfos.Controls.Add(this.lblStress);
             this.pnlInfos.Controls.Add(this.lblAffStress);
@@ -411,6 +415,24 @@
             this.gplFond.Size = new System.Drawing.Size(1905, 1048);
             this.gplFond.TabIndex = 8;
             // 
+            // lblEnergie
+            // 
+            this.lblEnergie.AutoSize = true;
+            this.lblEnergie.Location = new System.Drawing.Point(7, 115);
+            this.lblEnergie.Name = "lblEnergie";
+            this.lblEnergie.Size = new System.Drawing.Size(43, 13);
+            this.lblEnergie.TabIndex = 8;
+            this.lblEnergie.Text = "Energie";
+            // 
+            // lblAffEnergie
+            // 
+            this.lblAffEnergie.AutoSize = true;
+            this.lblAffEnergie.Location = new System.Drawing.Point(7, 98);
+            this.lblAffEnergie.Name = "lblAffEnergie";
+            this.lblAffEnergie.Size = new System.Drawing.Size(79, 13);
+            this.lblAffEnergie.TabIndex = 7;
+            this.lblAffEnergie.Text = "Etat de fatigue:";
+            // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -476,5 +498,7 @@
         private System.Windows.Forms.Label lblAffStress;
         private System.Windows.Forms.DataVisualization.Charting.Chart GraphiqueGlycemie;
         private Composants.GradientPanel gplFond;
+        private System.Windows.Forms.Label lblEnergie;
+        private System.Windows.Forms.Label lblAffEnergie;
     }
 }

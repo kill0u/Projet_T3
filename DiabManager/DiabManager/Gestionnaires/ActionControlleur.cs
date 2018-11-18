@@ -7,6 +7,7 @@ using DiabManager.Metiers;
 using DiabManager.Metiers.ListeActions;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace DiabManager.Gestionnaires
 {
@@ -75,14 +76,18 @@ namespace DiabManager.Gestionnaires
             for(int i = 0; i < m_listActions.Count; i++)
             {
                 var a = m_listActions.ElementAt(i);
-                if(a.Key.isTempsDansPlage(temps))
+
+                if (a.Key.isCompatible(IHM.IHM_Joueur.getJoueur())) //On vérifie que l'état le permet
                 {
-                    m_listActions[a.Key] = true;
-                }
-                else
-                {
-                    m_listActions[a.Key] = false;
-                }
+                    if (a.Key.isTempsDansPlage(temps)) //On vérifie si le temps est compatible
+                    {
+                        m_listActions[a.Key] = true;
+                    }
+                    else
+                    {
+                        m_listActions[a.Key] = false;
+                    }
+                } 
             }
 
             IHM.IHM_Actions.UpdateButton();
@@ -108,24 +113,9 @@ namespace DiabManager.Gestionnaires
                     string line = reader.ReadLine();
                     if(!string.IsNullOrWhiteSpace(line)) { 
                         string[] fields = line.Split(';');
-                        TimeSpan[] plageHoraire = new TimeSpan[30];
-                        int j = 0;
-                        for(int i = 7; i < fields.Length;i++)
-                        {
-                            if (!string.IsNullOrWhiteSpace(fields[j]))
-                            {
-                                plageHoraire[j] = TimeSpan.Parse(fields[i]);
-                                j++; 
-                            }
-                        }
-                        string nom = fields[1];
-                        string desc = fields[2];
-                        TimeSpan duree = TimeSpan.Parse(fields[4]);
-                        double addGlyc = double.Parse(fields[5].Split(',')[0], CultureInfo.InvariantCulture);
-                        double foisGlyc = double.Parse(fields[5].Split(',')[1], CultureInfo.InvariantCulture);
-                        double stress = double.Parse(fields[6], CultureInfo.InvariantCulture);
+                        
 
-                        AddAction(new Actions(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), stress,plageHoraire));
+                        AddAction(Actions.readAction(fields));
                     }
                 }
             }
@@ -157,27 +147,9 @@ namespace DiabManager.Gestionnaires
                     if (!string.IsNullOrWhiteSpace(line))
                     {
                         string[] fields = line.Split(';');
-                        TimeSpan[] plageHoraire = new TimeSpan[30];
-                        int j = 0;
-                        for (int i = 8; i < fields.Length; i++)
-                        {
-                            if (!string.IsNullOrWhiteSpace(fields[j]))
-                            {
-                                plageHoraire[j] = TimeSpan.Parse(fields[i]);
-                                j++;
-                            }
-                        }
-                        string nom = fields[0];
-                        string desc = fields[1];
-                        TimeSpan duree = TimeSpan.Parse(fields[3]);
-                        double addGlyc = double.Parse(fields[4].Split(',')[0], CultureInfo.InvariantCulture);
-                        double foisGlyc = double.Parse(fields[4].Split(',')[1], CultureInfo.InvariantCulture);
+                        
 
-                        double chance = double.Parse(fields[5], CultureInfo.InvariantCulture);
-                        bool bloquant = bool.Parse(fields[6]);
-                        double stress = double.Parse(fields[7], CultureInfo.InvariantCulture);
-
-                        m_listEvent.Add(new EvenementsAleatoire(nom, desc, duree, new Tuple<double, double>(addGlyc, foisGlyc), chance, bloquant, stress,plageHoraire), false);
+                        m_listEvent.Add(EvenementsAleatoire.readAction(fields), false);
                     }
                 }
             }
@@ -220,25 +192,38 @@ namespace DiabManager.Gestionnaires
 
                 if (!e.Value) //Si l'évènement n'est pas encore lancé
                 {
-                    if (e.Key.isTempsDansPlage(temps))
+                    //Si l'etat le permet
+                    if(e.Key.isCompatible(IHM.IHM_Joueur.getJoueur()))
                     {
-
-                        int ra = r.Next(0, 10001);
-                        Console.WriteLine(e.Key.Nom + ": " + ra) ;
-                        if (ra <= e.Key.ChanceInit* 100)//on fait un aléatoire
+                        if (e.Key.isTempsDansPlage(temps))
                         {
-                            //On lance l'évènement
-                            m_listEvent[e.Key] = true;
-                            e.Key.makeEvenement(temps);
+
+                            int ra = r.Next(0, 10001);
+                            if (ra <= e.Key.ChanceInit * 100)//on fait un aléatoire
+                            {
+                                //On lance l'évènement
+                                m_listEvent[e.Key] = true;
+                                e.Key.makeEvenement(temps);
+                            }
                         }
                     }
+                    
                 }
                 else //sinon on regarde si il faut l'arreter
                 {
-                    if(temps > e.Key.EndTime)
+                    if(temps > e.Key.EndTime) //SI le temps est fini
+                    {
+                        m_listEvent[e.Key] = false;
+                        //Si on arrete un event, on enleve le statut de maladie si il y est encore
+                        if (IHM.IHM_Joueur.getJoueur().Etat[1] == 1)
+                            IHM.IHM_Joueur.getJoueur().Etat[1] = 0;
+                    }
+                    //Si la personne est soigné après une maladie
+                    if(IHM.IHM_Joueur.getJoueur().Etat[1] == 0 && e.Key.EtatFinal[5] == 1)
                     {
                         m_listEvent[e.Key] = false;
                     }
+
                 }
             }
         }
