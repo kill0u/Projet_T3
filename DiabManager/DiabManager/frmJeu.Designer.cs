@@ -1,4 +1,6 @@
-﻿namespace DiabManager
+﻿using DiabManager.Composants;
+
+namespace DiabManager
 {
     partial class frmJeu
     {
@@ -28,15 +30,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnlActions = new System.Windows.Forms.Panel();
             this.pnlInfos = new System.Windows.Forms.Panel();
+            this.lblEnergie = new System.Windows.Forms.Label();
+            this.lblAffEnergie = new System.Windows.Forms.Label();
             this.GraphiqueGlycemie = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblStress = new System.Windows.Forms.Label();
             this.lblAffStress = new System.Windows.Forms.Label();
@@ -65,8 +69,6 @@
             this.lblActions = new System.Windows.Forms.Label();
             this.lblAffActions = new System.Windows.Forms.Label();
             this.gplFond = new DiabManager.Composants.GradientPanel();
-            this.lblEnergie = new System.Windows.Forms.Label();
-            this.lblAffEnergie = new System.Windows.Forms.Label();
             this.pnlInfos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphiqueGlycemie)).BeginInit();
             this.pnlGestionTemps.SuspendLayout();
@@ -100,51 +102,69 @@
             this.pnlInfos.Size = new System.Drawing.Size(594, 442);
             this.pnlInfos.TabIndex = 1;
             // 
+            // lblEnergie
+            // 
+            this.lblEnergie.AutoSize = true;
+            this.lblEnergie.Location = new System.Drawing.Point(7, 115);
+            this.lblEnergie.Name = "lblEnergie";
+            this.lblEnergie.Size = new System.Drawing.Size(43, 13);
+            this.lblEnergie.TabIndex = 8;
+            this.lblEnergie.Text = "Energie";
+            // 
+            // lblAffEnergie
+            // 
+            this.lblAffEnergie.AutoSize = true;
+            this.lblAffEnergie.Location = new System.Drawing.Point(7, 98);
+            this.lblAffEnergie.Name = "lblAffEnergie";
+            this.lblAffEnergie.Size = new System.Drawing.Size(79, 13);
+            this.lblAffEnergie.TabIndex = 7;
+            this.lblAffEnergie.Text = "Etat de fatigue:";
+            // 
             // GraphiqueGlycemie
             // 
             this.GraphiqueGlycemie.BackColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisX.ScaleBreakStyle.Enabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.GraphiqueGlycemie.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.GraphiqueGlycemie.Legends.Add(legend1);
+            chartArea2.AxisX.ScaleBreakStyle.Enabled = true;
+            chartArea2.Name = "ChartArea1";
+            this.GraphiqueGlycemie.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.GraphiqueGlycemie.Legends.Add(legend2);
             this.GraphiqueGlycemie.Location = new System.Drawing.Point(125, 4);
             this.GraphiqueGlycemie.Name = "GraphiqueGlycemie";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series1.Legend = "Legend1";
-            series1.Name = "Glycémie Maximale";
-            series1.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series2.Legend = "Legend1";
-            series2.Name = "Glycémie Minimale";
-            series2.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.Lime;
-            series3.Legend = "Legend1";
-            series3.Name = "Objectif Maximal";
-            series3.ShadowColor = System.Drawing.Color.Lime;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Lime;
-            series4.Legend = "Legend1";
-            series4.Name = "Objectif Minimal";
-            series4.ShadowColor = System.Drawing.Color.Lime;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Fuchsia;
-            series5.Legend = "Legend1";
-            series5.Name = "Glycémie Courante";
-            series5.ShadowColor = System.Drawing.Color.Fuchsia;
-            this.GraphiqueGlycemie.Series.Add(series1);
-            this.GraphiqueGlycemie.Series.Add(series2);
-            this.GraphiqueGlycemie.Series.Add(series3);
-            this.GraphiqueGlycemie.Series.Add(series4);
-            this.GraphiqueGlycemie.Series.Add(series5);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series6.Legend = "Legend1";
+            series6.Name = "Glycémie Maximale";
+            series6.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series7.Legend = "Legend1";
+            series7.Name = "Glycémie Minimale";
+            series7.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Color = System.Drawing.Color.Lime;
+            series8.Legend = "Legend1";
+            series8.Name = "Objectif Maximal";
+            series8.ShadowColor = System.Drawing.Color.Lime;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Color = System.Drawing.Color.Lime;
+            series9.Legend = "Legend1";
+            series9.Name = "Objectif Minimal";
+            series9.ShadowColor = System.Drawing.Color.Lime;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Color = System.Drawing.Color.Fuchsia;
+            series10.Legend = "Legend1";
+            series10.Name = "Glycémie Courante";
+            series10.ShadowColor = System.Drawing.Color.Fuchsia;
+            this.GraphiqueGlycemie.Series.Add(series6);
+            this.GraphiqueGlycemie.Series.Add(series7);
+            this.GraphiqueGlycemie.Series.Add(series8);
+            this.GraphiqueGlycemie.Series.Add(series9);
+            this.GraphiqueGlycemie.Series.Add(series10);
             this.GraphiqueGlycemie.Size = new System.Drawing.Size(466, 435);
             this.GraphiqueGlycemie.TabIndex = 6;
             this.GraphiqueGlycemie.Text = "chart1";
@@ -415,24 +435,6 @@
             this.gplFond.Size = new System.Drawing.Size(1905, 1048);
             this.gplFond.TabIndex = 8;
             // 
-            // lblEnergie
-            // 
-            this.lblEnergie.AutoSize = true;
-            this.lblEnergie.Location = new System.Drawing.Point(7, 115);
-            this.lblEnergie.Name = "lblEnergie";
-            this.lblEnergie.Size = new System.Drawing.Size(43, 13);
-            this.lblEnergie.TabIndex = 8;
-            this.lblEnergie.Text = "Energie";
-            // 
-            // lblAffEnergie
-            // 
-            this.lblAffEnergie.AutoSize = true;
-            this.lblAffEnergie.Location = new System.Drawing.Point(7, 98);
-            this.lblAffEnergie.Name = "lblAffEnergie";
-            this.lblAffEnergie.Size = new System.Drawing.Size(79, 13);
-            this.lblAffEnergie.TabIndex = 7;
-            this.lblAffEnergie.Text = "Etat de fatigue:";
-            // 
             // frmJeu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -492,12 +494,12 @@
         private System.Windows.Forms.Panel pnlInfosEvent;
         private System.Windows.Forms.Label lblActions;
         private System.Windows.Forms.Label lblAffActions;
+        private GradientPanel gplFond;
         private System.Windows.Forms.Label lblEvents;
         private System.Windows.Forms.Label lblAffEvent;
         private System.Windows.Forms.Label lblStress;
         private System.Windows.Forms.Label lblAffStress;
         private System.Windows.Forms.DataVisualization.Charting.Chart GraphiqueGlycemie;
-        private Composants.GradientPanel gplFond;
         private System.Windows.Forms.Label lblEnergie;
         private System.Windows.Forms.Label lblAffEnergie;
     }
