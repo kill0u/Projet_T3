@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DiabManager.Metiers.ListeActions
@@ -9,30 +11,8 @@ namespace DiabManager.Metiers.ListeActions
     /// <summary>
     /// Classe gérant les évènements aléatoires se produisant dans le jeu
     /// </summary>
-    class EvenementsAleatoire
+    class EvenementsAleatoire : Actions
     {
-        /** Nom de l'évènement.
-         * Le nom de l'évènement permettant de le décrire
-         */
-        private string m_nom;
-        public string Nom
-        {
-            get { return m_nom; }
-        }
-
-        /** Description sur l'évènement.
-         * Description longue de l'évènement
-         */
-        private string m_description;
-        public string Desc
-        {
-            get { return m_description; }
-        }
-
-        /** Temps pris par l'évènement.
-         * Chaque évènement prends du temps à se faire
-         */
-        private TimeSpan m_duree;
 
         /// <summary>
         /// Heure de fin de l'action (calculer en additionnant la durée et l'heure de début de l'évènement)
@@ -40,24 +20,6 @@ namespace DiabManager.Metiers.ListeActions
         private TimeSpan m_endTime;
         public TimeSpan EndTime {  get { return m_endTime; } }
 
-
-        /** L'évènement modifie la glycémie d'un certain montant
-         * Multiplie la glycémie par ce nombre
-         */
-        private double m_modifGlycemie;
-        public double ModifGlycemie
-        {
-            get { return m_modifGlycemie; }
-        }
-
-        /** L'évènement modifie la glycémie d'un certain montant
-         * additionne la glycémie par ce nombre
-         */
-        private double m_addGlycemie;
-        public double AddGlycemie
-        {
-            get { return m_addGlycemie; }
-        }
 
 
         /// <summary>
@@ -71,29 +33,9 @@ namespace DiabManager.Metiers.ListeActions
 
 
         /// <summary>
-        /// La valeur de modification du stress.
-        /// </summary>
-        private double m_addStress;
-        public double AddStress
-        {
-            get { return m_addStress; }
-        }
-
-        /// <summary>
         /// Décrit si l'action est bloquante (one ne peut pas faire d'autre actions pendant ce temps) ou non
         /// </summary>
         private bool m_bloquant;
-
-        /// <summary>
-        /// Définit la plage horaire de disponibilités pour une action
-        /// </summary>
-        /// La plage horaire est définit sur un tableau à deux dimensions, la premiere pour le nombre de plage possible, et la deuxième de taille 2 pour avoir deux bornes
-        private TimeSpan[,] m_plageHoraire;
-
-        /// <summary>
-        /// Définit le nombre de plage horaire pour l'action 
-        /// </summary>
-        private int m_nbHoraire;
 
 
         /// <summary>
@@ -102,53 +44,20 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="nom">Nom de l'évènement</param>
         /// <param name="description">Desciption de l'évènement</param>
         /// <param name="duree">Durée de l'évènements (ex: sortie au bar --&gt; 5h)</param>
-        /// <param name="glycemie">Tuple de modification de la glycémie (1: de combien on ajoute, 2: de combien on multiplie)</param>
+        /// <param name="etatInitial">Etat initial nécessaire pour l'action</param>
+        /// <param name="etatFinal">Etat du joueur après l'action</param>
         /// <param name="chanceInit">Le pourcentage de chance que l'évènements se déclenche initialement</param>
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
-        /// <param name="stress">La valeur de modification de stress du joueur</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double chanceInit, bool bloquant, double stress, params TimeSpan[] values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, double[] etatFinal, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
         {
-            m_nom = nom;
-            m_description = description;
-            m_duree = duree;
-            m_modifGlycemie = glycemie.Item2;
-            m_addGlycemie = glycemie.Item1;
+
             m_chanceInit = chanceInit;
             m_bloquant = bloquant;
-            m_addStress = stress;
-            m_nbHoraire = values.Length / 2;
-
-            m_plageHoraire = new TimeSpan[m_nbHoraire, 2];
-            int j = 0;
-            for (int i = 0; i < m_nbHoraire; i++)
-            {
-                m_plageHoraire[i, 0] = values[j];
-                j++;
-                m_plageHoraire[i, 1] = values[j];
-                j++;
-            }
         }
 
-        /// <summary>
-        /// Regarde si une heure est compris dans une plage horaire
-        /// </summary>
-        /// <param name="temps">Heure actuelle de la journée</param>
-        /// <returns>
-        /// L'heure actuelle est dans la plage horaire (true) ou non (false)
-        /// </returns>
-        /// Parcourt la plage horaire de l'évènement, et pour chacune, regarde si l'heure actuelle correspond
-        public bool isTempsDansPlage(TimeSpan temps)
-        {
-            TimeSpan heure = new TimeSpan(temps.Hours, temps.Minutes, temps.Seconds);
-            for (int i = 0; i < m_nbHoraire; i++)
-            {
-                if (heure >= m_plageHoraire[i, 0] && heure < m_plageHoraire[i, 1])
-                    return true;
-            }
-            return false;
-        }
+
 
         /// <summary>
         /// Fonction se déclenchant lorsque l'évènement est lancé
@@ -161,6 +70,13 @@ namespace DiabManager.Metiers.ListeActions
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
             if (m_bloquant)
                 Temps.getInstance().addTime(m_duree);
+
+            //On mets à jour son etat
+            for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
+            {
+                if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                    IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
+            }
         }
 
         /// <summary>
@@ -169,8 +85,43 @@ namespace DiabManager.Metiers.ListeActions
         /// Cette fonction met à jour le taux de glycémie du joueur et également son stress.
         public void duringEvenement()
         {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie), m_addStress);
-            IHM.IHM_Joueur.getJoueur().calculStress(m_addStress);
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]), m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
+        }
+
+        public new static EvenementsAleatoire readAction(string[] fields)
+        {
+            TimeSpan[] plageHoraire = new TimeSpan[30];
+            int j = 0;
+            for (int i = 7; i < fields.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(fields[j]))
+                {
+                    plageHoraire[j] = TimeSpan.Parse(fields[i]);
+                    j++;
+                }
+            }
+            string nom = fields[0];
+            string desc = fields[1];
+            TimeSpan duree = TimeSpan.Parse(fields[2]);
+            //On lit les deux tableaux (etat initial et final)
+            double[] etatInital = new double[4];
+            string ei = Regex.Replace(fields[5], @"[\[\]]+", string.Empty);
+            string[] eiS = ei.Split(',');
+            for (int i = 0; i < eiS.Length; i++)
+                etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
+
+            double[] etatFinal = new double[7];
+            string ef = Regex.Replace(fields[6], @"[\[\]]+", string.Empty);
+            string[] efS = ef.Split(',');
+            for (int i = 0; i < efS.Length; i++)
+                etatFinal[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+
+            double chance = double.Parse(fields[3], CultureInfo.InvariantCulture);
+            bool bloquant = bool.Parse(fields[4]);
+
+            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chance, bloquant, plageHoraire);
         }
     }
 }

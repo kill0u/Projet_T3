@@ -102,42 +102,54 @@ namespace DiabManager
         {
 
             this.BeginInvoke((Action)(() => {
+                //Infos du joueur
                 lblNom.Text = infos[1] + " " + infos[0];
-                if (infos[4] == "H")
+
+                //Infos du stress
+               
+                if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
                 {
-                    if (int.Parse(infos[10]) >= 0 && int.Parse(infos[10]) < 21)
-                    {
-                        lblStress.Text = "Vous etes pas stressé - "+infos[10];
-                    }
-                    if (int.Parse(infos[10]) >= 21 && int.Parse(infos[10]) < 61)
-                    {
-                        lblStress.Text = "Vous etes stressé - " + infos[10];
-                    }
-                    if (int.Parse(infos[10]) >= 61)
-                    {
-                        lblStress.Text = "Vous etes beaucoup stressé - " + infos[10];
-                    }
+                    lblStress.Text = "Vous n'etes pas stressée - " + infos[10];
                 }
-                else
+                if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
                 {
-                    if (int.Parse(infos[10]) >= 0 && int.Parse(infos[10]) < 21)
-                    {
-                        lblStress.Text = "Vous etes pas stressée - " + infos[10];
-                    }
-                    if (int.Parse(infos[10]) >= 21 && int.Parse(infos[10]) < 61)
-                    {
-                        lblStress.Text = "Vous etes stressée - " + infos[10];
-                    }
-                    if (int.Parse(infos[10]) >= 61)
-                    {
-                        lblStress.Text = "Vous etes beaucoup stressée - " + infos[10];
-                    }
+                    lblStress.Text = "Vous etes stressée - " + infos[10];
                 }
-                if (int.Parse(infos[10]) >=90)
+                if (double.Parse(infos[10]) >= 61)
+                {
+                    lblStress.Text = "Vous etes beaucoup stressée - " + infos[10];
+                }
+                
+                if (double.Parse(infos[10]) >=90)
                 {
                     lblStress.Text = "Burnout - " + infos[10];
                 }
+
+                //Infos de glycémie
                 lblGlycemie.Text = infos[9];
+
+                //Infos d'energie
+                double energie = double.Parse(infos[11]);
+                if (energie < 21)
+                {
+                    lblEnergie.Text = "Vous êtes épuisé";
+                }
+                else if (energie < 41)
+                {
+                    lblEnergie.Text = "Vous êtes fatigué";
+                }
+                else if (energie < 61)
+                {
+                    lblEnergie.Text = "Vous êtes un peu fatigué";
+                }
+                else if (energie < 81)
+                {
+                    lblEnergie.Text = "Vous vous sentez légèrement fatigué";
+                }
+                else
+                {
+                    lblEnergie.Text = "Vous êtes en pleine forme";
+                }
             }));
             
         }

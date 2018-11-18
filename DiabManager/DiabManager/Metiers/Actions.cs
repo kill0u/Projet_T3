@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DiabManager.Metiers
@@ -16,7 +18,7 @@ namespace DiabManager.Metiers
         /** Nom de l'action.
          * Le nom de l'action, la décrivant, et permettant de la décrire
          */ 
-        private string m_nom;
+        protected string m_nom;
         public string Nom
         {
             get { return m_nom; }
@@ -25,7 +27,7 @@ namespace DiabManager.Metiers
         /** Description sur l'action.
          * Description longue de l'action
          */ 
-        private string m_description;
+        protected string m_description;
         public string Desc
         {
             get { return m_description;  }
@@ -34,45 +36,81 @@ namespace DiabManager.Metiers
         /** Temps pris par l'action.
          * Chaque action prends du temps à se faire
          */ 
-        private TimeSpan m_duree;
+        protected TimeSpan m_duree;
 
         /** L'action modifie la glycémie d'un certain montant
          * Multiplie la glycémie par ce nombre
          */ 
-        private double m_modifGlycemie;
-        public double ModifGlycemie
-        {
-            get { return m_modifGlycemie; }
-        }
+        //protected double m_modifGlycemie;
+        //public double ModifGlycemie
+        //{
+        //    get { return m_modifGlycemie; }
+        //}
 
-        /** L'action modifie la glycémie d'un certain montant
-         * additionne la glycémie par ce nombre
-         */
-        private double m_addGlycemie;
-        public double AddGlycemie
-        {
-            get { return m_addGlycemie; }
-        }
+        ///** L'action modifie la glycémie d'un certain montant
+        // * additionne la glycémie par ce nombre
+        // */
+        //protected double m_addGlycemie;
+        //public double AddGlycemie
+        //{
+        //    get { return m_addGlycemie; }
+        //}
 
-        /// <summary>
-        /// La valeur de modification du stress du joueur
-        /// </summary>
-        private double m_addStress;
-        public double AddStress
-        {
-            get { return m_addStress; }
-        }
+        ///// <summary>
+        ///// La valeur de modification du stress du joueur
+        ///// </summary>
+        //protected double m_addStress;
+        //public double AddStress
+        //{
+        //    get { return m_addStress; }
+        //}
 
         /// <summary>
         /// Définit la plage horaire de disponibilités pour une action
         /// </summary>
         /// La plage horaire est définit sur un tableau à deux dimensions, la premiere pour le nombre de plage possible, et la deuxième de taille 2 pour avoir deux bornes
-        private TimeSpan[,] m_plageHoraire;
+        protected TimeSpan[,] m_plageHoraire;
 
         /// <summary>
         /// Définit le nombre de plage horaire pour l'action 
         /// </summary>
-        private int m_nbHoraire;
+        protected int m_nbHoraire;
+
+
+
+        /// <summary>
+        /// Etat nécessaire pour réaliser l'action
+        /// </summary>
+        /// Case 0: Energie nécessaire
+        /// Pour le reste des cases, on a : 
+        /// - 0 --> le joueur ne doit pas avoir cette caractéristique active
+        /// - 1 --> le joueur peut avoir cette caractéristique active
+        /// - 2 --> le joueur doit avoir cette caractéristique active
+        /// Case 1: Ne fais rien
+        /// Case 2: Est malade
+        /// Case 3: Est au travail
+        protected double[] m_etatInitial = new double[4];
+        
+
+        /// <summary>
+        /// Etat final après avoir réalisé l'action
+        /// </summary>
+        /// Case 0: Perte d'énergie (entre -100 et 100 --> -100 on augmente de 100 l'énergie, et 100 on diminue de 100)
+        /// Case 1: Glycémie --> Multiplie la glycémie par ce nombre
+        /// Case 2: Glycémie --> Additionne la glycémie par ce nombre
+        /// Case 3: Stress --> Additionne le stress par ce nombre
+        /// Pour le reste des cases, on a : 
+        /// - 0 --> le joueur n'est pas dans cette état
+        /// - 1 --> le joueur est dans cette état
+        /// - 2 --> le joueur reste dans l'état dans lequel il était avant
+        /// Case 4: Ne fais rien
+        /// Case 5: Est malade
+        /// Case 6: Est au travail
+        protected double[] m_etatFinal = new double[7];
+        public double[] EtatFinal
+        {
+            get { return m_etatFinal; }
+        }
 
 
         /// <summary>
@@ -81,18 +119,20 @@ namespace DiabManager.Metiers
         /// <param name="nom">Nom de l'action</param>
         /// <param name="description">Description longue de l'action</param>
         /// <param name="duree">Durée de l'action</param>
-        /// <param name="glycemie">Modification de la glycémie (addition et multiplication)</param>
-        /// <param name="stress">La valeur de modification du stress</param>
+        /// <param name="etatInitial">Etat initial nécessaire pour l'action</param>
+        /// <param name="etatFinal">Etat du joueur après l'action</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
         /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
-        public Actions(string nom, string description, TimeSpan duree, Tuple<double, double> glycemie, double stress, params TimeSpan[] values) 
+        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial, double[] etatFinal, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
             m_duree = duree;
-            m_modifGlycemie = glycemie.Item2;
-            m_addGlycemie = glycemie.Item1;
-            m_addStress = stress;
+
+            m_etatInitial = etatInitial;
+
+            m_etatFinal = etatFinal;
+
             m_nbHoraire = values.Length / 2;
 
             m_plageHoraire = new TimeSpan[m_nbHoraire, 2];
@@ -131,11 +171,74 @@ namespace DiabManager.Metiers
         /// Lorsqu'on clique sur un bouton, on effectue l'action correspondante, dépendant du type de l'action
         public void makeAction()
         {
+            //On modifie les données du joueur 
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]),m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
 
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_addGlycemie, m_modifGlycemie),m_addStress);
-            IHM.IHM_Joueur.getJoueur().calculStress(m_addStress);
+            //On mets à jour son etat
+            for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
+            {
+                if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                    IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
+            }
+           
+
             Temps.getInstance().addTime(m_duree);
 
+        }
+
+        /// <summary>
+        /// Charge l'action depuis un la ligne du fichier
+        /// </summary>
+        /// <param name="fields">Ligne du fichier</param>
+        /// <returns>L'action créée</returns>
+        public static Actions readAction(string[] fields)
+        {
+            TimeSpan[] plageHoraire = new TimeSpan[30];
+            int j = 0;
+            for (int i = 6; i < fields.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(fields[j]))
+                {
+                    plageHoraire[j] = TimeSpan.Parse(fields[i]);
+                    j++;
+                }
+            }
+            string nom = fields[1];
+            string desc = fields[2];
+            TimeSpan duree = TimeSpan.Parse(fields[3]);
+
+            //On lit les deux tableaux (etat initial et final)
+            double[] etatInital = new double[4];
+            string ei = Regex.Replace(fields[4], @"[\[\]]+", string.Empty);
+            string[] eiS = ei.Split(',');
+            for (int i = 0; i < eiS.Length; i++)
+                etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
+
+            double[] etatFinal = new double[7];
+            string ef = Regex.Replace(fields[5], @"[\[\]]+", string.Empty);
+            string[] efS = ef.Split(',');
+            for (int i = 0; i < efS.Length; i++)
+                etatFinal[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+            
+                
+
+            return new Actions(nom, desc, duree, etatInital, etatFinal, plageHoraire);
+        }
+
+        public bool isCompatible(Joueur j)
+        {
+            if (m_etatInitial[0] > j.Energie) //Vérifie l'energie
+                return false;
+            for(int i = 0; i < j.Etat.Length; i++) //Vérifie tous les états du joueur
+            {
+                if ((m_etatInitial[i+1] == 0 && j.Etat[i] == 1) || (m_etatInitial[i+1] == 2 && j.Etat[i] == 0))
+                    return false;
+            }
+            
+
+            return true;
         }
     }
 }

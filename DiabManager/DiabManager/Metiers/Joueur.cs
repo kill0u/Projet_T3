@@ -98,6 +98,25 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
+        /// Energie restante du joueur
+        /// </summary>
+        private double m_energie;
+        public double Energie { get { return m_energie; } }
+
+        /// <summary>
+        /// Etat du joueur
+        /// </summary>
+        /// Etat 0: Ne fais rien
+        /// Etat 1: Est malade
+        /// Etat 2: Est au travail
+        private double[] m_etat = new double[3];
+        public double[] Etat
+        {
+            get { return m_etat; }
+            set { m_etat = value; }
+        }
+
+        /// <summary>
         /// Le constructeur d'un joueur.
         /// </summary>
         /// <param name="nom">Le nom de famille du joueur. En string.</param>
@@ -122,6 +141,13 @@ namespace DiabManager.Metiers
             this.m_glycemieObjectifBas = glycemieObjectifBas;
             this.m_glycemieObjectifHaut = glycemieObjectifHaut;
             this.m_stress = stress;
+
+            //De base le joueur est en forme, le premier matin
+            m_energie = 100;
+
+            m_etat[0] = 0;
+            m_etat[1] = 0;
+            m_etat[2] = 0;
         }
 
         /**
@@ -162,5 +188,18 @@ namespace DiabManager.Metiers
             else if (this.m_stress + stress >= 100) { this.m_stress = 100; }
             else { this.m_stress += stress; }
         }
+
+        /// <summary>
+        /// Calcul l'énergie du joueur
+        /// </summary>
+        /// <param name="energie">Modification de l'énergie</param>
+        public void calculEnergie(double energie)
+        {
+            if (this.m_energie - energie < 0) { this.m_energie = 0; }
+            else if (this.m_energie - energie >= 100) { this.m_energie = 100; }
+            else { this.m_energie -= energie; }
+        }
+
+
     }
 }

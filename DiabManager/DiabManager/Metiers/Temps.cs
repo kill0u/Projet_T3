@@ -149,9 +149,9 @@ namespace DiabManager.Metiers
                         m_destTime = new TimeSpan(-1, 0, 0);
                         changeSpeed(m_coeffVitesse);
                         IHM.IHM_Actions.SetAction("");
+
                     }
                 }
-
                 //On regarde si le joueur est en dehors des taux possibles pendant plus de 6 heures
                 if (IHM.IHM_Joueur.getJoueur().GlycemieCourante < m_gMin)
                 {
