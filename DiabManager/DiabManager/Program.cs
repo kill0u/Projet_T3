@@ -18,9 +18,6 @@ namespace DiabManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MiniJeu.JeuCaPousse frm = new MiniJeu.JeuCaPousse();
-            frm.ShowDialog();
-            /*
             frmMenu Menu = new frmMenu();
             Application.Run(Menu);
             //IHM_Joueur.addJoueur(new Metiers.Joueur("Krebs",21,"leo", 'H', 180, 65.5, 2.5, 0.8, 1.3)); //Doit etre fait dans le menu avec les infos entré
@@ -38,7 +35,7 @@ namespace DiabManager
                 partie.Demarrer(jeu);
 
                 jeu.ShowDialog();
-            }*/
+            }
 
         }
     }
