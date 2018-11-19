@@ -140,8 +140,14 @@ namespace DiabManager.Metiers
         public void Fin(bool res)
         {
             m_updateTimer.Stop();
-            frmFinJeu finjeu = new frmFinJeu();
-            finjeu.ShowDialog();
+            Temps.getInstance().endTimer();
+            m_jeu.BeginInvoke((Action)(() => {
+                m_jeu.Hide();
+                frmFinJeu finJeu = new frmFinJeu(res);
+                finJeu.ShowDialog();
+                m_jeu.Close();
+            }));
+            
         }
     }
 }

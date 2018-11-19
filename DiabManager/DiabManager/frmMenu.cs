@@ -130,6 +130,8 @@ namespace DiabManager
             this.Controls.Add(btnLancerTuto);
         }
 
+
+
         #region evenements
         //events
         /// <summary>

@@ -228,5 +228,11 @@ namespace DiabManager.Metiers
         {
             return m_tempsInstance;
         }
+
+        public void endTimer()
+        {
+            m_dayTimer.Stop();
+            m_dayTimer.Close();
+        }
     }
 }
