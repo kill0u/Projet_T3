@@ -113,9 +113,18 @@ namespace DiabManager.Gestionnaires
                     string line = reader.ReadLine();
                     if(!string.IsNullOrWhiteSpace(line)) { 
                         string[] fields = line.Split(';');
-                        
-
-                        AddAction(Actions.readAction(fields));
+                        if (fields[0] == "Nourriture")
+                        {
+                            AddAction(Nourriture.readAction(fields));
+                        }
+                        else if(fields[0] == "Sport")
+                        {
+                            AddAction(Sport.readAction(fields));
+                        }
+                        else
+                        {
+                            AddAction(Actions.readAction(fields));
+                        }
                     }
                 }
             }
