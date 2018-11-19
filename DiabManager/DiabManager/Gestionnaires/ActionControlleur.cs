@@ -117,6 +117,10 @@ namespace DiabManager.Gestionnaires
                         {
                             AddAction(Nourriture.readAction(fields));
                         }
+                        else if(fields[0] == "Sport")
+                        {
+                            AddAction(Sport.readAction(fields));
+                        }
                         else
                         {
                             AddAction(Actions.readAction(fields));
