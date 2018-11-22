@@ -29,15 +29,17 @@ namespace DiabManager.Metiers
         /// Heure de fin de l'action (ou évènement) en cours
         /// </summary>
         private TimeSpan m_destTime = new TimeSpan(-1,0,0);
+        
+
+        private bool m_actionEnCours = false;
         public bool isActionEnCours
         {
-            get { return m_destTime.Hours >= 0; }
+            get { return m_actionEnCours; }
         }
-
 
         /** Récupère l'instance de la partie actuelle.
          * Permet de savoir à quel partie se réfère le temps actuel (la partie s'initialise lors de la mise en marche du timer)
-         */ 
+         */
         private Partie m_partie;
 
 
@@ -141,17 +143,7 @@ namespace DiabManager.Metiers
                 //On ajoute le temps 
                 m_time = m_time.Add(new TimeSpan(0, 10, 0));
 
-                //on regarde si on est en train de passer une action (ie on est en train de faire avancer le temps vite)
-                if (m_destTime.Hours >= 0) 
-                {
-                    if(m_time >= m_destTime)//on a finit d'effectuer notre action, on remet le défilement du temps normal
-                    {
-                        m_destTime = new TimeSpan(-1, 0, 0);
-                        changeSpeed(m_coeffVitesse);
-                        IHM.IHM_Actions.SetAction("");
 
-                    }
-                }
                 //On regarde si le joueur est en dehors des taux possibles pendant plus de 6 heures
                 if (IHM.IHM_Joueur.getJoueur().GlycemieCourante < m_gMin)
                 {
@@ -187,6 +179,9 @@ namespace DiabManager.Metiers
             //On mets à jour les actions disponibles (vues que l'heure à changé)
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
 
+            //On regarde si une action est en cours, et si oui, on fait son effet
+            Gestionnaires.ActionControlleur.getInstance().DuringAction();
+
             //On déclenche potentiellement des événements aléatoires
             Gestionnaires.ActionControlleur.getInstance().CalcEvenement(m_time);
 
@@ -215,10 +210,25 @@ namespace DiabManager.Metiers
         public void addTime(TimeSpan temps)
         {
 
-            m_dayTimer.Interval = 200;
+           
 
             m_destTime = m_time.Add(temps);
 
+        }
+
+        public void swapAction()
+        {
+            if (m_actionEnCours) //On vient de finir notre action
+            {
+                m_actionEnCours = false;
+                changeSpeed(m_coeffVitesse);
+                IHM.IHM_Actions.SetAction("");
+            }
+            else //On vient de commencer une action
+            {
+                m_dayTimer.Interval = 200;
+                m_actionEnCours = true;
+            }
         }
 
         /** Renvoie l'instance de temps actuel

@@ -69,8 +69,10 @@ namespace DiabManager.IHM
                     }
                 }
                 SetAction(action.Nom + ": " + action.Desc);
+                //On notifie action controlleur qu'un action s'est lancé
+                m_actionControlleur.ActionActive = action;
                 //Réalise le code de l'action
-                action.makeAction();
+                action.makeAction(Temps.getInstance().getHeureJournee());
             }
         }
 

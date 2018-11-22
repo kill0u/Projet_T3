@@ -14,12 +14,7 @@ namespace DiabManager.Metiers.ListeActions
     class EvenementsAleatoire : Actions
     {
 
-        /// <summary>
-        /// Heure de fin de l'action (calculer en additionnant la durée et l'heure de début de l'évènement)
-        /// </summary>
-        private TimeSpan m_endTime;
-        public TimeSpan EndTime {  get { return m_endTime; } }
-
+       
 
 
         /// <summary>
@@ -63,13 +58,16 @@ namespace DiabManager.Metiers.ListeActions
         /// Fonction se déclenchant lorsque l'évènement est lancé
         /// </summary>
         /// <param name="start">Heure de début de l'évènement</param>
-        public void makeEvenement(TimeSpan start)
+       public new void makeAction(TimeSpan start)
         {
             m_endTime = start.Add(m_duree);
 
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
             if (m_bloquant)
-                Temps.getInstance().addTime(m_duree);
+            {
+                //Temps.getInstance().addTime(m_duree);
+            }
+
 
             //On mets à jour son etat
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
@@ -77,18 +75,20 @@ namespace DiabManager.Metiers.ListeActions
                 if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
                     IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
             }
+
+            Temps.getInstance().swapAction();
         }
 
         /// <summary>
         /// Fonction se déclenchant tant que l'événement est actif
         /// </summary>
         /// Cette fonction met à jour le taux de glycémie du joueur et également son stress.
-        public void duringEvenement()
+      /*  public void duringEvenement()
         {
             IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]), m_etatFinal[3]);
             IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
             IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
-        }
+        }*/
 
         public new static EvenementsAleatoire readAction(string[] fields)
         {

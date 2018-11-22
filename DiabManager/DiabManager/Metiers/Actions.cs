@@ -38,32 +38,13 @@ namespace DiabManager.Metiers
          */ 
         protected TimeSpan m_duree;
 
-        /** L'action modifie la glycémie d'un certain montant
-         * Multiplie la glycémie par ce nombre
-         */ 
-        //protected double m_modifGlycemie;
-        //public double ModifGlycemie
-        //{
-        //    get { return m_modifGlycemie; }
-        //}
 
-        ///** L'action modifie la glycémie d'un certain montant
-        // * additionne la glycémie par ce nombre
-        // */
-        //protected double m_addGlycemie;
-        //public double AddGlycemie
-        //{
-        //    get { return m_addGlycemie; }
-        //}
+        /// <summary>
+        /// Heure de fin de l'action (calculer en additionnant la durée et l'heure de début de l'évènement)
+        /// </summary>
+        protected TimeSpan m_endTime;
+        public TimeSpan EndTime { get { return m_endTime; } }
 
-        ///// <summary>
-        ///// La valeur de modification du stress du joueur
-        ///// </summary>
-        //protected double m_addStress;
-        //public double AddStress
-        //{
-        //    get { return m_addStress; }
-        //}
 
         /// <summary>
         /// Définit la plage horaire de disponibilités pour une action
@@ -169,22 +150,35 @@ namespace DiabManager.Metiers
         /// Effectue l'action
         /// </summary>
         /// Lorsqu'on clique sur un bouton, on effectue l'action correspondante, dépendant du type de l'action
-        public void makeAction()
+        public void makeAction(TimeSpan start)
         {
-            //On modifie les données du joueur 
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]),m_etatFinal[3]);
-            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
-            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
+            m_endTime = start.Add(m_duree);
 
+            
             //On mets à jour son etat
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
             {
                 if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
                     IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
             }
-           
 
-            Temps.getInstance().addTime(m_duree);
+
+            Temps.getInstance().swapAction();
+
+        }
+
+        public bool isFinished(TimeSpan temps)
+        {
+            return m_endTime < temps;
+                
+        }
+
+        public void duringAction()
+        {
+            //On modifie les données du joueur 
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]), m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
 
         }
 
