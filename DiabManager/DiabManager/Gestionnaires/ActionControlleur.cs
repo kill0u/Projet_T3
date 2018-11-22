@@ -47,6 +47,9 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         private Temps m_temps = Temps.getInstance();
 
+        private Actions m_actionActive = null;
+        public Actions ActionActive { set { m_actionActive = value; } }
+
         /// <summary>
         /// Constructeur privé, pour éviter une instanciation de <see cref="ActionControlleur"/> .
         /// </summary>
@@ -93,6 +96,26 @@ namespace DiabManager.Gestionnaires
             IHM.IHM_Actions.UpdateButton();
 
         }
+
+        /// <summary>
+        /// On regarde si une action est en cours, si oui on effectue son effet
+        /// </summary>
+        public void DuringAction()
+        {
+            if (m_actionActive != null)
+            {
+                m_actionActive.duringAction();
+
+                if (m_actionActive.isFinished(m_temps.getHeureJournee())) //On regarde si l'action est fini
+                {
+                    m_actionActive = null;
+                    m_temps.swapAction();
+                }
+                   
+            }
+               
+        }
+
 
         /// <summary>
         /// Charge toutes les actions disponibles, depuis un fichier de configuration
@@ -179,7 +202,7 @@ namespace DiabManager.Gestionnaires
             {
                 if(e.Value)
                 {
-                    e.Key.duringEvenement();
+                    e.Key.duringAction();
                     descActive += e.Key.Nom + ": " + e.Key.Desc + "\n";
                 }
             }
@@ -212,7 +235,7 @@ namespace DiabManager.Gestionnaires
                             {
                                 //On lance l'évènement
                                 m_listEvent[e.Key] = true;
-                                e.Key.makeEvenement(temps);
+                                e.Key.makeAction(temps);
                             }
                         }
                     }

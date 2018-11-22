@@ -35,9 +35,9 @@ namespace DiabManager.Metiers.ListeActions
             m_poids = poids;
         }
 
-        public new void makeAction()
+        public new void makeAction(TimeSpan temps)
         {
-            base.makeAction();
+            base.makeAction(temps);
             if (IHM.IHM_Joueur.getJoueur().Poids + m_poids > 30 && IHM.IHM_Joueur.getJoueur().Poids < 500)
             {
                 IHM.IHM_Joueur.getJoueur().Poids += m_poids;
