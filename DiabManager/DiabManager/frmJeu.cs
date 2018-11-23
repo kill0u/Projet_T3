@@ -112,20 +112,20 @@ namespace DiabManager
                
                 if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
                 {
-                    lblStress.Text = "Vous n'etes pas stressée - " + infos[10];
+                    lblStress.Text = "Vous n'etes pas stressée";
                 }
                 if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
                 {
-                    lblStress.Text = "Vous etes stressée - " + infos[10];
+                    lblStress.Text = "Vous etes stressée";
                 }
                 if (double.Parse(infos[10]) >= 61)
                 {
-                    lblStress.Text = "Vous etes beaucoup stressée - " + infos[10];
+                    lblStress.Text = "Vous etes beaucoup stressée";
                 }
                 
                 if (double.Parse(infos[10]) >=90)
                 {
-                    lblStress.Text = "Burnout - " + infos[10];
+                    lblStress.Text = "Burnout";
                 }
 
                 //Infos de glycémie

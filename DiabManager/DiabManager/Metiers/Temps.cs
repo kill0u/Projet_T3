@@ -188,7 +188,8 @@ namespace DiabManager.Metiers
             //On regarde si des événement aléatoires sont en cours
             Gestionnaires.ActionControlleur.getInstance().UpdateEvenement();
 
-
+            //On update le graph
+            IHM.IHM_Joueur.UpdateGraph();
 
             //On update le temps de l'affichage
             IHM.IHM_Actions.updateTemps(m_time);
