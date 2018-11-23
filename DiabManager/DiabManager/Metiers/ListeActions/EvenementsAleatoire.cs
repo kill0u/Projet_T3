@@ -65,7 +65,8 @@ namespace DiabManager.Metiers.ListeActions
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
             if (m_bloquant)
             {
-                //Temps.getInstance().addTime(m_duree);
+                Temps.getInstance().swapAction();
+
             }
 
 
@@ -76,7 +77,6 @@ namespace DiabManager.Metiers.ListeActions
                     IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
             }
 
-            Temps.getInstance().swapAction();
         }
 
         /// <summary>

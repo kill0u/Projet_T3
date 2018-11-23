@@ -77,11 +77,11 @@ namespace DiabManager.IHM
             string[] infos = getInfos();
             m_frm.setInfosJoueur(infos);
             m_frm.modifStyloInsuline();
-            UpdateGraph();
+            
 
         }
 
-        private static void UpdateGraph()
+        public static void UpdateGraph()
         {
             m_frm.BeginInvoke((Action)(() => {
 
