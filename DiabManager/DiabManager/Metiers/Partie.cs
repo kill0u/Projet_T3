@@ -103,8 +103,10 @@ namespace DiabManager.Metiers
             
         }
 
-        
 
+        private Boolean m_matin = true;
+        private Boolean m_midi = true;
+        private Boolean m_soir = true;
         /**Evènements lancé à chaque tick du timer.
          * Fonction à exécuté à chaque tick du timer, mettre à jour les infos.
          */
@@ -113,23 +115,29 @@ namespace DiabManager.Metiers
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
             if (double.Parse(IHM.IHM_Joueur.getInfos()[9])> double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]) || double.Parse(IHM.IHM_Joueur.getInfos()[9]) < double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0])) { jobj = 0; }
-            if (Temps.getInstance().getHeureJournee().Hours == 7 && Temps.getInstance().getHeureJournee().Minutes == 0)
+            if (Temps.getInstance().getHeureJournee().Hours == 7 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_matin)
             {
                 this.m_jeu.Gp.ColorTop = Color.Plum;
                 this.m_jeu.Gp.ColorBottom = Color.Orchid;
                 this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));
+                m_matin = false;
+                m_midi = true;
             }
-            if (Temps.getInstance().getHeureJournee().Hours == 12 && Temps.getInstance().getHeureJournee().Minutes == 0)
+            if (Temps.getInstance().getHeureJournee().Hours == 12 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_midi)
             {
                 this.m_jeu.Gp.ColorTop = Color.LightSteelBlue;
                 this.m_jeu.Gp.ColorBottom = Color.MediumSpringGreen;
                 this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));
+                m_midi = false;
+                m_soir = true;
             }
-            if (Temps.getInstance().getHeureJournee().Hours == 20 && Temps.getInstance().getHeureJournee().Minutes == 0)
+            if (Temps.getInstance().getHeureJournee().Hours == 20 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_soir)
             {
                 this.m_jeu.Gp.ColorTop = Color.Indigo;
                 this.m_jeu.Gp.ColorBottom = Color.MidnightBlue;
                 this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));
+                m_soir = false;
+                m_matin = true;
             }
             
         }
