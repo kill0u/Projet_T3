@@ -150,7 +150,7 @@ namespace DiabManager
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void LancerPart_Click(object sender, EventArgs e)
         {
-            affDifficulte();
+            affFormJoueur();
         }
         /// <summary>
         /// Handles the Click event of the btnLancerTuto control.
@@ -168,15 +168,15 @@ namespace DiabManager
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnRetour_Click(object sender, EventArgs e)
         {
-            if (!btnLancerTuto.Visible && btndFacile.Visible)
+            /*if (!btnLancerTuto.Visible && btndFacile.Visible)
             {
                 btndFacile.Visible = false;
                 btndDifficile.Visible = false;
                 btnLancerTuto.Visible = true;
                 btnLancePart.Visible = true;
                 btnRetour.Visible = false;
-            }
-            if(!btnLancerTuto.Visible && !btndFacile.Visible)
+            }*/
+            if(!btnLancerTuto.Visible /*&& !btndFacile.Visible*/)
             {
                 grbSexe.Visible = false;
                 foreach (TextBox c in this.Controls.OfType<TextBox>())
@@ -192,8 +192,11 @@ namespace DiabManager
                 btnProfil2.Visible = false;
                 btnProfil3.Visible = false;
                 btnValider.Visible = false;
-                btndDifficile.Visible = true;
-                btndFacile.Visible = true;
+                //btndDifficile.Visible = true;
+                //btndFacile.Visible = true;
+                btnLancerTuto.Visible = true;
+                btnLancePart.Visible = true;
+                btnRetour.Visible = false;
             }
         }
         /// <summary>
@@ -358,8 +361,10 @@ namespace DiabManager
         /// </summary>
         private void affFormJoueur()
         {
-            btndDifficile.Visible = false;
-            btndFacile.Visible = false;
+            //btndDifficile.Visible = false;
+            //btndFacile.Visible = false;
+            btnLancePart.Visible = false;
+            btnLancerTuto.Visible = false;
             int x = 350;
             int y = 140;
             p = new Point(706, 149);
@@ -459,6 +464,7 @@ namespace DiabManager
             #endregion
 
             grbSexe.Visible = true;
+            btnRetour.Visible = true;
             btnValider.Visible = true;
             btnProfil1.Visible = true;
             btnProfil2.Visible = true;
