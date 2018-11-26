@@ -45,7 +45,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, double[] etatFinal, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
         {
 
             m_chanceInit = chanceInit;
@@ -73,8 +73,11 @@ namespace DiabManager.Metiers.ListeActions
             //On mets à jour son etat
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
             {
-                if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
-                    IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
+                foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
+                {
+                    if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                        IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4];
+                }
             }
 
         }
