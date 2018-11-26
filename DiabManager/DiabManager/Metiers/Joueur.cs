@@ -172,10 +172,47 @@ namespace DiabManager.Metiers
          */ 
         public void calculGlycemieCourante(Tuple<double,double> glycemie)
         {
-            //this.m_imc
-            this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+            if (glycemie.Item1 > 0) //Dans le cas où on augmente la glycémie
+            {
+                if (this.getImc() < 18.5) //Dans le cas où on est en sous poids
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2;
+                }
+                else if (this.getImc() >= 18.5 && this.getImc() <= 25) //Dans le cas où on est en poids normal
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                }
+                else //Dans le cas où on est en surpoids
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2;
+                }
+            }
+            else if (glycemie.Item1 < 0) //Dans le cas où on baisse la glycémie
+            {
+                if (this.getImc() < 18.5) //Dans le cas où on est en sous poids
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2;
+                }
+                else if (this.getImc() >= 18.5 && this.getImc() <= 25) //Dans le cas où on est en poids normal
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                }
+                else //Dans le cas où on est en surpoids
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2;
+                }
+            }
+            else //Dans le cas ou la glycémie possède l'élément neutre (addition)
+            {
+                this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+            }
+
         }
 
+        /// <summary>
+        /// Le calcul du stress du joueur.
+        /// </summary>
+        /// <param name="stress">La valeur de stress a ajouter/diminuer de la valeur courante de stress.</param>
         public void calculStress(double stress)
         {
             if (this.m_stress + stress < 0) { this.m_stress = 0; }
