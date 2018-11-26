@@ -176,35 +176,85 @@ namespace DiabManager.Metiers
             {
                 if (this.getImc() < 18.5) //Dans le cas où on est en sous poids
                 {
-                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2;
+                    if((this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2 < 0)
+                    {
+                        this.m_glycemieCourante = 0;
+                    }
+                    else
+                    {
+                        this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2;
+                    }
                 }
                 else if (this.getImc() >= 18.5 && this.getImc() <= 25) //Dans le cas où on est en poids normal
                 {
-                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                    if ((this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2< 0)
+                    {
+                        this.m_glycemieCourante = 0;
+                    }
+                    else
+                    {
+                        this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                    }
+                    
                 }
                 else //Dans le cas où on est en surpoids
                 {
-                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2;
+                    if ((this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2< 0)
+                    {
+                        this.m_glycemieCourante = 0;
+                    }
+                    else
+                    {
+                        this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2;
+                    }
                 }
             }
             else if (glycemie.Item1 < 0) //Dans le cas où on baisse la glycémie
             {
                 if (this.getImc() < 18.5) //Dans le cas où on est en sous poids
                 {
-                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2;
+                    if ((this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2< 0)
+                    {
+                        this.m_glycemieCourante = 0;
+                    }
+                    else
+                    {
+                        this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 - 0.04) * glycemie.Item2;
+                    }
                 }
                 else if (this.getImc() >= 18.5 && this.getImc() <= 25) //Dans le cas où on est en poids normal
                 {
-                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                    if ((this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2< 0)
+                    {
+                        this.m_glycemieCourante = 0;
+                    }
+                    else
+                    {
+                        this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                    }
                 }
                 else //Dans le cas où on est en surpoids
                 {
-                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2;
+                    if ((this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2< 0)
+                    {
+                        this.m_glycemieCourante = 0;
+                    }
+                    else
+                    {
+                        this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1 + 0.04) * glycemie.Item2;
+                    }
                 }
             }
             else //Dans le cas ou la glycémie possède l'élément neutre (addition)
             {
-                this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                if((this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2 < 0)
+                {
+                    this.m_glycemieCourante = 0;
+                }
+                else
+                {
+                    this.m_glycemieCourante = (this.m_glycemieCourante + glycemie.Item1) * glycemie.Item2;
+                }
             }
 
         }
