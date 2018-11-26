@@ -502,7 +502,7 @@ namespace DiabManager
             double glycemieObjBas = double.Parse(txtObjGlycBas.Text);
             double glycemieObjHaut = double.Parse(txtObjGlycHaut.Text);
 
-            IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
+            IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, new string[]{"normal"} ,nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
         }
         /// <summary>
         /// Checks the formulaire.

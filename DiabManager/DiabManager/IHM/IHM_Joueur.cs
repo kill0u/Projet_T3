@@ -60,7 +60,7 @@ namespace DiabManager.IHM
             infos[5] = m_j.Age.ToString();
             infos[6] = m_j.ProfilPhysique;
             infos[7] = m_j.GlycemieObjectifBas.ToString("F2") +" - "+m_j.GlycemieObjectifHaut;
-            infos[8] = m_j.GlycemieMatin.ToString("F2");
+            infos[8] = "";
             infos[9] = m_j.GlycemieCourante.ToString("F2");
             infos[10] = m_j.Stress.ToString();
             infos[11] = m_j.Energie.ToString();
@@ -94,8 +94,8 @@ namespace DiabManager.IHM
                     chart1.Series[3].Points.RemoveAt(0);
                     chart1.Series[4].Points.RemoveAt(0);
                 }
-                chart1.Series[0].Points.AddY((double)10);//Temps.getInstance().gMax);
-                chart1.Series[1].Points.AddY((double)0);//Temps.getInstance().gMin);
+                chart1.Series[0].Points.AddY(Temps.getInstance().gMax);
+                chart1.Series[1].Points.AddY(Temps.getInstance().gMin);
                 chart1.Series[2].Points.AddY(double.Parse(getInfos()[7].Split('-')[1]));
                 chart1.Series[3].Points.AddY(double.Parse(getInfos()[7].Split('-')[0]));
                 chart1.Series[4].Points.AddY(double.Parse(getInfos()[9]));

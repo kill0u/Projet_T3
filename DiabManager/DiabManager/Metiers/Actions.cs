@@ -88,11 +88,10 @@ namespace DiabManager.Metiers
         /// Case 5: Est malade
         /// Case 6: Est au travail
         protected Dictionary<string, double[]> m_etatFinalCharac = new Dictionary<string, double[]>();
-        /*protected double[] m_etatFinal = new double[7];
-        public double[] EtatFinal
+        public Dictionary<string, double[]> EtatFinalCharac
         {
-            get { return m_etatFinal; }
-        }*/
+            get { return m_etatFinalCharac; }
+        }
 
 
         /// <summary>
@@ -198,7 +197,7 @@ namespace DiabManager.Metiers
             mStress /= IHM.IHM_Joueur.getJoueur().Personalite.Length;
 
             //On modifie les données du joueur 
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(mGlycAdd, mGlycMult), 0);
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(mGlycAdd, mGlycMult));
             IHM.IHM_Joueur.getJoueur().calculStress(mStress);
             IHM.IHM_Joueur.getJoueur().calculEnergie(mEnergie);
 
@@ -211,9 +210,23 @@ namespace DiabManager.Metiers
         /// <returns>L'action créée</returns>
         public static Actions readAction(string[] fields)
         {
+            Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
+            int k = 5;
+            while (fields[k].Contains(":["))
+            {            
+                string nomCharac = fields[k].Split(':')[0];
+                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                string[] efS = ef.Split(',');
+                double[] carac = new double[efS.Length];
+                for (int i = 0; i < efS.Length; i++)
+                     carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+                etatFinal.Add(nomCharac, carac);
+                k++;
+            }
+
             TimeSpan[] plageHoraire = new TimeSpan[30];
             int j = 0;
-            for (int i = 6; i < fields.Length; i++)
+            for (int i = k; i < fields.Length; i++)
             {
                 if (!string.IsNullOrWhiteSpace(fields[j]))
                 {
@@ -232,17 +245,9 @@ namespace DiabManager.Metiers
             for (int i = 0; i < eiS.Length; i++)
                 etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
 
-            int j = 5;
-            while(fields[i].Contains(":"))
-            {
+            
 
-            }
-
-            double[] etatFinal = new double[7];
-            string ef = Regex.Replace(fields[5], @"[\[\]]+", string.Empty);
-            string[] efS = ef.Split(',');
-            for (int i = 0; i < efS.Length; i++)
-                etatFinal[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+            
             
                 
 
