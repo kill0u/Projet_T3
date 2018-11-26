@@ -91,6 +91,13 @@ namespace DiabManager.Metiers
             get { return m_stress; }
             set { this.m_stress = value; }
         }
+        /*type de profil dispo {"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif"}*/
+        private string[] m_personalite = {};
+        public string[] Personalite
+        {
+            get { return m_personalite; }
+            set { this.m_personalite = value; }
+        }
 
         /// <summary>
         /// Energie restante du joueur
@@ -124,7 +131,7 @@ namespace DiabManager.Metiers
         /// <param name="glycemieObjectifBas">La valeur basse de l'objectif du taux de glycémie du joueur. En double.</param>
         /// <param name="glycemieObjectifHaut">La valeur haute de l'objectif du taux de glycémie du joueur. En double.</param>
         /// <param name="stress">La valeur de stress du joueur. En double.</param>
-        public Joueur(string nom, int age,string prenom, char sexe, int taille, double poids, double glycemie, double glycemieObjectifBas, double glycemieObjectifHaut, double stress)
+        public Joueur(string nom, int age,string[] personalite,string prenom, char sexe, int taille, double poids, double glycemie, double glycemieObjectifBas, double glycemieObjectifHaut, double stress)
         {
             this.m_nom = nom;
             this.m_age = age;
@@ -136,6 +143,7 @@ namespace DiabManager.Metiers
             this.m_glycemieObjectifBas = glycemieObjectifBas;
             this.m_glycemieObjectifHaut = glycemieObjectifHaut;
             this.m_stress = stress;
+            this.m_personalite = personalite;
 
             //De base le joueur est en forme, le premier matin
             m_energie = 100;
