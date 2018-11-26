@@ -45,7 +45,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, double[] etatFinal, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
         {
 
             m_chanceInit = chanceInit;
@@ -73,28 +73,36 @@ namespace DiabManager.Metiers.ListeActions
             //On mets à jour son etat
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
             {
-                if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
-                    IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
+                foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
+                {
+                    if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                        IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4];
+                }
             }
 
         }
 
-        /// <summary>
-        /// Fonction se déclenchant tant que l'événement est actif
-        /// </summary>
-        /// Cette fonction met à jour le taux de glycémie du joueur et également son stress.
-      /*  public void duringEvenement()
-        {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]), m_etatFinal[3]);
-            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
-            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
-        }*/
 
         public new static EvenementsAleatoire readAction(string[] fields)
         {
+
+            Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
+            int k = 6;
+            while (fields[k].Contains(":["))
+            {
+                string nomCharac = fields[k].Split(':')[0];
+                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                string[] efS = ef.Split(',');
+                double[] carac = new double[efS.Length];
+                for (int i = 0; i < efS.Length; i++)
+                    carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+                etatFinal.Add(nomCharac, carac);
+                k++;
+            }
+
             TimeSpan[] plageHoraire = new TimeSpan[30];
             int j = 0;
-            for (int i = 7; i < fields.Length; i++)
+            for (int i = k; i < fields.Length; i++)
             {
                 if (!string.IsNullOrWhiteSpace(fields[j]))
                 {
@@ -112,11 +120,7 @@ namespace DiabManager.Metiers.ListeActions
             for (int i = 0; i < eiS.Length; i++)
                 etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
 
-            double[] etatFinal = new double[7];
-            string ef = Regex.Replace(fields[6], @"[\[\]]+", string.Empty);
-            string[] efS = ef.Split(',');
-            for (int i = 0; i < efS.Length; i++)
-                etatFinal[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+           
 
             double chance = double.Parse(fields[3], CultureInfo.InvariantCulture);
             bool bloquant = bool.Parse(fields[4]);

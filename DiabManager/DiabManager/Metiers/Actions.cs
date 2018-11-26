@@ -71,7 +71,7 @@ namespace DiabManager.Metiers
         /// Case 2: Est malade
         /// Case 3: Est au travail
         protected double[] m_etatInitial = new double[4];
-        
+
 
         /// <summary>
         /// Etat final après avoir réalisé l'action
@@ -87,10 +87,10 @@ namespace DiabManager.Metiers
         /// Case 4: Ne fais rien
         /// Case 5: Est malade
         /// Case 6: Est au travail
-        protected double[] m_etatFinal = new double[7];
-        public double[] EtatFinal
+        protected Dictionary<string, double[]> m_etatFinalCharac = new Dictionary<string, double[]>();
+        public Dictionary<string, double[]> EtatFinalCharac
         {
-            get { return m_etatFinal; }
+            get { return m_etatFinalCharac; }
         }
 
 
@@ -104,7 +104,7 @@ namespace DiabManager.Metiers
         /// <param name="etatFinal">Etat du joueur après l'action</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
         /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
-        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial, double[] etatFinal, params TimeSpan[] values) 
+        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial,Dictionary<string, double[]> etatFinal, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
@@ -112,7 +112,7 @@ namespace DiabManager.Metiers
 
             m_etatInitial = etatInitial;
 
-            m_etatFinal = etatFinal;
+            m_etatFinalCharac = etatFinal;
 
             m_nbHoraire = values.Length / 2;
 
@@ -158,8 +158,11 @@ namespace DiabManager.Metiers
             //On mets à jour son etat
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
             {
-                if (m_etatFinal[i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
-                    IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinal[i + 4];
+                foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
+                {
+                    if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                        IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4]; 
+                }
             }
 
 
@@ -175,10 +178,28 @@ namespace DiabManager.Metiers
 
         public void duringAction()
         {
+            double mGlycAdd = 0;
+            double mGlycMult = 0;
+            double mStress= 0 ;
+            double mEnergie = 0;
+            //On calcule la moyenne selon son charactère
+            foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
+            {
+                mEnergie += m_etatFinalCharac[charac][0];
+                mGlycMult += m_etatFinalCharac[charac][1];
+                mGlycAdd += m_etatFinalCharac[charac][2];
+                mStress += m_etatFinalCharac[charac][3];
+            }
+
+            mEnergie /= IHM.IHM_Joueur.getJoueur().Personalite.Length;
+            mGlycMult /= IHM.IHM_Joueur.getJoueur().Personalite.Length;
+            mGlycAdd /= IHM.IHM_Joueur.getJoueur().Personalite.Length;
+            mStress /= IHM.IHM_Joueur.getJoueur().Personalite.Length;
+
             //On modifie les données du joueur 
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]), m_etatFinal[3]);
-            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
-            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(mGlycAdd, mGlycMult));
+            IHM.IHM_Joueur.getJoueur().calculStress(mStress);
+            IHM.IHM_Joueur.getJoueur().calculEnergie(mEnergie);
 
         }
 
@@ -189,9 +210,23 @@ namespace DiabManager.Metiers
         /// <returns>L'action créée</returns>
         public static Actions readAction(string[] fields)
         {
+            Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
+            int k = 5;
+            while (fields[k].Contains(":["))
+            {            
+                string nomCharac = fields[k].Split(':')[0];
+                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                string[] efS = ef.Split(',');
+                double[] carac = new double[efS.Length];
+                for (int i = 0; i < efS.Length; i++)
+                     carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+                etatFinal.Add(nomCharac, carac);
+                k++;
+            }
+
             TimeSpan[] plageHoraire = new TimeSpan[30];
             int j = 0;
-            for (int i = 6; i < fields.Length; i++)
+            for (int i = k; i < fields.Length; i++)
             {
                 if (!string.IsNullOrWhiteSpace(fields[j]))
                 {
@@ -210,11 +245,9 @@ namespace DiabManager.Metiers
             for (int i = 0; i < eiS.Length; i++)
                 etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
 
-            double[] etatFinal = new double[7];
-            string ef = Regex.Replace(fields[5], @"[\[\]]+", string.Empty);
-            string[] efS = ef.Split(',');
-            for (int i = 0; i < efS.Length; i++)
-                etatFinal[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+            
+
+            
             
                 
 
