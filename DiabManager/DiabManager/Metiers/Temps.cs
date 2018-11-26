@@ -49,14 +49,14 @@ namespace DiabManager.Metiers
 
         private TimeSpan m_tempsHorsPlage = new TimeSpan(0);
 
-        private int m_gMin = 0;
-        public int gMin
+        private double m_gMin = 0.5;
+        public double gMin
         {
             get { return m_gMin; }
         }
 
-        private int m_gMax = 10;
-        public int gMax
+        private double m_gMax = 2;
+        public double gMax
         {
             get { return m_gMax; }
         }

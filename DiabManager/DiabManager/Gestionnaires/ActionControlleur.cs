@@ -251,7 +251,7 @@ namespace DiabManager.Gestionnaires
                             IHM.IHM_Joueur.getJoueur().Etat[1] = 0;
                     }
                     //Si la personne est soigné après une maladie
-                    if(IHM.IHM_Joueur.getJoueur().Etat[1] == 0 && e.Key.EtatFinal[5] == 1)
+                    if(IHM.IHM_Joueur.getJoueur().Etat[1] == 0 && e.Key.EtatFinalCharac.First().Value[5] == 1)
                     {
                         m_listEvent[e.Key] = false;
                     }
