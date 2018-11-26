@@ -176,7 +176,7 @@ namespace DiabManager.Metiers
         public void duringAction()
         {
             //On modifie les données du joueur 
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]), m_etatFinal[3]);
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinal[2], m_etatFinal[1]));
             IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinal[3]);
             IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinal[0]);
 
