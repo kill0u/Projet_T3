@@ -49,8 +49,9 @@ namespace DiabManager
         private Button btnLancePart;
         private Button btnLancerTuto;
         //deuxieme affichage
-        private Button btndFacile;
-        private Button btndDifficile;
+        //private Button btndFacile;
+        //private Button btndDifficile;
+        private Label lblText;
         private Button btnRetour;
         //troixieme affichage
         private Button btnProfil1;
@@ -76,6 +77,7 @@ namespace DiabManager
         private TextBox txtObjGlycBas;
         private Label lblObjGlycBas;
         private Button btnValider;
+        private Label lblPersonalite;
         private CheckedListBox clboxPersonnalite;
         #endregion
 
@@ -151,7 +153,8 @@ namespace DiabManager
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void LancerPart_Click(object sender, EventArgs e)
         {
-            affFormJoueur();
+            //affFormJoueur();
+            affDifficulte();
         }
         /// <summary>
         /// Handles the Click event of the btnLancerTuto control.
@@ -229,17 +232,20 @@ namespace DiabManager
         private void btnProfils_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
-            if(b.Text== "Profil 1")
+
+            //{"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif","Peureux"}
+
+            if (b.Text== "Profil 1")
             {
-                remplirFormulaireJoueur("Anne", 18, "Metzger", 'F', 160, 55, 2.5, 0.8, 1.3);
+                remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 2.5, 0.8, 1.3);
             }
             else if(b.Text == "Profil 2")
             {
-                remplirFormulaireJoueur("Jean", 10, "Holler", 'H', 130, 30, 2.8, 1.8, 2.3);
+                remplirFormulaireJoueur("Jean",new string[]{"Gourmand","VideoGamer"}, 10, "Holler", 'H', 130, 30, 2.8, 1.8, 2.3);
             }
             else
             {
-                remplirFormulaireJoueur("Camille", 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
+                remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
             }
         }
         /// <summary>
@@ -249,15 +255,22 @@ namespace DiabManager
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnValider_Click(object sender, EventArgs e)
         {
-            if (checkFormulaire())
+            if (lblText.Visible)
             {
-                creerJoueur();
-                Exit = DialogResult.OK;
-                this.Close();
+                affFormJoueur();
             }
             else
             {
-                MessageBox.Show("Chaque champ doit être renseigné");
+                if (checkFormulaire())
+                {
+                    creerJoueur();
+                    Exit = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Chaque champ doit être renseigné");
+                }
             }
         }
 
@@ -344,18 +357,15 @@ namespace DiabManager
             {
                 c.Visible = false;
             }
-            p = new Point(360, 173);
-            s = new Size(244, 52);
-            btndFacile = creerButton("Facile", "btnFacile", p, s);
-            ajoutEvClick(btndFacile, new EventHandler(btndFacile_Click));
-            btndFacile.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
-            p = new Point(360, 240);
-            btndDifficile = creerButton("Difficile", "btnDifficile", p, s);
-            ajoutEvClick(btndDifficile, new EventHandler(btndDifficile_Click));
-            btndDifficile.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
-            this.Controls.Add(btndFacile);
-            this.Controls.Add(btndDifficile);
-            btnRetour.Visible = true;
+            Point p = new System.Drawing.Point(173, 125);
+            Size s = new System.Drawing.Size(600, 100);
+            lblText = creerLabel("Bienvenue dans notre Laboratoire DiabManager ! " +
+                "Si vous êtes ici c'est pour un diagnostique pour le Diabète n'est ce pas ? " +
+                "Veuillez remplir le formulaire suivant afin de mener à bien votre diagnostic",
+                "txtTextHisto",p,s);
+            lblText.Visible = true;
+            this.Controls.Add(lblText);
+            btnValider.Visible = true;
 
         }
         /// <summary>
@@ -365,8 +375,9 @@ namespace DiabManager
         {
             //btndDifficile.Visible = false;
             //btndFacile.Visible = false;
-            btnLancePart.Visible = false;
-            btnLancerTuto.Visible = false;
+            //btnLancePart.Visible = false;
+            //btnLancerTuto.Visible = false;
+            lblText.Visible = false;
             int x = 350;
             int y = 140;
             p = new Point(706, 149);
@@ -377,23 +388,25 @@ namespace DiabManager
             p = new Point(x, y);
             s = new Size(100, 30);
             #endregion
-            #region creation des label et des textbox
-            txtAge = creerTextbox("txtAge", p, s);
-            ajoutEvKeypress(txtAge, new KeyPressEventHandler(NoLetter_keyPress));
-            p.Y += 30;
+            #region creation des textbox
             txtNom = creerTextbox("txtNom", p, s);
             ajoutEvKeypress(txtNom, new KeyPressEventHandler(NoDigit_keyPress));
-            p.Y += 30;
-            txtPoid = creerTextbox("txtPoid", p, s);
-            ajoutEvKeypress(txtPoid, new KeyPressEventHandler(NoLetterOneComma_KeyPress));
             p.Y += 30;
             txtPrenom = creerTextbox("txtPrenom", p, s);
             ajoutEvKeypress(txtPrenom, new KeyPressEventHandler(NoDigit_keyPress));
             p.Y += 30;
+            txtAge = creerTextbox("txtAge", p, s);
+            ajoutEvKeypress(txtAge, new KeyPressEventHandler(NoLetter_keyPress));
+            p.Y += 30;
             txtTaille = creerTextbox("txtTaille", p, s);
             ajoutEvKeypress(txtTaille, new KeyPressEventHandler(NoLetter_keyPress));
+            p.Y += 30;
+            txtPoid = creerTextbox("txtPoid", p, s);
+            ajoutEvKeypress(txtPoid, new KeyPressEventHandler(NoLetterOneComma_KeyPress));
             p.Y = y+30;
             p.X = x+250;
+            clboxPersonnalite = creerCheckList("Personalite", p);
+            p.Y += 30;
             txtGlyc = creerTextbox("txtGlyc", p, s);
             ajoutEvKeypress(txtGlyc, new KeyPressEventHandler(NoLetter_keyPress));
             p.Y += 30;
@@ -408,19 +421,19 @@ namespace DiabManager
             y = 140;
             p = new Point(x, y);
             s = new Size(140, 20);
+            lblNom = creerLabel("Nom", "lblNom", p, s);
+            p.Y += 30;
+            lblPrenom = creerLabel("Prenom", "lblPrenom", p, s);
+            p.Y += 30;
             lblAge = creerLabel("Age", "lblAge", p, s);
             p.Y += 30;
-            lblNom = creerLabel("Nom","lblNom",p,s);
+            lblTaille = creerLabel("Taille (en cm)", "lblTaille", p, s);
             p.Y += 30;
-            lblPoid = creerLabel("Poids","lblPoid",p,s);
-            p.Y += 30;
-            lblPrenom = creerLabel("Prenom","lblPrenom",p,s);
-            p.Y += 30;
-            lblTaille = creerLabel("Taille (en cm)","lblTaille",p,s);
-            p.Y = y + 30;
+            lblPoid = creerLabel("Poids", "lblPoid", p, s);
+            p.Y = y +0;
             p.X = x + 250;
-            clboxPersonnalite = creerCheckList("Personalite",p);
-            p.Y += 30;
+            lblPersonalite = creerLabel("Personnalité", "txtpersonal", p, s);
+            p.Y += 60;
             lblGlyc = creerLabel("Glycémie","txtGlyc", p, s);
             p.Y += 30;
             lblObjGlycHaut = creerLabel("Objectif max","txtObjGlycHaut", p, s);
@@ -452,6 +465,8 @@ namespace DiabManager
             this.Controls.Add(txtGlyc);
             this.Controls.Add(txtObjGlycHaut);
             this.Controls.Add(txtObjGlycBas);
+            this.Controls.Add(lblPersonalite);
+            lblPersonalite.Visible = true;
 
             this.Controls.Add(lblAge);
             this.Controls.Add(lblNom);
@@ -536,6 +551,10 @@ namespace DiabManager
                     check = false;
                 }
             }
+            if (clboxPersonnalite.SelectedItems.Count == 0)
+            {
+                check = false;
+            }
             return check;
         }
         /// <summary>
@@ -550,12 +569,16 @@ namespace DiabManager
         /// <param name="glyc">The glycémie.</param>
         /// <param name="glycObBas">The objectif glycémique bas.</param>
         /// <param name="glycObHaut">The objectif glycémique haut.</param>
-        private void remplirFormulaireJoueur(string prenom, int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
+        private void remplirFormulaireJoueur(string prenom, string[]pers,int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
         {
             /*foreach (TextBox c in this.Controls.OfType<TextBox>())
             {
                 c.Text = "";
             }*/
+            for(int i = 0; i < clboxPersonnalite.Items.Count; i++)
+            {
+                clboxPersonnalite.SetItemChecked(i, false);
+            }
             txtAge.Text = age.ToString();
             txtNom.Text = nom;
             txtPrenom.Text = prenom;
@@ -564,6 +587,10 @@ namespace DiabManager
             txtObjGlycBas.Text = glycObBas.ToString();
             txtObjGlycHaut.Text = glycObHaut.ToString();
             txtTaille.Text = taille.ToString();
+            foreach(string s in pers)
+            {
+                clboxPersonnalite.SetItemChecked(recherche(clboxPersonnalite, s), true);
+            }
             if (sex == 'H')
             {
                 rdbSmasc.Checked = true;
@@ -574,6 +601,20 @@ namespace DiabManager
                 rdbSmasc.Checked = false;
                 rdbSfem.Checked = true;
             }
+        }
+
+        private int recherche(CheckedListBox clb, string s)
+        {
+            int res =0;
+            for(int i = 0; i < clb.Items.Count; i++)
+            {
+                if (s == clb.Items[i].ToString())
+                {
+                    res =i;
+                    break;
+                }
+            }
+            return res;
         }
         #endregion
 
@@ -704,10 +745,11 @@ namespace DiabManager
             "VideoGamer",
             "Social",
             "Studieux",
-            "Dépressif"});
-            clbox1.Location = new System.Drawing.Point(657, 141);
+            "Dépressif",
+            "Peureux"});
+            clbox1.Location = new System.Drawing.Point(599, 144);
             clbox1.Name = nom;
-            clbox1.Size = new System.Drawing.Size(120, 94);
+            clbox1.Size = new System.Drawing.Size(101, 49);
             clbox1.TabIndex = 1;
             return clbox1;
         }
