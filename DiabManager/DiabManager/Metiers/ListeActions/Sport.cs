@@ -30,7 +30,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="poids">Le poids a ajouter au joueur après avoir fait du sport</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public Sport(string nom, string description, TimeSpan duree, double[] etatInitial, double[] etatFinal, double poids, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, values)
+        public Sport(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double poids, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, values)
         {
             m_poids = poids;
         }
@@ -51,9 +51,23 @@ namespace DiabManager.Metiers.ListeActions
         /// <returns>L'action créée</returns>
         public static new Sport readAction(string[] fields)
         {
+            Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
+            int k = 6;
+            while (fields[k].Contains(":["))
+            {
+                string nomCharac = fields[k].Split(':')[0];
+                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                string[] efS = ef.Split(',');
+                double[] carac = new double[efS.Length];
+                for (int i = 0; i < efS.Length; i++)
+                    carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+                etatFinal.Add(nomCharac, carac);
+                k++;
+            }
+
             TimeSpan[] plageHoraire = new TimeSpan[30];
             int j = 0;
-            for (int i = 7; i < fields.Length; i++)
+            for (int i = k; i < fields.Length; i++)
             {
                 if (!string.IsNullOrWhiteSpace(fields[j]))
                 {
@@ -72,12 +86,8 @@ namespace DiabManager.Metiers.ListeActions
             for (int i = 0; i < eiS.Length; i++)
                 etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
 
-            double[] etatFinal = new double[7];
-            string ef = Regex.Replace(fields[5], @"[\[\]]+", string.Empty);
-            string[] efS = ef.Split(',');
-            for (int i = 0; i < efS.Length; i++)
-                etatFinal[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
-            double poids = double.Parse(fields[6], CultureInfo.InvariantCulture);
+ 
+            double poids = double.Parse(fields[5], CultureInfo.InvariantCulture);
 
 
             return new Sport(nom, desc, duree, etatInital, etatFinal, poids, plageHoraire);

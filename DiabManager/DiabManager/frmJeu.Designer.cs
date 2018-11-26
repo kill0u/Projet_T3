@@ -83,10 +83,9 @@ namespace DiabManager
             this.lblAffTemps.AutoSize = true;
             this.lblAffTemps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAffTemps.ForeColor = System.Drawing.Color.Red;
-            this.lblAffTemps.Location = new System.Drawing.Point(4, 17);
-            this.lblAffTemps.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffTemps.Location = new System.Drawing.Point(3, 11);
             this.lblAffTemps.Name = "lblAffTemps";
-            this.lblAffTemps.Size = new System.Drawing.Size(204, 58);
+            this.lblAffTemps.Size = new System.Drawing.Size(139, 39);
             this.lblAffTemps.TabIndex = 2;
             this.lblAffTemps.Text = "Heure: ";
             // 
@@ -95,10 +94,9 @@ namespace DiabManager
             this.lblTemps.AutoSize = true;
             this.lblTemps.Font = new System.Drawing.Font("Arial Rounded MT Bold", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTemps.ForeColor = System.Drawing.Color.Red;
-            this.lblTemps.Location = new System.Drawing.Point(207, 17);
-            this.lblTemps.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTemps.Location = new System.Drawing.Point(138, 11);
             this.lblTemps.Name = "lblTemps";
-            this.lblTemps.Size = new System.Drawing.Size(147, 58);
+            this.lblTemps.Size = new System.Drawing.Size(99, 39);
             this.lblTemps.TabIndex = 3;
             this.lblTemps.Text = "0:0:0";
             // 
@@ -109,28 +107,25 @@ namespace DiabManager
             this.pnlGestionTemps.Controls.Add(this.button2);
             this.pnlGestionTemps.Controls.Add(this.btnAvanceeTemps);
             this.pnlGestionTemps.Controls.Add(this.btnPause);
-            this.pnlGestionTemps.Location = new System.Drawing.Point(2, 5);
-            this.pnlGestionTemps.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlGestionTemps.Location = new System.Drawing.Point(1, 3);
             this.pnlGestionTemps.Name = "pnlGestionTemps";
-            this.pnlGestionTemps.Size = new System.Drawing.Size(254, 42);
+            this.pnlGestionTemps.Size = new System.Drawing.Size(169, 27);
             this.pnlGestionTemps.TabIndex = 4;
             // 
             // lblVitesse
             // 
             this.lblVitesse.AutoSize = true;
-            this.lblVitesse.Location = new System.Drawing.Point(190, 6);
-            this.lblVitesse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblVitesse.Location = new System.Drawing.Point(127, 4);
             this.lblVitesse.Name = "lblVitesse";
-            this.lblVitesse.Size = new System.Drawing.Size(25, 20);
+            this.lblVitesse.Size = new System.Drawing.Size(18, 13);
             this.lblVitesse.TabIndex = 3;
             this.lblVitesse.Text = "1x";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(4, 2);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button2.Location = new System.Drawing.Point(3, 1);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(60, 35);
+            this.button2.Size = new System.Drawing.Size(40, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "◀ ◀";
             this.button2.UseVisualStyleBackColor = true;
@@ -138,10 +133,9 @@ namespace DiabManager
             // 
             // btnAvanceeTemps
             // 
-            this.btnAvanceeTemps.Location = new System.Drawing.Point(120, 2);
-            this.btnAvanceeTemps.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAvanceeTemps.Location = new System.Drawing.Point(80, 1);
             this.btnAvanceeTemps.Name = "btnAvanceeTemps";
-            this.btnAvanceeTemps.Size = new System.Drawing.Size(60, 35);
+            this.btnAvanceeTemps.Size = new System.Drawing.Size(40, 23);
             this.btnAvanceeTemps.TabIndex = 1;
             this.btnAvanceeTemps.Text = "▶▶";
             this.btnAvanceeTemps.UseVisualStyleBackColor = true;
@@ -149,10 +143,9 @@ namespace DiabManager
             // 
             // btnPause
             // 
-            this.btnPause.Location = new System.Drawing.Point(74, 2);
-            this.btnPause.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnPause.Location = new System.Drawing.Point(49, 1);
             this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(38, 35);
+            this.btnPause.Size = new System.Drawing.Size(25, 23);
             this.btnPause.TabIndex = 0;
             this.btnPause.Text = "❚❚";
             this.btnPause.UseVisualStyleBackColor = true;
@@ -165,10 +158,9 @@ namespace DiabManager
             this.pnlHeure.Controls.Add(this.lblAffTemps);
             this.pnlHeure.Controls.Add(this.lblTemps);
             this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlHeure.Location = new System.Drawing.Point(2318, 15);
-            this.pnlHeure.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlHeure.Location = new System.Drawing.Point(2166, 10);
             this.pnlHeure.Name = "pnlHeure";
-            this.pnlHeure.Size = new System.Drawing.Size(520, 89);
+            this.pnlHeure.Size = new System.Drawing.Size(347, 58);
             this.pnlHeure.TabIndex = 6;
             // 
             // pnlInfosEvent
@@ -179,49 +171,44 @@ namespace DiabManager
             this.pnlInfosEvent.Controls.Add(this.lblEvents);
             this.pnlInfosEvent.Controls.Add(this.lblActions);
             this.pnlInfosEvent.Controls.Add(this.lblAffActions);
-            this.pnlInfosEvent.Location = new System.Drawing.Point(258, 5);
-            this.pnlInfosEvent.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlInfosEvent.Location = new System.Drawing.Point(172, 3);
             this.pnlInfosEvent.Name = "pnlInfosEvent";
-            this.pnlInfosEvent.Size = new System.Drawing.Size(1676, 231);
+            this.pnlInfosEvent.Size = new System.Drawing.Size(1117, 150);
             this.pnlInfosEvent.TabIndex = 7;
             // 
             // lblAffEvent
             // 
             this.lblAffEvent.AutoSize = true;
-            this.lblAffEvent.Location = new System.Drawing.Point(6, 38);
-            this.lblAffEvent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffEvent.Location = new System.Drawing.Point(4, 25);
             this.lblAffEvent.Name = "lblAffEvent";
-            this.lblAffEvent.Size = new System.Drawing.Size(168, 20);
+            this.lblAffEvent.Size = new System.Drawing.Size(113, 13);
             this.lblAffEvent.TabIndex = 3;
             this.lblAffEvent.Text = "Vous êtes en train de :";
             // 
             // lblEvents
             // 
             this.lblEvents.AutoSize = true;
-            this.lblEvents.Location = new System.Drawing.Point(6, 58);
-            this.lblEvents.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEvents.Location = new System.Drawing.Point(4, 38);
             this.lblEvents.Name = "lblEvents";
-            this.lblEvents.Size = new System.Drawing.Size(13, 20);
+            this.lblEvents.Size = new System.Drawing.Size(10, 13);
             this.lblEvents.TabIndex = 2;
             this.lblEvents.Text = " ";
             // 
             // lblActions
             // 
             this.lblActions.AutoSize = true;
-            this.lblActions.Location = new System.Drawing.Point(177, 11);
-            this.lblActions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActions.Location = new System.Drawing.Point(118, 7);
             this.lblActions.Name = "lblActions";
-            this.lblActions.Size = new System.Drawing.Size(13, 20);
+            this.lblActions.Size = new System.Drawing.Size(10, 13);
             this.lblActions.TabIndex = 1;
             this.lblActions.Text = " ";
             // 
             // lblAffActions
             // 
             this.lblAffActions.AutoSize = true;
-            this.lblAffActions.Location = new System.Drawing.Point(6, 11);
-            this.lblAffActions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffActions.Location = new System.Drawing.Point(4, 7);
             this.lblAffActions.Name = "lblAffActions";
-            this.lblAffActions.Size = new System.Drawing.Size(157, 20);
+            this.lblAffActions.Size = new System.Drawing.Size(108, 13);
             this.lblAffActions.TabIndex = 0;
             this.lblAffActions.Text = "Vous avez choisi de :";
             // 
@@ -234,20 +221,18 @@ namespace DiabManager
             this.gplFond.Controls.Add(this.pnlGestionTemps);
             this.gplFond.Controls.Add(this.pnlActions);
             this.gplFond.Controls.Add(this.pnlInfos);
-            this.gplFond.Location = new System.Drawing.Point(3, -2);
-            this.gplFond.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gplFond.Location = new System.Drawing.Point(2, -1);
             this.gplFond.Name = "gplFond";
-            this.gplFond.Size = new System.Drawing.Size(2856, 1611);
+            this.gplFond.Size = new System.Drawing.Size(1905, 1048);
             this.gplFond.TabIndex = 8;
             // 
             // pnlActions
             // 
             this.pnlActions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlActions.BackColor = System.Drawing.Color.Transparent;
-            this.pnlActions.Location = new System.Drawing.Point(1942, 114);
-            this.pnlActions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlActions.Location = new System.Drawing.Point(1295, 74);
             this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(891, 1469);
+            this.pnlActions.Size = new System.Drawing.Size(594, 955);
             this.pnlActions.TabIndex = 0;
             // 
             // pnlInfos
@@ -265,20 +250,18 @@ namespace DiabManager
             this.pnlInfos.Controls.Add(this.lblGlycemie);
             this.pnlInfos.Controls.Add(this.lblAffGlycemie);
             this.pnlInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlInfos.Location = new System.Drawing.Point(87, 245);
-            this.pnlInfos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlInfos.Location = new System.Drawing.Point(58, 159);
             this.pnlInfos.Name = "pnlInfos";
-            this.pnlInfos.Size = new System.Drawing.Size(1826, 1338);
+            this.pnlInfos.Size = new System.Drawing.Size(1217, 870);
             this.pnlInfos.TabIndex = 1;
             // 
             // lblEnergie
             // 
             this.lblEnergie.AutoSize = true;
             this.lblEnergie.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEnergie.Location = new System.Drawing.Point(405, 169);
-            this.lblEnergie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEnergie.Location = new System.Drawing.Point(270, 110);
             this.lblEnergie.Name = "lblEnergie";
-            this.lblEnergie.Size = new System.Drawing.Size(157, 46);
+            this.lblEnergie.Size = new System.Drawing.Size(107, 31);
             this.lblEnergie.TabIndex = 8;
             this.lblEnergie.Text = "Energie";
             // 
@@ -286,10 +269,9 @@ namespace DiabManager
             // 
             this.lblAffEnergie.AutoSize = true;
             this.lblAffEnergie.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAffEnergie.Location = new System.Drawing.Point(405, 122);
-            this.lblAffEnergie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffEnergie.Location = new System.Drawing.Point(270, 79);
             this.lblAffEnergie.Name = "lblAffEnergie";
-            this.lblAffEnergie.Size = new System.Drawing.Size(287, 46);
+            this.lblAffEnergie.Size = new System.Drawing.Size(197, 31);
             this.lblAffEnergie.TabIndex = 7;
             this.lblAffEnergie.Text = "Etat de fatigue:";
             // 
@@ -303,28 +285,25 @@ namespace DiabManager
             this.pnlPiqure.Controls.Add(this.btnDiminuer);
             this.pnlPiqure.Controls.Add(this.progressBarInsuline);
             this.pnlPiqure.Controls.Add(this.lblDoseActu);
-            this.pnlPiqure.Location = new System.Drawing.Point(20, 905);
-            this.pnlPiqure.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlPiqure.Location = new System.Drawing.Point(13, 588);
             this.pnlPiqure.Name = "pnlPiqure";
-            this.pnlPiqure.Size = new System.Drawing.Size(363, 414);
+            this.pnlPiqure.Size = new System.Drawing.Size(242, 269);
             this.pnlPiqure.TabIndex = 5;
             // 
             // lblDose
             // 
             this.lblDose.AutoSize = true;
-            this.lblDose.Location = new System.Drawing.Point(8, 185);
-            this.lblDose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDose.Location = new System.Drawing.Point(5, 120);
             this.lblDose.Name = "lblDose";
-            this.lblDose.Size = new System.Drawing.Size(126, 46);
+            this.lblDose.Size = new System.Drawing.Size(86, 31);
             this.lblDose.TabIndex = 5;
             this.lblDose.Text = "label1";
             // 
             // btnPiqure
             // 
-            this.btnPiqure.Location = new System.Drawing.Point(8, 326);
-            this.btnPiqure.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnPiqure.Location = new System.Drawing.Point(5, 212);
             this.btnPiqure.Name = "btnPiqure";
-            this.btnPiqure.Size = new System.Drawing.Size(351, 63);
+            this.btnPiqure.Size = new System.Drawing.Size(234, 41);
             this.btnPiqure.TabIndex = 4;
             this.btnPiqure.Text = "SE PIQUER !";
             this.btnPiqure.UseVisualStyleBackColor = true;
@@ -332,10 +311,9 @@ namespace DiabManager
             // 
             // btnAugmenter
             // 
-            this.btnAugmenter.Location = new System.Drawing.Point(8, 237);
-            this.btnAugmenter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAugmenter.Location = new System.Drawing.Point(5, 154);
             this.btnAugmenter.Name = "btnAugmenter";
-            this.btnAugmenter.Size = new System.Drawing.Size(244, 58);
+            this.btnAugmenter.Size = new System.Drawing.Size(163, 38);
             this.btnAugmenter.TabIndex = 3;
             this.btnAugmenter.Text = "Augmenter";
             this.btnAugmenter.UseVisualStyleBackColor = true;
@@ -343,10 +321,9 @@ namespace DiabManager
             // 
             // btnDiminuer
             // 
-            this.btnDiminuer.Location = new System.Drawing.Point(8, 123);
-            this.btnDiminuer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDiminuer.Location = new System.Drawing.Point(5, 80);
             this.btnDiminuer.Name = "btnDiminuer";
-            this.btnDiminuer.Size = new System.Drawing.Size(244, 57);
+            this.btnDiminuer.Size = new System.Drawing.Size(163, 37);
             this.btnDiminuer.TabIndex = 2;
             this.btnDiminuer.Text = "Diminuer";
             this.btnDiminuer.UseVisualStyleBackColor = true;
@@ -354,19 +331,17 @@ namespace DiabManager
             // 
             // progressBarInsuline
             // 
-            this.progressBarInsuline.Location = new System.Drawing.Point(6, 58);
-            this.progressBarInsuline.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.progressBarInsuline.Location = new System.Drawing.Point(4, 38);
             this.progressBarInsuline.Name = "progressBarInsuline";
-            this.progressBarInsuline.Size = new System.Drawing.Size(352, 35);
+            this.progressBarInsuline.Size = new System.Drawing.Size(235, 23);
             this.progressBarInsuline.TabIndex = 1;
             // 
             // lblDoseActu
             // 
             this.lblDoseActu.AutoSize = true;
-            this.lblDoseActu.Location = new System.Drawing.Point(10, 6);
-            this.lblDoseActu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDoseActu.Location = new System.Drawing.Point(7, 4);
             this.lblDoseActu.Name = "lblDoseActu";
-            this.lblDoseActu.Size = new System.Drawing.Size(126, 46);
+            this.lblDoseActu.Size = new System.Drawing.Size(86, 31);
             this.lblDoseActu.TabIndex = 0;
             this.lblDoseActu.Text = "label1";
             // 
@@ -380,8 +355,7 @@ namespace DiabManager
             this.GraphiqueGlycemie.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.GraphiqueGlycemie.Legends.Add(legend1);
-            this.GraphiqueGlycemie.Location = new System.Drawing.Point(414, 235);
-            this.GraphiqueGlycemie.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GraphiqueGlycemie.Location = new System.Drawing.Point(276, 153);
             this.GraphiqueGlycemie.Name = "GraphiqueGlycemie";
             series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
@@ -423,7 +397,7 @@ namespace DiabManager
             this.GraphiqueGlycemie.Series.Add(series3);
             this.GraphiqueGlycemie.Series.Add(series4);
             this.GraphiqueGlycemie.Series.Add(series5);
-            this.GraphiqueGlycemie.Size = new System.Drawing.Size(1407, 1083);
+            this.GraphiqueGlycemie.Size = new System.Drawing.Size(938, 704);
             this.GraphiqueGlycemie.TabIndex = 6;
             this.GraphiqueGlycemie.Text = "chart1";
             this.GraphiqueGlycemie.Customize += new System.EventHandler(this.GraphiqueGlycemie_Customize);
@@ -432,10 +406,9 @@ namespace DiabManager
             // 
             this.lblStress.AutoSize = true;
             this.lblStress.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStress.Location = new System.Drawing.Point(405, 54);
-            this.lblStress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblStress.Location = new System.Drawing.Point(270, 35);
             this.lblStress.Name = "lblStress";
-            this.lblStress.Size = new System.Drawing.Size(133, 46);
+            this.lblStress.Size = new System.Drawing.Size(92, 31);
             this.lblStress.TabIndex = 5;
             this.lblStress.Text = "Stress";
             // 
@@ -443,10 +416,9 @@ namespace DiabManager
             // 
             this.lblAffStress.AutoSize = true;
             this.lblAffStress.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAffStress.Location = new System.Drawing.Point(405, 6);
-            this.lblAffStress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffStress.Location = new System.Drawing.Point(270, 4);
             this.lblAffStress.Name = "lblAffStress";
-            this.lblAffStress.Size = new System.Drawing.Size(155, 46);
+            this.lblAffStress.Size = new System.Drawing.Size(107, 31);
             this.lblAffStress.TabIndex = 4;
             this.lblAffStress.Text = "Stress: ";
             // 
@@ -454,10 +426,9 @@ namespace DiabManager
             // 
             this.lblNom.AutoSize = true;
             this.lblNom.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNom.Location = new System.Drawing.Point(18, 169);
-            this.lblNom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNom.Location = new System.Drawing.Point(12, 110);
             this.lblNom.Name = "lblNom";
-            this.lblNom.Size = new System.Drawing.Size(98, 46);
+            this.lblNom.Size = new System.Drawing.Size(66, 31);
             this.lblNom.TabIndex = 3;
             this.lblNom.Text = "nom";
             // 
@@ -465,10 +436,9 @@ namespace DiabManager
             // 
             this.lblAffNom.AutoSize = true;
             this.lblAffNom.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAffNom.Location = new System.Drawing.Point(16, 122);
-            this.lblAffNom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffNom.Location = new System.Drawing.Point(11, 79);
             this.lblAffNom.Name = "lblAffNom";
-            this.lblAffNom.Size = new System.Drawing.Size(305, 46);
+            this.lblAffNom.Size = new System.Drawing.Size(205, 31);
             this.lblAffNom.TabIndex = 2;
             this.lblAffNom.Text = "Nom du joueur: ";
             // 
@@ -476,10 +446,9 @@ namespace DiabManager
             // 
             this.lblGlycemie.AutoSize = true;
             this.lblGlycemie.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGlycemie.Location = new System.Drawing.Point(18, 54);
-            this.lblGlycemie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblGlycemie.Location = new System.Drawing.Point(12, 35);
             this.lblGlycemie.Name = "lblGlycemie";
-            this.lblGlycemie.Size = new System.Drawing.Size(53, 46);
+            this.lblGlycemie.Size = new System.Drawing.Size(36, 31);
             this.lblGlycemie.TabIndex = 1;
             this.lblGlycemie.Text = "0 ";
             // 
@@ -487,22 +456,20 @@ namespace DiabManager
             // 
             this.lblAffGlycemie.AutoSize = true;
             this.lblAffGlycemie.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAffGlycemie.Location = new System.Drawing.Point(16, 6);
-            this.lblAffGlycemie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAffGlycemie.Location = new System.Drawing.Point(11, 4);
             this.lblAffGlycemie.Name = "lblAffGlycemie";
-            this.lblAffGlycemie.Size = new System.Drawing.Size(209, 46);
+            this.lblAffGlycemie.Size = new System.Drawing.Size(142, 31);
             this.lblAffGlycemie.TabIndex = 0;
             this.lblAffGlycemie.Text = "Glycémie: ";
             // 
             // frmJeu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1924, 1050);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.pnlHeure);
             this.Controls.Add(this.gplFond);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmJeu";
             this.Text = "frmJeu";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
