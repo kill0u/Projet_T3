@@ -237,14 +237,17 @@ namespace DiabManager
 
             if (b.Text== "Profil 1")
             {
+                nettoyage();
                 remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 2.5, 0.8, 1.3);
             }
             else if(b.Text == "Profil 2")
             {
+                nettoyage();
                 remplirFormulaireJoueur("Jean",new string[]{"Gourmand","VideoGamer"}, 10, "Holler", 'H', 130, 30, 2.8, 1.8, 2.3);
             }
             else
             {
+                nettoyage();
                 remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
             }
         }
@@ -571,14 +574,11 @@ namespace DiabManager
         /// <param name="glycObHaut">The objectif glycémique haut.</param>
         private void remplirFormulaireJoueur(string prenom, string[]pers,int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
         {
-            /*foreach (TextBox c in this.Controls.OfType<TextBox>())
-            {
-                c.Text = "";
-            }*/
-            for(int i = 0; i < clboxPersonnalite.Items.Count; i++)
+            
+            /*for(int i = 0; i < clboxPersonnalite.Items.Count; i++)
             {
                 clboxPersonnalite.SetItemChecked(i, false);
-            }
+            }*/
             txtAge.Text = age.ToString();
             txtNom.Text = nom;
             txtPrenom.Text = prenom;
@@ -615,6 +615,23 @@ namespace DiabManager
                 }
             }
             return res;
+        }
+
+        private void nettoyage()
+        {
+            foreach (TextBox c in this.Controls.OfType<TextBox>())
+            {
+                c.Text = "";
+            }
+            for (int i = 0; i < clboxPersonnalite.Items.Count; i++)
+            {
+                clboxPersonnalite.SetItemChecked(i, false);
+            }
+            foreach(RadioButton r in grbSexe.Controls)
+            {
+                r.Checked = false;
+            }
+
         }
         #endregion
 
