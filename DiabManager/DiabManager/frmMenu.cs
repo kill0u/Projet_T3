@@ -76,6 +76,7 @@ namespace DiabManager
         private TextBox txtObjGlycBas;
         private Label lblObjGlycBas;
         private Button btnValider;
+        private CheckedListBox clboxPersonnalite;
         #endregion
 
         /// <summary>
@@ -192,6 +193,7 @@ namespace DiabManager
                 btnProfil2.Visible = false;
                 btnProfil3.Visible = false;
                 btnValider.Visible = false;
+                clboxPersonnalite.Visible = false;
                 //btndDifficile.Visible = true;
                 //btndFacile.Visible = true;
                 btnLancerTuto.Visible = true;
@@ -417,6 +419,8 @@ namespace DiabManager
             lblTaille = creerLabel("Taille (en cm)","lblTaille",p,s);
             p.Y = y + 30;
             p.X = x + 250;
+            clboxPersonnalite = creerCheckList("Personalite",p);
+            p.Y += 30;
             lblGlyc = creerLabel("Glycémie","txtGlyc", p, s);
             p.Y += 30;
             lblObjGlycHaut = creerLabel("Objectif max","txtObjGlycHaut", p, s);
@@ -457,6 +461,8 @@ namespace DiabManager
             this.Controls.Add(lblGlyc);
             this.Controls.Add(lblObjGlycHaut);
             this.Controls.Add(lblObjGlycBas);
+            this.Controls.Add(clboxPersonnalite);
+            clboxPersonnalite.Visible = true;
 
             this.Controls.Add(btnProfil1);
             this.Controls.Add(btnProfil2);
@@ -501,8 +507,20 @@ namespace DiabManager
             double glycemie = double.Parse(txtGlyc.Text);
             double glycemieObjBas = double.Parse(txtObjGlycBas.Text);
             double glycemieObjHaut = double.Parse(txtObjGlycHaut.Text);
+            string[] personalitee = new string[clboxPersonnalite.Items.Count];
+            for(int i = 0; i < clboxPersonnalite.CheckedItems.Count; i++)
+            {
+                personalitee[i] = clboxPersonnalite.CheckedItems[i].ToString();
+            }
+            
+            if (glycemieObjBas > glycemieObjHaut)
+            {
+                double it = glycemieObjBas;
+                glycemieObjBas = glycemieObjHaut;
+                glycemieObjHaut = it;
+            }
 
-            IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(prenom, age, nom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
+            IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(nom, age, personalitee,prenom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
         }
         /// <summary>
         /// Checks the formulaire.
@@ -674,6 +692,24 @@ namespace DiabManager
             txt.Size = size;
             txt.TabIndex = 0;
             return txt;
+        }
+
+        private CheckedListBox creerCheckList(string nom, Point Point)
+        {
+            CheckedListBox clbox1 = new CheckedListBox();
+            clbox1.FormattingEnabled = true;
+            clbox1.Items.AddRange(new object[] {
+            "Sportif",
+            "Gourmand",
+            "VideoGamer",
+            "Social",
+            "Studieux",
+            "Dépressif"});
+            clbox1.Location = new System.Drawing.Point(657, 141);
+            clbox1.Name = nom;
+            clbox1.Size = new System.Drawing.Size(120, 94);
+            clbox1.TabIndex = 1;
+            return clbox1;
         }
         
         private void ajoutEvClick(Control c,EventHandler eHand) {
