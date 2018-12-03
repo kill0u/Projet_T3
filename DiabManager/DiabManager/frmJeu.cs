@@ -30,6 +30,10 @@ namespace DiabManager
             InitializeComponent();
             PrivateFontCollection f = new PrivateFontCollection();
             String path = Application.ExecutablePath;
+            int screenheigt = Screen.PrimaryScreen.Bounds.Height;
+            int screenwidht = Screen.PrimaryScreen.Bounds.Height;
+            this.Height = screenheigt;
+            this.Width = screenwidht;
             path = Directory.GetParent(path).ToString();
             path = path + @"\digital-7.ttf";
             f.AddFontFile(path);
