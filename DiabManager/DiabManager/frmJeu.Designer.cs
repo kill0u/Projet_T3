@@ -158,7 +158,7 @@ namespace DiabManager
             this.pnlHeure.Controls.Add(this.lblAffTemps);
             this.pnlHeure.Controls.Add(this.lblTemps);
             this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlHeure.Location = new System.Drawing.Point(2166, 10);
+            this.pnlHeure.Location = new System.Drawing.Point(1542, 7);
             this.pnlHeure.Name = "pnlHeure";
             this.pnlHeure.Size = new System.Drawing.Size(347, 58);
             this.pnlHeure.TabIndex = 6;
@@ -217,6 +217,7 @@ namespace DiabManager
             this.gplFond.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gplFond.ColorBottom = System.Drawing.Color.Indigo;
             this.gplFond.ColorTop = System.Drawing.Color.MidnightBlue;
+            this.gplFond.Controls.Add(this.pnlHeure);
             this.gplFond.Controls.Add(this.pnlInfosEvent);
             this.gplFond.Controls.Add(this.pnlGestionTemps);
             this.gplFond.Controls.Add(this.pnlActions);
@@ -468,7 +469,6 @@ namespace DiabManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.pnlHeure);
             this.Controls.Add(this.gplFond);
             this.Name = "frmJeu";
             this.Text = "frmJeu";

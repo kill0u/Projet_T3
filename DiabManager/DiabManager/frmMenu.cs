@@ -525,7 +525,7 @@ namespace DiabManager
             double glycemie = double.Parse(txtGlyc.Text);
             double glycemieObjBas = double.Parse(txtObjGlycBas.Text);
             double glycemieObjHaut = double.Parse(txtObjGlycHaut.Text);
-            string[] personalitee = new string[clboxPersonnalite.Items.Count];
+            string[] personalitee = new string[clboxPersonnalite.CheckedItems.Count];
             for(int i = 0; i < clboxPersonnalite.CheckedItems.Count; i++)
             {
                 personalitee[i] = clboxPersonnalite.CheckedItems[i].ToString();
