@@ -49,10 +49,9 @@ namespace DiabManager
         private Button btnLancePart;
         private Button btnLancerTuto;
         //deuxieme affichage
-        //private Button btndFacile;
-        //private Button btndDifficile;
         private Label lblText;
         private Button btnRetour;
+        private Button btnSuite;
         //troixieme affichage
         private Button btnProfil1;
         private Button btnProfil2;
@@ -79,6 +78,9 @@ namespace DiabManager
         private Button btnValider;
         private Label lblPersonalite;
         private CheckedListBox clboxPersonnalite;
+        private Button btnBonneNouv;
+        private Button btnMauvaiseNouv;
+        private int compt ;
         #endregion
 
         /// <summary>
@@ -127,7 +129,23 @@ namespace DiabManager
             ajoutEvClick(btnValider, new EventHandler(btnValider_Click));
             this.Controls.Add(btnValider);
             btnValider.Visible = false;
-
+            //creation bouton suite
+            btnSuite = creerButton("Suite", "btnSuite", p, s);
+            ajoutEvClick(btnSuite, new EventHandler(btnSuite_Click));
+            this.Controls.Add(btnSuite);
+            btnSuite.Visible = false;
+            //creation bouton bonne nouvelle
+            s.Width = 200;
+            btnBonneNouv = creerButton("Bonne nouvelle", "btnBon", p, s);
+            this.Controls.Add(btnBonneNouv);
+            btnBonneNouv.Visible = false;
+            p.X -= 375;
+            btnMauvaiseNouv = creerButton("Mauvaise nouvelle", "btnMauv", p, s);
+            this.Controls.Add(btnMauvaiseNouv);
+            btnMauvaiseNouv.Visible = false;
+            ajoutEvClick(btnBonneNouv, new EventHandler(btnNouv_Click));
+            ajoutEvClick(btnMauvaiseNouv, new EventHandler(btnNouv_Click));
+            compt = 2;
             this.Controls.Add(Titre);
             this.Controls.Add(btnLancePart);
             this.Controls.Add(btnLancerTuto);
@@ -155,6 +173,31 @@ namespace DiabManager
         {
             //affFormJoueur();
             affDifficulte();
+        }
+        private void btnNouv_Click(object sender, EventArgs e)
+        {
+            
+            Button bu = (Button)sender;
+            if (bu.Text == "Bonne nouvelle")
+            {
+                MessageBox.Show("Votre visite est entièrement remboursée à 90% par la Sécurité Sociale.");
+                bu.Enabled = false;
+                bu.BackColor = Color.Red;
+                compt --;
+            }
+            else
+            {
+                MessageBox.Show("Vous êtes diabétique, vous allez donc devoirs faire attention a votre taux de glycémie, " +
+                    "a ce que vous mangerais et à ce que vous allez faire.");
+                bu.Enabled = false;
+                bu.BackColor = Color.Red;
+                compt--;
+            }
+            if (compt == 0)
+            {
+                Exit = DialogResult.OK;
+                this.Close();
+            }
         }
         /// <summary>
         /// Handles the Click event of the btnLancerTuto control.
@@ -202,6 +245,10 @@ namespace DiabManager
                 btnLancerTuto.Visible = true;
                 btnLancePart.Visible = true;
                 btnRetour.Visible = false;
+                btnBonneNouv.Visible = false;
+
+                btnMauvaiseNouv.Visible = false;
+                compt = 2;
             }
         }
         /// <summary>
@@ -234,20 +281,17 @@ namespace DiabManager
             Button b = (Button)sender;
 
             //{"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif","Peureux"}
-
+            nettoyage();
             if (b.Text== "Profil 1")
             {
-                nettoyage();
                 remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 2.5, 0.8, 1.3);
             }
             else if(b.Text == "Profil 2")
             {
-                nettoyage();
                 remplirFormulaireJoueur("Jean",new string[]{"Gourmand","VideoGamer"}, 10, "Holler", 'H', 130, 30, 2.8, 1.8, 2.3);
             }
             else
             {
-                nettoyage();
                 remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
             }
         }
@@ -258,23 +302,25 @@ namespace DiabManager
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnValider_Click(object sender, EventArgs e)
         {
-            if (lblText.Visible)
-            {
-                affFormJoueur();
-            }
-            else
+            if (txtAge.Visible)
             {
                 if (checkFormulaire())
                 {
                     creerJoueur();
-                    Exit = DialogResult.OK;
-                    this.Close();
+                    affResultDiag();
                 }
                 else
                 {
                     MessageBox.Show("Chaque champ doit être renseigné");
                 }
             }
+            
+        }
+
+        private void btnSuite_Click(object sender, EventArgs e)
+        {
+            btnSuite.Visible = false;
+            affFormJoueur();
         }
 
         //les keypress
@@ -368,8 +414,38 @@ namespace DiabManager
                 "txtTextHisto",p,s);
             lblText.Visible = true;
             this.Controls.Add(lblText);
-            btnValider.Visible = true;
+            btnSuite.Visible = true;
 
+        }
+        
+        private void affResultDiag()
+        {
+            grbSexe.Visible = false;
+            foreach (TextBox c in this.Controls.OfType<TextBox>())
+            {
+                c.Visible = false;
+            }
+            foreach (Label c in this.Controls.OfType<Label>())
+            {
+                if (c != Titre)
+                    c.Visible = false;
+            }
+            btnProfil1.Visible = false;
+            btnProfil2.Visible = false;
+            btnProfil3.Visible = false;
+            btnValider.Visible = false;
+            clboxPersonnalite.Visible = false;
+            Point p = new System.Drawing.Point(173, 125);
+            Size s = new System.Drawing.Size(600, 100);
+            lblText = creerLabel("Bien J'ai ici vos résultats de votre Diagnostique, " +
+                "j'ai une bonne et une mauvaise nouvelle, laquelle voulais vous entendre en premier ?","txtdiag", p, s);
+            lblText.Visible = true;
+            this.Controls.Add(lblText);
+            p.Y += 40;
+            s = new System.Drawing.Size(154, 32);
+            
+            btnBonneNouv.Visible = true;
+            btnMauvaiseNouv.Visible = true;
         }
         /// <summary>
         /// Affs the form joueur.
@@ -549,12 +625,12 @@ namespace DiabManager
             Boolean check = true;
             foreach (TextBox t in this.Controls.OfType<TextBox>())
             {
-                if (t.Text == string.Empty)
+                if (t.Text == "")
                 {
                     check = false;
                 }
             }
-            if (clboxPersonnalite.SelectedItems.Count == 0)
+            if (clboxPersonnalite.CheckedItems.Count == 0)
             {
                 check = false;
             }
@@ -649,7 +725,7 @@ namespace DiabManager
             Label lbl = new Label();
             lbl.AutoSize = false;
             lbl.BackColor = System.Drawing.Color.Transparent;
-            lbl.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lbl.Font = new System.Drawing.Font("Calisto MT", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lbl.ForeColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             lbl.Location = location;
             lbl.Name = nomlabel;
