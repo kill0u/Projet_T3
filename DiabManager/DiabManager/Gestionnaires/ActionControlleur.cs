@@ -231,7 +231,32 @@ namespace DiabManager.Gestionnaires
                         {
 
                             int ra = r.Next(0, 10001);
-                            if (ra <= e.Key.ChanceInit * 100)//on fait un aléatoire
+                            double chance = e.Key.ChanceInit * 100f;
+                            //On regarde la personnalité du joueur, et on adapte les chances des évènements selon les stats actuelles du joueur
+                            foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
+                            {
+                                if (e.Key.ChanceCharac.ContainsKey(charac))
+                                {
+                                    var tuple = e.Key.ChanceCharac[charac];
+                                    //Case 0 --> Energie
+                                    if (tuple[0].Item1 < 101)
+                                        if ((tuple[0].Item1 < 0 && tuple[0].Item1 > IHM.IHM_Joueur.getJoueur().Energie) || (tuple[0].Item1 > 0 && tuple[0].Item1 < IHM.IHM_Joueur.getJoueur().Energie) )
+                                            if (tuple[0].Item2 * 100 > chance)
+                                                chance = tuple[0].Item2 * 100;
+                                    //Case 1 --> Stress
+                                    if (tuple[1].Item1 < 101)
+                                        if ((tuple[1].Item1 < 0 && tuple[1].Item1 > IHM.IHM_Joueur.getJoueur().Stress) || (tuple[1].Item1 > 0 && tuple[1].Item1 < IHM.IHM_Joueur.getJoueur().Stress))
+                                            if (tuple[1].Item2 * 100 > chance)
+                                                chance = tuple[1].Item2 * 100;
+                                    //Case 2 --> Glycémie
+                                    if (tuple[2].Item1 < 101)
+                                        if ((tuple[2].Item1 < 0 && tuple[2].Item1 > IHM.IHM_Joueur.getJoueur().GlycemieCourante) || (tuple[2].Item1 > 0 && tuple[2].Item1 < IHM.IHM_Joueur.getJoueur().GlycemieCourante))
+                                            if (tuple[2].Item2 * 100 > chance)
+                                                chance = tuple[2].Item2 * 100;
+                                }
+                            }
+
+                            if (ra <= chance)//on fait un aléatoire
                             {
                                 //On lance l'évènement
                                 m_listEvent[e.Key] = true;
