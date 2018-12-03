@@ -14,7 +14,19 @@ namespace DiabManager.Metiers.ListeActions
     class EvenementsAleatoire : Actions
     {
 
-       
+        /// <summary>
+        /// Pour chaque personnalité du personnage, les chances spéciales qu'apparaissent cette évènement
+        /// </summary>
+        /// Prends le dessus sur la probabilité basique qu'un évènement apparaisse si la personne possède cette attribut
+        /// Pour le tableau de tuple, la première valeur corresponds au taux recherché (glycémie, stress, ...) 
+        /// avec un - devant si la valeur doit être inférieur à ce taux pour prendre en compte la nouvelle proba.
+        /// Une valeur supérieur à 100 est ignoré.
+        /// La deuxième valeur du tuple représente la nouvelle probabilité
+        /// Case 0: Energie
+        /// Case 1: Stress
+        /// Case 2: Glycémie
+        private Dictionary<string, Tuple<double, double>[]> m_chanceCharac = new Dictionary<string, Tuple<double, double>[]>();
+        public Dictionary<string, Tuple<double, double>[]> ChanceCharac { get { return m_chanceCharac; }   }
 
 
         /// <summary>
@@ -45,11 +57,14 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, Dictionary<string, Tuple<double, double>[]> chanceCharac, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
         {
 
             m_chanceInit = chanceInit;
             m_bloquant = bloquant;
+
+            m_chanceCharac = chanceCharac;
+
         }
 
 
@@ -73,30 +88,48 @@ namespace DiabManager.Metiers.ListeActions
             //On mets à jour son etat
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
             {
-                foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
-                {
-                    if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
-                        IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4];
-                }
+                
+                if (m_etatFinalCharac["all"][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                    IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac["all"][i + 4];
+                
             }
 
         }
 
+        public new void duringAction()
+        {
+            //On modifie les données du joueur 
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(m_etatFinalCharac["all"][2], m_etatFinalCharac["all"][1]));
+            IHM.IHM_Joueur.getJoueur().calculStress(m_etatFinalCharac["all"][3]);
+            IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinalCharac["all"][0]);
+        }
 
         public new static EvenementsAleatoire readAction(string[] fields)
         {
 
             Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
-            int k = 6;
+            //On lit les informations sur l'état final
+            string nomCharac = fields[6].Split(':')[0];
+            string ef = Regex.Replace(fields[6].Split(':')[1], @"[\[\]]+", string.Empty);
+            string[] efS = ef.Split(',');
+            double[] carac = new double[efS.Length];
+            for (int i = 0; i < efS.Length; i++)
+                carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
+            etatFinal.Add(nomCharac, carac);
+
+            Dictionary<string, Tuple<double, double>[]> chanceCharac = new Dictionary<string, Tuple<double, double>[]>();
+            int k = 7;
             while (fields[k].Contains(":["))
             {
-                string nomCharac = fields[k].Split(':')[0];
-                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
-                string[] efS = ef.Split(',');
-                double[] carac = new double[efS.Length];
+                nomCharac = fields[k].Split(':')[0];
+                ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                efS = ef.Split('/');
+                Tuple<double, double>[] car = new Tuple<double, double>[efS.Length];
                 for (int i = 0; i < efS.Length; i++)
-                    carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
-                etatFinal.Add(nomCharac, carac);
+                {
+                    car[i] = new Tuple<double, double>(double.Parse(efS[i].Split(',')[0]), double.Parse(efS[i].Split(',')[1]));
+                }
+                chanceCharac.Add(nomCharac, car);
                 k++;
             }
 
@@ -125,7 +158,7 @@ namespace DiabManager.Metiers.ListeActions
             double chance = double.Parse(fields[3], CultureInfo.InvariantCulture);
             bool bloquant = bool.Parse(fields[4]);
 
-            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chance, bloquant, plageHoraire);
+            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chanceCharac, chance, bloquant, plageHoraire);
         }
     }
 }
