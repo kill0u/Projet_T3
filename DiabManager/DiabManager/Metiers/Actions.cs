@@ -160,8 +160,13 @@ namespace DiabManager.Metiers
             {
                 foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
                 {
-                    if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
-                        IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4]; 
+
+                    if (m_etatFinalCharac.ContainsKey(charac))
+                    {
+                        if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                            IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4]; 
+                    }
+
                 }
             }
 

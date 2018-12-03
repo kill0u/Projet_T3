@@ -28,7 +28,7 @@ namespace DiabManager.Metiers.ListeActions
 
 
         /// <summary>
-        /// Décrit si l'action est bloquante (one ne peut pas faire d'autre actions pendant ce temps) ou non
+        /// Décrit si l'action est bloquante (on ne peut pas faire d'autre actions pendant ce temps) ou non
         /// </summary>
         private bool m_bloquant;
 

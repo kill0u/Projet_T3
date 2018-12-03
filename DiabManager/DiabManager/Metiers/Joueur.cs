@@ -91,7 +91,7 @@ namespace DiabManager.Metiers
             get { return m_stress; }
             set { this.m_stress = value; }
         }
-        /*type de profil dispo {"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif"}*/
+        /*type de profil dispo {"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif", "Peureux"}*/
         private string[] m_personalite = {};
         public string[] Personalite
         {
