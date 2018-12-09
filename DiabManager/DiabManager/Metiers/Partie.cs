@@ -77,6 +77,36 @@ namespace DiabManager.Metiers
                 jobj++;
                 if (jobj==3) { Fin(true); }
             }
+
+
+            //On change le jour
+            switch (Temps.getInstance().getHeureJournee().Days%7) 
+            {
+                case 6:
+                    m_jeu.setJour("Dimanche");
+                    break;
+                case 0:
+                    m_jeu.setJour("Lundi");
+                    break;
+                case 1:
+                    m_jeu.setJour("Mardi");
+                    break;
+                case 2:
+                    m_jeu.setJour("Mercredi");
+                    break;
+                case 3:
+                    m_jeu.setJour("Jeudi");
+                    break;
+                case 4:
+                    m_jeu.setJour("Vendredi");
+                    break;
+                case 5:
+                    m_jeu.setJour("Samedi");
+                    break;
+                default:
+                    m_jeu.setJour("Lundi");
+                    break;
+            }
         }
         
         /// <summary>
@@ -104,9 +134,9 @@ namespace DiabManager.Metiers
         }
 
 
-        private Boolean m_matin = true;
-        private Boolean m_midi = true;
-        private Boolean m_soir = true;
+        private bool m_matin = true;
+        private bool m_midi = true;
+        private bool m_soir = true;
         /**Evènements lancé à chaque tick du timer.
          * Fonction à exécuté à chaque tick du timer, mettre à jour les infos.
          */
@@ -153,6 +183,7 @@ namespace DiabManager.Metiers
                 m_jeu.Hide();
                 frmFinJeu finJeu = new frmFinJeu(res);
                 finJeu.ShowDialog();
+                m_jeu.DialogResult = finJeu.DialogResult;
                 m_jeu.Close();
             }));
             

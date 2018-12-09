@@ -274,14 +274,21 @@ namespace DiabManager
 
         private void btnAvanceeTemps_Click(object sender, EventArgs e)
         {
-            Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse * 2);
-            lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+            if (Temps.getInstance().CoeffVitesse < 32)
+            {
+                Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse * 2);
+                lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse / 2);
-            lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+            if (Temps.getInstance().CoeffVitesse > 0.25)
+            {
+                Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse / 2);
+                lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x"; 
+            }
         }
 
         private void frmJeu_Shown(object sender, EventArgs e)
@@ -303,7 +310,10 @@ namespace DiabManager
             
         }
 
-       
+        public void setJour(string j)
+        {
+            lblAffJour.Text = j;
+        }
 
         
     }

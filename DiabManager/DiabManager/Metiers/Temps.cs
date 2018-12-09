@@ -17,7 +17,7 @@ namespace DiabManager.Metiers
         /**Singleton de la classe Temps.
          * Garde la référence à la classe Temps active (afin de n'avoir qu'une instance de temps en même temps)
          */ 
-        private static Temps m_tempsInstance = new Temps();
+        private static Temps m_tempsInstance;
 
         private const int dureeTemps = 10000;
 
@@ -92,7 +92,7 @@ namespace DiabManager.Metiers
          */
         private void SetTimer()
         {
-            //Le timer tick toutes les 30 s
+            //Le timer tick toutes les 10 s
             m_dayTimer = new Timer(dureeTemps);
 
             m_dayTimer.Elapsed += TickEvent;
@@ -237,7 +237,17 @@ namespace DiabManager.Metiers
         */
         public static Temps getInstance()
         {
+            if (m_tempsInstance == null)
+                m_tempsInstance = new Temps();
             return m_tempsInstance;
+        }
+
+        /// <summary>
+        /// Détruit l'instance de temps (pour pouvoir redemarré)
+        /// </summary>
+        public static void destroyInstance()
+        {
+            m_tempsInstance = null;
         }
 
         public void endTimer()
