@@ -21,7 +21,7 @@ namespace DiabManager.Gestionnaires
         /**Singleton de la classe ActionControlleur.
          * Garde la référence à la classe ActionControlleur active (afin de n'avoir qu'une instance de temps en même temps)
          */
-        private static ActionControlleur m_actionControlleurInstance = new ActionControlleur();
+        private static ActionControlleur m_actionControlleurInstance;
 
         /** Liste de toutes les actions lancés actuellement.
          * Liste les actions possibles pour l'utilisateur, avec pour valeur vrai si l'utilisateur peut les faire
@@ -294,7 +294,17 @@ namespace DiabManager.Gestionnaires
         /// <returns>instance du controlleur</returns>
         public static ActionControlleur getInstance()
         {
+            if (m_actionControlleurInstance == null)
+                m_actionControlleurInstance = new ActionControlleur();
             return m_actionControlleurInstance;
+        }
+
+        /// <summary>
+        /// Détruit le controlleur (pour pouvoir redémarrer)
+        /// </summary>
+        public static void destroyInstance()
+        {
+            m_actionControlleurInstance = null;
         }
 
 

@@ -104,9 +104,9 @@ namespace DiabManager.Metiers
         }
 
 
-        private Boolean m_matin = true;
-        private Boolean m_midi = true;
-        private Boolean m_soir = true;
+        private bool m_matin = true;
+        private bool m_midi = true;
+        private bool m_soir = true;
         /**Evènements lancé à chaque tick du timer.
          * Fonction à exécuté à chaque tick du timer, mettre à jour les infos.
          */
@@ -153,6 +153,7 @@ namespace DiabManager.Metiers
                 m_jeu.Hide();
                 frmFinJeu finJeu = new frmFinJeu(res);
                 finJeu.ShowDialog();
+                m_jeu.DialogResult = finJeu.DialogResult;
                 m_jeu.Close();
             }));
             
