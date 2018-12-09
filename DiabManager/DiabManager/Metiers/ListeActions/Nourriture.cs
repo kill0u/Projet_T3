@@ -30,7 +30,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="poids">Le poids a ajouter au joueur après avoir manger</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public Nourriture(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double poids, bool[] jours, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, jours, values)
+        public Nourriture(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double poids, bool[] jours, string url, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, jours, url, values)
         {
             m_poids = poids;
         }
@@ -58,8 +58,10 @@ namespace DiabManager.Metiers.ListeActions
             for (int i = 0; i < efS.Length; i++)
                 jours[i] = efS[i] == "1";
 
+            string url = fields[7];
+
             Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
-            int k = 7;
+            int k = 8;
             while (fields[k].Contains(":["))
             {
                 string nomCharac = fields[k].Split(':')[0];
@@ -97,7 +99,7 @@ namespace DiabManager.Metiers.ListeActions
             double poids = double.Parse(fields[5], CultureInfo.InvariantCulture);
 
 
-            return new Nourriture(nom, desc, duree, etatInital, etatFinal, poids,jours, plageHoraire);
+            return new Nourriture(nom, desc, duree, etatInital, etatFinal, poids,jours, url, plageHoraire);
         }
     }
 }

@@ -104,7 +104,10 @@ namespace DiabManager.Metiers
         /// 4 --> vendredi
         /// 5 --> samedi
         /// 6 --> dimanche
-        bool[] m_jour = new bool[7];
+        protected bool[] m_jour = new bool[7];
+
+        protected string m_url = "";
+        public string Url { get { return m_url; } }
 
         /// <summary>
         /// Constructeur d'une action
@@ -116,7 +119,7 @@ namespace DiabManager.Metiers
         /// <param name="etatFinal">Etat du joueur après l'action</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
         /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
-        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial,Dictionary<string, double[]> etatFinal, bool[] jours, params TimeSpan[] values) 
+        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial,Dictionary<string, double[]> etatFinal, bool[] jours, string url, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
@@ -139,6 +142,8 @@ namespace DiabManager.Metiers
             }
 
             m_jour = jours;
+
+            m_url = url;
         }
 
         /// <summary>
@@ -248,8 +253,10 @@ namespace DiabManager.Metiers
             for (int i = 0; i < efS.Length; i++)
                 jours[i] = efS[i] == "1";
 
+            string url = fields[6];
+
             Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
-            int k = 6;
+            int k = 7;
             while (fields[k].Contains(":["))
             {            
                 string nomCharac = fields[k].Split(':')[0];
@@ -289,7 +296,7 @@ namespace DiabManager.Metiers
             
                 
 
-            return new Actions(nom, desc, duree, etatInital, etatFinal, jours, plageHoraire);
+            return new Actions(nom, desc, duree, etatInital, etatFinal, jours, url, plageHoraire);
         }
 
         public bool isCompatible(Joueur j)

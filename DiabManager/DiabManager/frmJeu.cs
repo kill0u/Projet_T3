@@ -52,27 +52,46 @@ namespace DiabManager
             Point p = new Point(10, 10);
             ToolTip tt = new ToolTip();
             foreach(var a in listeActions)
-            { 
+            {
 
                 Panel pan = new Panel();
                 pan.Location = p;
                 pan.Name = a.Key.Nom;
                 pan.Size = new Size(200, 200);
                 pan.Click += new System.EventHandler(boutonClick);
+
                 tt.SetToolTip(pan, a.Key.Desc);
 
                 Label l = new Label();
                 l.Text = a.Key.Nom;
                 l.Location = new Point(5, 5);
+                l.Click += new EventHandler(componentClick);
 
                 Label l2 = new Label();
                 l2.Text = a.Key.Desc;
                 l2.Location = new Point(5, 25);
-                l2.MaximumSize = new Size(190, 120);
+                l2.MaximumSize = new Size(190, 30);
                 l2.AutoSize = true;
+                l2.Click += new EventHandler(componentClick);
+
+                if (a.Key.Url != "")
+                {
+                    PictureBox pb = new PictureBox();
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pb.ImageLocation = a.Key.Url;
+
+                    pb.Size = new Size(190, 140);
+                    pb.Location = new Point(5, 60);
+
+                    pan.Controls.Add(pb);
+                    pb.Click += new EventHandler(componentClick);
+                }
+                
 
                 pan.Controls.Add(l);
                 pan.Controls.Add(l2);
+
+
 
                 pnlActions.Controls.Add(pan);
 
@@ -125,6 +144,18 @@ namespace DiabManager
         private void boutonClick(object sender, EventArgs e)
         {
             Panel b = (Panel)sender;
+            IHM.IHM_Actions.EffectuerAction(b.Name);
+        }
+
+        /// <summary>
+        /// Action a effectué lors du click sur le bouton
+        /// </summary>
+        /// <param name="sender">Bouton sur lequel on appuie</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void componentClick(object sender, EventArgs e)
+        {
+            Control c = (Control)sender;
+            Panel b = (Panel)c.Parent;
             IHM.IHM_Actions.EffectuerAction(b.Name);
         }
 
