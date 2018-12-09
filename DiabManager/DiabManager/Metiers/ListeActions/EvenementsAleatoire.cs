@@ -45,6 +45,8 @@ namespace DiabManager.Metiers.ListeActions
         private bool m_bloquant;
 
 
+
+
         /// <summary>
         /// Constructeur de la classe EvenementsAleatoire
         /// </summary>
@@ -57,14 +59,13 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, Dictionary<string, Tuple<double, double>[]> chanceCharac, double chanceInit, bool bloquant, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, Dictionary<string, Tuple<double, double>[]> chanceCharac, double chanceInit, bool bloquant,bool[] jours , params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, jours, values)
         {
 
             m_chanceInit = chanceInit;
             m_bloquant = bloquant;
 
             m_chanceCharac = chanceCharac;
-
         }
 
 
@@ -104,6 +105,7 @@ namespace DiabManager.Metiers.ListeActions
             IHM.IHM_Joueur.getJoueur().calculEnergie(m_etatFinalCharac["all"][0]);
         }
 
+
         public new static EvenementsAleatoire readAction(string[] fields)
         {
 
@@ -117,8 +119,15 @@ namespace DiabManager.Metiers.ListeActions
                 carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
             etatFinal.Add(nomCharac, carac);
 
+            ef = Regex.Replace(fields[7], @"[\[\]]+", string.Empty);
+            efS = ef.Split(',');
+            bool[] jours = new bool[7];
+            for (int i = 0; i < efS.Length; i++)
+                jours[i] = efS[i] == "1";
+
+
             Dictionary<string, Tuple<double, double>[]> chanceCharac = new Dictionary<string, Tuple<double, double>[]>();
-            int k = 7;
+            int k = 8;
             while (fields[k].Contains(":["))
             {
                 nomCharac = fields[k].Split(':')[0];
@@ -158,7 +167,7 @@ namespace DiabManager.Metiers.ListeActions
             double chance = double.Parse(fields[3], CultureInfo.InvariantCulture);
             bool bloquant = bool.Parse(fields[4]);
 
-            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chanceCharac, chance, bloquant, plageHoraire);
+            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chanceCharac, chance, bloquant,jours, plageHoraire);
         }
     }
 }

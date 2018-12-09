@@ -303,7 +303,10 @@ namespace DiabManager
             
         }
 
-       
+        public void setJour(string j)
+        {
+            lblAffJour.Text = j;
+        }
 
         
     }

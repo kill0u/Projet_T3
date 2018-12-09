@@ -77,6 +77,36 @@ namespace DiabManager.Metiers
                 jobj++;
                 if (jobj==3) { Fin(true); }
             }
+
+
+            //On change le jour
+            switch (Temps.getInstance().getHeureJournee().Days%7) 
+            {
+                case 6:
+                    m_jeu.setJour("Dimanche");
+                    break;
+                case 0:
+                    m_jeu.setJour("Lundi");
+                    break;
+                case 1:
+                    m_jeu.setJour("Mardi");
+                    break;
+                case 2:
+                    m_jeu.setJour("Mercredi");
+                    break;
+                case 3:
+                    m_jeu.setJour("Jeudi");
+                    break;
+                case 4:
+                    m_jeu.setJour("Vendredi");
+                    break;
+                case 5:
+                    m_jeu.setJour("Samedi");
+                    break;
+                default:
+                    m_jeu.setJour("Lundi");
+                    break;
+            }
         }
         
         /// <summary>

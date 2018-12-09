@@ -38,12 +38,13 @@ namespace DiabManager
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.gplFond = new DiabManager.Composants.GradientPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblEvents = new System.Windows.Forms.Label();
+            this.lblAffEvent = new System.Windows.Forms.Label();
             this.pnlHeure = new System.Windows.Forms.Panel();
             this.lblAffTemps = new System.Windows.Forms.Label();
             this.lblTemps = new System.Windows.Forms.Label();
             this.pnlAction = new System.Windows.Forms.Panel();
-            this.lblAffEvent = new System.Windows.Forms.Label();
-            this.lblEvents = new System.Windows.Forms.Label();
             this.lblActions = new System.Windows.Forms.Label();
             this.lblAffActions = new System.Windows.Forms.Label();
             this.pnlGestionTemps = new System.Windows.Forms.Panel();
@@ -69,15 +70,15 @@ namespace DiabManager
             this.lblAffNom = new System.Windows.Forms.Label();
             this.lblGlycemie = new System.Windows.Forms.Label();
             this.lblAffGlycemie = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblAffJour = new System.Windows.Forms.Label();
             this.gplFond.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.pnlHeure.SuspendLayout();
             this.pnlAction.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
             this.pnlInfos.SuspendLayout();
             this.pnlPiqure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphiqueGlycemie)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gplFond
@@ -96,16 +97,46 @@ namespace DiabManager
             this.gplFond.Size = new System.Drawing.Size(1905, 1048);
             this.gplFond.TabIndex = 8;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.lblEvents);
+            this.panel1.Controls.Add(this.lblAffEvent);
+            this.panel1.Location = new System.Drawing.Point(614, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(661, 150);
+            this.panel1.TabIndex = 8;
+            // 
+            // lblEvents
+            // 
+            this.lblEvents.AutoSize = true;
+            this.lblEvents.Location = new System.Drawing.Point(3, 17);
+            this.lblEvents.Name = "lblEvents";
+            this.lblEvents.Size = new System.Drawing.Size(10, 13);
+            this.lblEvents.TabIndex = 2;
+            this.lblEvents.Text = " ";
+            // 
+            // lblAffEvent
+            // 
+            this.lblAffEvent.AutoSize = true;
+            this.lblAffEvent.Location = new System.Drawing.Point(3, 4);
+            this.lblAffEvent.Name = "lblAffEvent";
+            this.lblAffEvent.Size = new System.Drawing.Size(113, 13);
+            this.lblAffEvent.TabIndex = 3;
+            this.lblAffEvent.Text = "Evènements en cours:";
+            // 
             // pnlHeure
             // 
             this.pnlHeure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeure.BackColor = System.Drawing.Color.Black;
+            this.pnlHeure.Controls.Add(this.lblAffJour);
             this.pnlHeure.Controls.Add(this.lblAffTemps);
             this.pnlHeure.Controls.Add(this.lblTemps);
             this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlHeure.Location = new System.Drawing.Point(1542, 7);
+            this.pnlHeure.Location = new System.Drawing.Point(1295, 7);
             this.pnlHeure.Name = "pnlHeure";
-            this.pnlHeure.Size = new System.Drawing.Size(347, 58);
+            this.pnlHeure.Size = new System.Drawing.Size(594, 58);
             this.pnlHeure.TabIndex = 6;
             // 
             // lblAffTemps
@@ -140,24 +171,6 @@ namespace DiabManager
             this.pnlAction.Name = "pnlAction";
             this.pnlAction.Size = new System.Drawing.Size(436, 150);
             this.pnlAction.TabIndex = 7;
-            // 
-            // lblAffEvent
-            // 
-            this.lblAffEvent.AutoSize = true;
-            this.lblAffEvent.Location = new System.Drawing.Point(3, 4);
-            this.lblAffEvent.Name = "lblAffEvent";
-            this.lblAffEvent.Size = new System.Drawing.Size(113, 13);
-            this.lblAffEvent.TabIndex = 3;
-            this.lblAffEvent.Text = "Evènements en cours:";
-            // 
-            // lblEvents
-            // 
-            this.lblEvents.AutoSize = true;
-            this.lblEvents.Location = new System.Drawing.Point(3, 17);
-            this.lblEvents.Name = "lblEvents";
-            this.lblEvents.Size = new System.Drawing.Size(10, 13);
-            this.lblEvents.TabIndex = 2;
-            this.lblEvents.Text = " ";
             // 
             // lblActions
             // 
@@ -464,16 +477,17 @@ namespace DiabManager
             this.lblAffGlycemie.TabIndex = 0;
             this.lblAffGlycemie.Text = "Glycémie: ";
             // 
-            // panel1
+            // lblAffJour
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.lblEvents);
-            this.panel1.Controls.Add(this.lblAffEvent);
-            this.panel1.Location = new System.Drawing.Point(614, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(661, 150);
-            this.panel1.TabIndex = 8;
+            this.lblAffJour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAffJour.AutoSize = true;
+            this.lblAffJour.Font = new System.Drawing.Font("Arial Rounded MT Bold", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAffJour.ForeColor = System.Drawing.Color.Red;
+            this.lblAffJour.Location = new System.Drawing.Point(452, 13);
+            this.lblAffJour.Name = "lblAffJour";
+            this.lblAffJour.Size = new System.Drawing.Size(110, 39);
+            this.lblAffJour.TabIndex = 4;
+            this.lblAffJour.Text = "Lundi";
             // 
             // frmJeu
             // 
@@ -487,6 +501,8 @@ namespace DiabManager
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.frmJeu_Shown);
             this.gplFond.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.pnlHeure.ResumeLayout(false);
             this.pnlHeure.PerformLayout();
             this.pnlAction.ResumeLayout(false);
@@ -498,8 +514,6 @@ namespace DiabManager
             this.pnlPiqure.ResumeLayout(false);
             this.pnlPiqure.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphiqueGlycemie)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -539,5 +553,6 @@ namespace DiabManager
         private System.Windows.Forms.Label lblEnergie;
         private System.Windows.Forms.Label lblAffEnergie;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblAffJour;
     }
 }
