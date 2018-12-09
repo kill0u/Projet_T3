@@ -15,10 +15,7 @@ namespace DiabManager.Metiers
     class Partie
     {
         //Attributs
-        /// <summary>
-        /// Joueur de la partie.
-        /// </summary>
-        private static Joueur m_j;
+
 
         /// <summary>
         /// Timer pour actualiser le formulaire de Jeu.

@@ -59,7 +59,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, Dictionary<string, Tuple<double, double>[]> chanceCharac, double chanceInit, bool bloquant,bool[] jours , params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, jours, values)
+        public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, Dictionary<string, Tuple<double, double>[]> chanceCharac, double chanceInit, bool bloquant,bool[] jours , string url, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, jours, url, values)
         {
 
             m_chanceInit = chanceInit;
@@ -76,6 +76,16 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="start">Heure de début de l'évènement</param>
        public new void makeAction(TimeSpan start)
         {
+
+            //On ajoute au log
+            string log = "---------------------------------------------" + Environment.NewLine;
+            log += m_nom + ":" + Environment.NewLine;
+            log += m_description + Environment.NewLine;
+            log += "Durée: " + m_duree.ToString() + Environment.NewLine;
+            log += "---------------------------------------------" + Environment.NewLine;
+
+            IHM.IHM_Actions.addLog(log);
+
             m_endTime = start.Add(m_duree);
 
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
@@ -125,9 +135,10 @@ namespace DiabManager.Metiers.ListeActions
             for (int i = 0; i < efS.Length; i++)
                 jours[i] = efS[i] == "1";
 
+            string url = fields[8];
 
             Dictionary<string, Tuple<double, double>[]> chanceCharac = new Dictionary<string, Tuple<double, double>[]>();
-            int k = 8;
+            int k = 9;
             while (fields[k].Contains(":["))
             {
                 nomCharac = fields[k].Split(':')[0];
@@ -167,7 +178,7 @@ namespace DiabManager.Metiers.ListeActions
             double chance = double.Parse(fields[3], CultureInfo.InvariantCulture);
             bool bloquant = bool.Parse(fields[4]);
 
-            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chanceCharac, chance, bloquant,jours, plageHoraire);
+            return new EvenementsAleatoire(nom, desc, duree, etatInital, etatFinal, chanceCharac, chance, bloquant,jours, url, plageHoraire);
         }
     }
 }
