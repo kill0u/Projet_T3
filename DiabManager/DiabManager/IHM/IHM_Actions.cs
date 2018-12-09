@@ -110,5 +110,14 @@ namespace DiabManager.IHM
         {
             m_frm.setTemps(temps);
         }
+
+        /// <summary>
+        /// Ajoute l'action ou l'évènement au journal
+        /// </summary>
+        /// <param name="l">Description de l'action</param>
+        public static void addLog(string l)
+        {
+            m_frm.addLog(l);
+        }
     }
 }

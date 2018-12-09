@@ -188,7 +188,14 @@ namespace DiabManager.Metiers
 
                 }
             }
+            //On ajoute au log
+            string log = "---------------------------------------------" + Environment.NewLine;
+            log += m_nom + ":" + Environment.NewLine;
+            log += m_description + Environment.NewLine;
+            log += "Durée: " + m_duree.ToString() + Environment.NewLine;
+            log += "---------------------------------------------" + Environment.NewLine;
 
+            IHM.IHM_Actions.addLog(log);
 
             Temps.getInstance().swapAction();
 

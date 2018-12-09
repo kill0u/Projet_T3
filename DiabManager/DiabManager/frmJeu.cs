@@ -43,7 +43,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Transforme la liste d'action en bouton 
+        /// Transforme la liste d'action en bouton
         /// </summary>
         /// <param name="liste">Liste de toutes les actions disponibles</param>
         public void loadActions(Object liste)
@@ -52,24 +52,36 @@ namespace DiabManager
             Point p = new Point(10, 10);
             ToolTip tt = new ToolTip();
             foreach(var a in listeActions)
-            {
-                Button b = new Button();
-                b.Location = p;
-                b.Text = a.Key.Nom;
-                b.Name = a.Key.Nom;
-                b.Size = new Size(100, 50);
-                b.Click += new System.EventHandler(boutonClick);
+            { 
 
-                tt.SetToolTip(b, a.Key.Desc);
+                Panel pan = new Panel();
+                pan.Location = p;
+                pan.Name = a.Key.Nom;
+                pan.Size = new Size(200, 200);
+                pan.Click += new System.EventHandler(boutonClick);
+                tt.SetToolTip(pan, a.Key.Desc);
 
-                pnlActions.Controls.Add(b);
+                Label l = new Label();
+                l.Text = a.Key.Nom;
+                l.Location = new Point(5, 5);
 
-                p.X += 110;
+                Label l2 = new Label();
+                l2.Text = a.Key.Desc;
+                l2.Location = new Point(5, 25);
+                l2.MaximumSize = new Size(190, 120);
+                l2.AutoSize = true;
 
-                if (p.X + 100 >= pnlActions.Width)
+                pan.Controls.Add(l);
+                pan.Controls.Add(l2);
+
+                pnlActions.Controls.Add(pan);
+
+                p.X += 210;
+
+                if (p.X + 210 >= pnlActions.Width)
                 {
                     p.X = 10;
-                    p.Y += 60;
+                    p.Y += 210;
                 }
             }
         }
@@ -90,8 +102,12 @@ namespace DiabManager
                     Control[] l = pnlActions.Controls.Find(a.Key.Nom, true);
                     if (l.Length != 0)
                     {
-                        Button b = (Button)l[0];
-                        b.Enabled = a.Value;
+                        Panel p = (Panel)l[0];
+                        if (a.Value)
+                            p.BackColor = Color.Green;
+                        else
+                            p.BackColor = Color.Red;
+                        p.Enabled = a.Value;
                     }
                     
 
@@ -99,6 +115,17 @@ namespace DiabManager
                         
                 
             }
+        }
+
+        /// <summary>
+        /// Action a effectué lors du click sur le bouton
+        /// </summary>
+        /// <param name="sender">Bouton sur lequel on appuie</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void boutonClick(object sender, EventArgs e)
+        {
+            Panel b = (Panel)sender;
+            IHM.IHM_Actions.EffectuerAction(b.Name);
         }
 
         /// <summary>
@@ -174,16 +201,7 @@ namespace DiabManager
 
         }
 
-        /// <summary>
-        /// Action a effectué lors du click sur le bouton
-        /// </summary>
-        /// <param name="sender">Bouton sur lequel on appuie</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void boutonClick(object sender, EventArgs e)
-        {
-            Button b = (Button)sender;
-            IHM.IHM_Actions.EffectuerAction(b.Name);
-        }
+       
 
        
 
@@ -310,9 +328,22 @@ namespace DiabManager
             
         }
 
+        /// <summary>
+        /// Affiche le jour de la semaine
+        /// </summary>
+        /// <param name="j">jour</param>
         public void setJour(string j)
         {
             lblAffJour.Text = j;
+        }
+
+        /// <summary>
+        /// Ajoute au journal une action ou évènement
+        /// </summary>
+        /// <param name="l">Description de l'action</param>
+        public void addLog(string l)
+        {
+            txtJournal.Text += l;
         }
 
         

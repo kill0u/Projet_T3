@@ -76,6 +76,16 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="start">Heure de début de l'évènement</param>
        public new void makeAction(TimeSpan start)
         {
+
+            //On ajoute au log
+            string log = "---------------------------------------------" + Environment.NewLine;
+            log += m_nom + ":" + Environment.NewLine;
+            log += m_description + Environment.NewLine;
+            log += "Durée: " + m_duree.ToString() + Environment.NewLine;
+            log += "---------------------------------------------" + Environment.NewLine;
+
+            IHM.IHM_Actions.addLog(log);
+
             m_endTime = start.Add(m_duree);
 
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
