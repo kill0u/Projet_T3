@@ -103,9 +103,9 @@ namespace DiabManager.IHM
         /// <summary>
         /// Charge les boutons de toutes les actions
         /// </summary>
-        public static void LoadAction()
+        public static void LoadAction(Dictionary< Actions, string> listTab)
         {
-            m_frm.loadActions(m_actionControlleur.ListActions);
+            m_frm.loadActions(m_actionControlleur.ListActions, listTab);
         }
 
         /// <summary>

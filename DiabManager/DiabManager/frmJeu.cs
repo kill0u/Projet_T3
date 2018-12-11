@@ -47,29 +47,48 @@ namespace DiabManager
         /// Transforme la liste d'action en bouton
         /// </summary>
         /// <param name="liste">Liste de toutes les actions disponibles</param>
-        public void loadActions(Object liste)
+        public void loadActions(Object liste, Object lt)
         {
             Dictionary<Actions, bool> listeActions = (Dictionary<Actions, bool>)liste;
             Point p = new Point(10, 10);
             ToolTip tt = new ToolTip();
-            foreach(var a in listeActions)
+
+            Dictionary<Actions, string> listTab = (Dictionary<Actions, string>)lt;
+            Dictionary<string, Point> listPos = new Dictionary<string, Point>();
+
+            foreach(var tab in listTab.Values)
+            {
+                if(!tcActions.TabPages.ContainsKey(tab))
+                {
+                    TabPage tp = new TabPage(tab);
+                    tp.Name = tab;
+                    tp.AutoScroll = true;
+                    tcActions.TabPages.Add(tp);
+                    listPos.Add(tab, p);
+                }
+            }
+
+            foreach (var a in listeActions)
             {
 
                 ActionPanel pan = new ActionPanel(a.Key);
 
-                pan.Location = p;
+                Point pa = listPos[listTab[a.Key]];
 
+                pan.Location = pa;
 
+                tt.SetToolTip(pan, a.Key.Desc);
 
-                pnlActions.Controls.Add(pan);
+                tcActions.TabPages[listTab[a.Key]].Controls.Add(pan);
 
-                p.X += 210;
+                pa.X += 210;
 
-                if (p.X + 210 >= pnlActions.Width)
+                if (pa.X + 210 >= tcActions.Width)
                 {
-                    p.X = 10;
-                    p.Y += 210;
+                    pa.X = 10;
+                    pa.Y += 210;
                 }
+                listPos[listTab[a.Key]] = pa;
             }
         }
 

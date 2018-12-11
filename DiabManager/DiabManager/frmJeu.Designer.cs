@@ -52,6 +52,7 @@ namespace DiabManager
             this.btnAvanceeTemps = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.pnlActions = new System.Windows.Forms.Panel();
+            this.tcActions = new System.Windows.Forms.TabControl();
             this.pnlInfos = new System.Windows.Forms.Panel();
             this.tabGraphJournal = new System.Windows.Forms.TabControl();
             this.tabGraph = new System.Windows.Forms.TabPage();
@@ -78,6 +79,7 @@ namespace DiabManager
             this.pnlHeure.SuspendLayout();
             this.pnlAction.SuspendLayout();
             this.pnlGestionTemps.SuspendLayout();
+            this.pnlActions.SuspendLayout();
             this.pnlInfos.SuspendLayout();
             this.tabGraphJournal.SuspendLayout();
             this.tabGraph.SuspendLayout();
@@ -245,10 +247,21 @@ namespace DiabManager
             this.pnlActions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlActions.AutoScroll = true;
             this.pnlActions.BackColor = System.Drawing.Color.Transparent;
+            this.pnlActions.Controls.Add(this.tcActions);
             this.pnlActions.Location = new System.Drawing.Point(1295, 74);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(594, 955);
             this.pnlActions.TabIndex = 0;
+            // 
+            // tcActions
+            // 
+            this.tcActions.Alignment = System.Windows.Forms.TabAlignment.Right;
+            this.tcActions.Location = new System.Drawing.Point(0, 3);
+            this.tcActions.Multiline = true;
+            this.tcActions.Name = "tcActions";
+            this.tcActions.SelectedIndex = 0;
+            this.tcActions.Size = new System.Drawing.Size(591, 949);
+            this.tcActions.TabIndex = 0;
             // 
             // pnlInfos
             // 
@@ -540,6 +553,7 @@ namespace DiabManager
             this.pnlAction.PerformLayout();
             this.pnlGestionTemps.ResumeLayout(false);
             this.pnlGestionTemps.PerformLayout();
+            this.pnlActions.ResumeLayout(false);
             this.pnlInfos.ResumeLayout(false);
             this.pnlInfos.PerformLayout();
             this.tabGraphJournal.ResumeLayout(false);
@@ -591,5 +605,6 @@ namespace DiabManager
         private System.Windows.Forms.TabPage tabGraph;
         private System.Windows.Forms.TabPage tabJournal;
         private System.Windows.Forms.TextBox txtJournal;
+        private System.Windows.Forms.TabControl tcActions;
     }
 }

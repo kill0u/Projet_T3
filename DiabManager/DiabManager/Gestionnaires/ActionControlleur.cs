@@ -123,6 +123,7 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         public void chargerAction()
         {
+            Dictionary< Actions, string> listTab = new Dictionary<Actions, string>();
             //Forme du chargement :
             //TYPE; NOM; DESCRIPTION; ETAT; DUREE; ADD, FOIS; HEURE1; HEURE2; HEUREN
             //etat[travail, matin, midi, soir, dormir]
@@ -137,25 +138,31 @@ namespace DiabManager.Gestionnaires
                     string line = reader.ReadLine();
                     if(!string.IsNullOrWhiteSpace(line)) { 
                         string[] fields = line.Split(';');
+                        Actions a;
                         if (fields[0] == "Nourriture")
                         {
-                            AddAction(Nourriture.readAction(fields));
+                            a = Nourriture.readAction(fields);
+                            AddAction(a);
+                            
                         }
                         else if(fields[0] == "Sport")
                         {
-                            AddAction(Sport.readAction(fields));
+                            a = Sport.readAction(fields);
+                            AddAction(a);
                         }
                         else
                         {
-                            AddAction(Actions.readAction(fields));
+                            a = Actions.readAction(fields);
+                            AddAction(a);
                         }
+                        listTab.Add(a, fields[0]);
                     }
                 }
             }
 
 
            
-            IHM.IHM_Actions.LoadAction();
+            IHM.IHM_Actions.LoadAction(listTab);
         }
 
 
