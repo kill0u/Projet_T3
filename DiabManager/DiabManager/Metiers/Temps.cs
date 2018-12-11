@@ -223,7 +223,7 @@ namespace DiabManager.Metiers
             {
                 m_actionEnCours = false;
                 changeSpeed(m_coeffVitesse);
-                IHM.IHM_Actions.SetAction("");
+                IHM.IHM_Actions.RemoveAction();
             }
             else //On vient de commencer une action
             {

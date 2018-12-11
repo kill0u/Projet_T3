@@ -82,6 +82,7 @@ namespace DiabManager.Metiers.ListeActions
             log += m_nom + ":" + Environment.NewLine;
             log += m_description + Environment.NewLine;
             log += "Durée: " + m_duree.ToString() + Environment.NewLine;
+            log += "Glycémie actuelle: " + IHM.IHM_Joueur.getJoueur().GlycemieCourante + Environment.NewLine;
             log += "---------------------------------------------" + Environment.NewLine;
 
             IHM.IHM_Actions.addLog(log);

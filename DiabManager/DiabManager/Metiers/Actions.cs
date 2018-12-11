@@ -13,7 +13,7 @@ namespace DiabManager.Metiers
      * @author Geoffrey Kugelmann
      * @version 1
      */
-    class Actions
+    public class Actions
     {
         /** Nom de l'action.
          * Le nom de l'action, la décrivant, et permettant de la décrire
@@ -198,6 +198,7 @@ namespace DiabManager.Metiers
             log += m_nom + ":" + Environment.NewLine;
             log += m_description + Environment.NewLine;
             log += "Durée: " + m_duree.ToString() + Environment.NewLine;
+            log += "Glycémie actuelle: " + IHM.IHM_Joueur.getJoueur().GlycemieCourante + Environment.NewLine;
             log += "---------------------------------------------" + Environment.NewLine;
 
             IHM.IHM_Actions.addLog(log);

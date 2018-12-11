@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiabManager.Composants;
 using DiabManager.Metiers;
 
 namespace DiabManager.IHM
@@ -68,7 +69,7 @@ namespace DiabManager.IHM
                         break;
                     }
                 }
-                SetAction(action.Nom + ": " + action.Desc);
+                SetAction(new ActionPanel(action));
                 //On notifie action controlleur qu'un action s'est lancé
                 m_actionControlleur.ActionActive = action;
                 //Réalise le code de l'action
@@ -80,26 +81,31 @@ namespace DiabManager.IHM
         /// Met à jour l'évènement actuel
         /// </summary>
         /// <param name="desc">The desc.</param>
-        public static void SetEvenement(string desc)
+        public static void SetEvenement(List<ActionPanel> pan)
         {
-            m_frm.setEvenement(desc);
+            m_frm.setEvenement(pan);
         }
 
         /// <summary>
         /// Met à jour l'action actuelle
         /// </summary>
         /// <param name="desc">The desc.</param>
-        public static void SetAction(string desc)
+        public static void SetAction(ActionPanel pan)
         {
-            m_frm.setAction(desc);
+            m_frm.setAction(pan);
+        }
+
+        public static void RemoveAction()
+        {
+            m_frm.removeAction();
         }
 
         /// <summary>
         /// Charge les boutons de toutes les actions
         /// </summary>
-        public static void LoadAction()
+        public static void LoadAction(Dictionary< Actions, string> listTab)
         {
-            m_frm.loadActions(m_actionControlleur.ListActions);
+            m_frm.loadActions(m_actionControlleur.ListActions, listTab);
         }
 
         /// <summary>
