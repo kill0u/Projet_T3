@@ -345,6 +345,11 @@ namespace DiabManager
             IHM.IHM_Joueur.Update();
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(Temps.getInstance().getHeureJournee());
             modifStyloInsuline();
+
+            for (int i = 0; i < 50; i++)
+            {
+                IHM.IHM_Joueur.UpdateGraph();
+            }
         }
         public System.Windows.Forms.DataVisualization.Charting.Chart getGraphe()
         {
@@ -363,6 +368,7 @@ namespace DiabManager
         public void setJour(string j)
         {
             lblAffJour.Text = j;
+            txtJournal.Text += "======================" + j + "======================" + Environment.NewLine;
         }
 
         /// <summary>
@@ -372,6 +378,15 @@ namespace DiabManager
         public void addLog(string l)
         {
             txtJournal.Text += l;
+        }
+
+        /// <summary>
+        /// Récupère le journal d'activité
+        /// </summary>
+        /// <returns>Le journal d'activité</returns>
+        public string getLog()
+        {
+            return txtJournal.Text;
         }
 
         
