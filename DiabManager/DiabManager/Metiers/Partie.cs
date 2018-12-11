@@ -56,6 +56,8 @@ namespace DiabManager.Metiers
         {
             m_d.AddDays(1);
             IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
+
+            j.newDay();
             
 
 
@@ -115,18 +117,28 @@ namespace DiabManager.Metiers
         }
 
 
-        private bool m_matin = true;
-        private bool m_midi = true;
-        private bool m_soir = true;
+        private Boolean m_matin = true;
+        private Boolean m_midi = true;
+        private Boolean m_soir = true;
+        private bool open = false;
         /**Evènements lancé à chaque tick du timer.
          * Fonction à exécuté à chaque tick du timer, mettre à jour les infos.
          */
-         public void JeuEnCours(Object source, ElapsedEventArgs e)
+        public void JeuEnCours(Object source, ElapsedEventArgs e)
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
+            
+            if (Temps.getInstance().getHeureJournee().Hours == 8 && Temps.getInstance().getHeureJournee().Minutes == 30 && !open)
+            {
+                open = true;
+                Temps.getInstance().PlayPause();
+                frmPiqure pik = new frmPiqure();
+                pik.ShowDialog();
+            }
             if (Temps.getInstance().getHeureJournee().Hours == 7 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_matin)
             {
+                open = false;
                 this.m_jeu.Gp.ColorTop = Color.Plum;
                 this.m_jeu.Gp.ColorBottom = Color.Orchid;
                 this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));

@@ -76,7 +76,6 @@ namespace DiabManager.IHM
             ///faire tous les calculs avant de récupérer toutes les infos.
             string[] infos = getInfos();
             m_frm.setInfosJoueur(infos);
-            m_frm.modifStyloInsuline();
             
 
         }
