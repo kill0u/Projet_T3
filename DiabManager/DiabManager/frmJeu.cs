@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DiabManager.Composants;
 using DiabManager.Metiers;
 
 namespace DiabManager
@@ -54,42 +55,9 @@ namespace DiabManager
             foreach(var a in listeActions)
             {
 
-                Panel pan = new Panel();
+                ActionPanel pan = new ActionPanel(a.Key);
+
                 pan.Location = p;
-                pan.Name = a.Key.Nom;
-                pan.Size = new Size(200, 200);
-                pan.Click += new System.EventHandler(boutonClick);
-
-                tt.SetToolTip(pan, a.Key.Desc);
-
-                Label l = new Label();
-                l.Text = a.Key.Nom;
-                l.Location = new Point(5, 5);
-                l.Click += new EventHandler(componentClick);
-
-                Label l2 = new Label();
-                l2.Text = a.Key.Desc;
-                l2.Location = new Point(5, 25);
-                l2.MaximumSize = new Size(190, 30);
-                l2.AutoSize = true;
-                l2.Click += new EventHandler(componentClick);
-
-                if (a.Key.Url != "")
-                {
-                    PictureBox pb = new PictureBox();
-                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pb.ImageLocation = a.Key.Url;
-
-                    pb.Size = new Size(190, 140);
-                    pb.Location = new Point(5, 60);
-
-                    pan.Controls.Add(pb);
-                    pb.Click += new EventHandler(componentClick);
-                }
-                
-
-                pan.Controls.Add(l);
-                pan.Controls.Add(l2);
 
 
 
@@ -121,7 +89,7 @@ namespace DiabManager
                     Control[] l = pnlActions.Controls.Find(a.Key.Nom, true);
                     if (l.Length != 0)
                     {
-                        Panel p = (Panel)l[0];
+                        ActionPanel p = (ActionPanel)l[0];
                         if (a.Value)
                             p.BackColor = Color.Green;
                         else
@@ -136,28 +104,7 @@ namespace DiabManager
             }
         }
 
-        /// <summary>
-        /// Action a effectué lors du click sur le bouton
-        /// </summary>
-        /// <param name="sender">Bouton sur lequel on appuie</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void boutonClick(object sender, EventArgs e)
-        {
-            Panel b = (Panel)sender;
-            IHM.IHM_Actions.EffectuerAction(b.Name);
-        }
-
-        /// <summary>
-        /// Action a effectué lors du click sur le bouton
-        /// </summary>
-        /// <param name="sender">Bouton sur lequel on appuie</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void componentClick(object sender, EventArgs e)
-        {
-            Control c = (Control)sender;
-            Panel b = (Panel)c.Parent;
-            IHM.IHM_Actions.EffectuerAction(b.Name);
-        }
+       
 
         /// <summary>
         /// Met à jour les informations du joueur
@@ -280,10 +227,19 @@ namespace DiabManager
         /// Met à jour l'action en cours
         /// </summary>
         /// <param name="desc">Nom et description de l'action</param>
-        public void setAction(string desc)
+        public void setAction(ActionPanel pan)
+        {
+            pan.Location = new Point(5, 20);
+            this.BeginInvoke((Action)(() => {
+                pnlAction.Controls.Add(pan);
+
+            }));
+        }
+
+        public void removeAction()
         {
             this.BeginInvoke((Action)(() => {
-                lblActions.Text = desc;
+                pnlAction.Controls.OfType<ActionPanel>().First().Dispose();
 
             }));
         }
@@ -292,10 +248,32 @@ namespace DiabManager
         /// Met à jour l'(es) évènement(s) en cours
         /// </summary>
         /// <param name="desc">Nom et description d'(es) évènement(s)</param>
-        public void setEvenement(string desc)
+        public void setEvenement(List<ActionPanel> pan)
         {
             this.BeginInvoke((Action)(() => {
-                lblEvents.Text = desc;
+                List<ActionPanel> suppr = new List<ActionPanel>();
+                
+                suppr.AddRange(pnlEvent.Controls.OfType<ActionPanel>());
+                foreach (var sup in suppr)
+                {
+                    sup.Dispose();
+                }
+                Point p = new Point(5, 20);
+                foreach (var add in pan)
+                {
+                    add.Location = p;
+
+                    pnlEvent.Controls.Add(add);
+
+                    p.X += 210;
+
+                    if (p.X + 210 >= pnlActions.Width)
+                    {
+                        p.X = 10;
+                        p.Y += 210;
+                    }
+                }
+
             }));
         }
 

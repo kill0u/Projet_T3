@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composants\ActionPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Composants\ActionPanel.Designer.cs">
+      <DependentUpon>ActionPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Composants\GradientPanel.cs">
       <SubType>Component</SubType>
     </Compile>

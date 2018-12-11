@@ -8,6 +8,7 @@ using DiabManager.Metiers.ListeActions;
 using System.IO;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using DiabManager.Composants;
 
 namespace DiabManager.Gestionnaires
 {
@@ -197,16 +198,16 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         public void UpdateEvenement()
         {
-            string descActive = "";
+            List<ActionPanel> list = new List<ActionPanel>();
             foreach (var e in m_listEvent)
             {
                 if(e.Value)
                 {
                     e.Key.duringAction();
-                    descActive += e.Key.Nom + ": " + e.Key.Desc + "\n";
+                    list.Add(new ActionPanel(e.Key));
                 }
             }
-            IHM.IHM_Actions.SetEvenement(descActive);
+            IHM.IHM_Actions.SetEvenement(list);
         }
 
 
