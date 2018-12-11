@@ -15,10 +15,7 @@ namespace DiabManager.Metiers
     class Partie
     {
         //Attributs
-        /// <summary>
-        /// Joueur de la partie.
-        /// </summary>
-        private static Joueur m_j;
+
 
         /// <summary>
         /// Timer pour actualiser le formulaire de Jeu.
@@ -40,19 +37,8 @@ namespace DiabManager.Metiers
         /// </summary>
         private Temps m_t;
 
-        private int m_jobj = 0;
-        public int jobj
-        {
-            get { return m_jobj; }
-            set { m_jobj = value; }
-        }
+ 
 
-        private int m_tfin = 0;
-        public int tfin
-        {
-            get { return m_tfin; }
-            set { m_tfin = value; }
-        }
 
         private frmJeu m_jeu= new frmJeu();
         public frmJeu j
@@ -70,12 +56,36 @@ namespace DiabManager.Metiers
         {
             m_d.AddDays(1);
             IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
-            double objBas= double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0]);
-            double objHaut= double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]);
-            if (double.Parse(IHM.IHM_Joueur.getInfos()[9])>objBas && double.Parse(IHM.IHM_Joueur.getInfos()[9])<objHaut)
+            
+
+
+            //On change le jour
+            switch (Temps.getInstance().getHeureJournee().Days%7) 
             {
-                jobj++;
-                if (jobj==3) { Fin(true); }
+                case 6:
+                    m_jeu.setJour("Dimanche");
+                    break;
+                case 0:
+                    m_jeu.setJour("Lundi");
+                    break;
+                case 1:
+                    m_jeu.setJour("Mardi");
+                    break;
+                case 2:
+                    m_jeu.setJour("Mercredi");
+                    break;
+                case 3:
+                    m_jeu.setJour("Jeudi");
+                    break;
+                case 4:
+                    m_jeu.setJour("Vendredi");
+                    break;
+                case 5:
+                    m_jeu.setJour("Samedi");
+                    break;
+                default:
+                    m_jeu.setJour("Lundi");
+                    break;
             }
         }
         
@@ -100,6 +110,7 @@ namespace DiabManager.Metiers
             m_updateTimer.AutoReset = true;
 
             m_updateTimer.Start();
+
             
         }
 
@@ -160,8 +171,9 @@ namespace DiabManager.Metiers
             Temps.getInstance().endTimer();
             m_jeu.BeginInvoke((Action)(() => {
                 m_jeu.Hide();
-                frmFinJeu finJeu = new frmFinJeu(res);
+                frmFinJeu finJeu = new frmFinJeu(res, m_jeu.getLog());
                 finJeu.ShowDialog();
+                m_jeu.DialogResult = finJeu.DialogResult;
                 m_jeu.Close();
             }));
             

@@ -11,7 +11,7 @@ namespace DiabManager.Metiers
      * @version 1.0
      * @author Léo Krebs
      */
-    class Joueur
+    public class Joueur
     {
 
         /// <summary>

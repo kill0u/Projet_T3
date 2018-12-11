@@ -8,6 +8,7 @@ using DiabManager.Metiers.ListeActions;
 using System.IO;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using DiabManager.Composants;
 
 namespace DiabManager.Gestionnaires
 {
@@ -21,7 +22,7 @@ namespace DiabManager.Gestionnaires
         /**Singleton de la classe ActionControlleur.
          * Garde la référence à la classe ActionControlleur active (afin de n'avoir qu'une instance de temps en même temps)
          */
-        private static ActionControlleur m_actionControlleurInstance = new ActionControlleur();
+        private static ActionControlleur m_actionControlleurInstance;
 
         /** Liste de toutes les actions lancés actuellement.
          * Liste les actions possibles pour l'utilisateur, avec pour valeur vrai si l'utilisateur peut les faire
@@ -122,6 +123,7 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         public void chargerAction()
         {
+            Dictionary< Actions, string> listTab = new Dictionary<Actions, string>();
             //Forme du chargement :
             //TYPE; NOM; DESCRIPTION; ETAT; DUREE; ADD, FOIS; HEURE1; HEURE2; HEUREN
             //etat[travail, matin, midi, soir, dormir]
@@ -136,25 +138,31 @@ namespace DiabManager.Gestionnaires
                     string line = reader.ReadLine();
                     if(!string.IsNullOrWhiteSpace(line)) { 
                         string[] fields = line.Split(';');
+                        Actions a;
                         if (fields[0] == "Nourriture")
                         {
-                            AddAction(Nourriture.readAction(fields));
+                            a = Nourriture.readAction(fields);
+                            AddAction(a);
+                            
                         }
                         else if(fields[0] == "Sport")
                         {
-                            AddAction(Sport.readAction(fields));
+                            a = Sport.readAction(fields);
+                            AddAction(a);
                         }
                         else
                         {
-                            AddAction(Actions.readAction(fields));
+                            a = Actions.readAction(fields);
+                            AddAction(a);
                         }
+                        listTab.Add(a, fields[0]);
                     }
                 }
             }
 
 
            
-            IHM.IHM_Actions.LoadAction();
+            IHM.IHM_Actions.LoadAction(listTab);
         }
 
 
@@ -197,16 +205,16 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         public void UpdateEvenement()
         {
-            string descActive = "";
+            List<ActionPanel> list = new List<ActionPanel>();
             foreach (var e in m_listEvent)
             {
                 if(e.Value)
                 {
                     e.Key.duringAction();
-                    descActive += e.Key.Nom + ": " + e.Key.Desc + "\n";
+                    list.Add(new ActionPanel(e.Key));
                 }
             }
-            IHM.IHM_Actions.SetEvenement(descActive);
+            IHM.IHM_Actions.SetEvenement(list);
         }
 
 
@@ -231,7 +239,32 @@ namespace DiabManager.Gestionnaires
                         {
 
                             int ra = r.Next(0, 10001);
-                            if (ra <= e.Key.ChanceInit * 100)//on fait un aléatoire
+                            double chance = e.Key.ChanceInit * 100f;
+                            //On regarde la personnalité du joueur, et on adapte les chances des évènements selon les stats actuelles du joueur
+                            foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
+                            {
+                                if (e.Key.ChanceCharac.ContainsKey(charac))
+                                {
+                                    var tuple = e.Key.ChanceCharac[charac];
+                                    //Case 0 --> Energie
+                                    if (tuple[0].Item1 < 101)
+                                        if ((tuple[0].Item1 < 0 && tuple[0].Item1 > IHM.IHM_Joueur.getJoueur().Energie) || (tuple[0].Item1 > 0 && tuple[0].Item1 < IHM.IHM_Joueur.getJoueur().Energie) )
+                                            if (tuple[0].Item2 * 100 > chance)
+                                                chance = tuple[0].Item2 * 100;
+                                    //Case 1 --> Stress
+                                    if (tuple[1].Item1 < 101)
+                                        if ((tuple[1].Item1 < 0 && tuple[1].Item1 > IHM.IHM_Joueur.getJoueur().Stress) || (tuple[1].Item1 > 0 && tuple[1].Item1 < IHM.IHM_Joueur.getJoueur().Stress))
+                                            if (tuple[1].Item2 * 100 > chance)
+                                                chance = tuple[1].Item2 * 100;
+                                    //Case 2 --> Glycémie
+                                    if (tuple[2].Item1 < 101)
+                                        if ((tuple[2].Item1 < 0 && tuple[2].Item1 > IHM.IHM_Joueur.getJoueur().GlycemieCourante) || (tuple[2].Item1 > 0 && tuple[2].Item1 < IHM.IHM_Joueur.getJoueur().GlycemieCourante))
+                                            if (tuple[2].Item2 * 100 > chance)
+                                                chance = tuple[2].Item2 * 100;
+                                }
+                            }
+
+                            if (ra <= chance)//on fait un aléatoire
                             {
                                 //On lance l'évènement
                                 m_listEvent[e.Key] = true;
@@ -269,7 +302,17 @@ namespace DiabManager.Gestionnaires
         /// <returns>instance du controlleur</returns>
         public static ActionControlleur getInstance()
         {
+            if (m_actionControlleurInstance == null)
+                m_actionControlleurInstance = new ActionControlleur();
             return m_actionControlleurInstance;
+        }
+
+        /// <summary>
+        /// Détruit le controlleur (pour pouvoir redémarrer)
+        /// </summary>
+        public static void destroyInstance()
+        {
+            m_actionControlleurInstance = null;
         }
 
 

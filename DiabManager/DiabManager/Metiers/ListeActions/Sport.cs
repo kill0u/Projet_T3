@@ -30,7 +30,7 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="poids">Le poids a ajouter au joueur après avoir fait du sport</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
-        public Sport(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double poids, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, values)
+        public Sport(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double poids,bool[]jours, string url, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, jours, url, values)
         {
             m_poids = poids;
         }
@@ -51,13 +51,21 @@ namespace DiabManager.Metiers.ListeActions
         /// <returns>L'action créée</returns>
         public static new Sport readAction(string[] fields)
         {
+            string ef = Regex.Replace(fields[6], @"[\[\]]+", string.Empty);
+            string[] efS = ef.Split(',');
+            bool[] jours = new bool[7];
+            for (int i = 0; i < efS.Length; i++)
+                jours[i] = efS[i] == "1";
+
+            string url = fields[7];
+
             Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
-            int k = 6;
+            int k = 8;
             while (fields[k].Contains(":["))
             {
                 string nomCharac = fields[k].Split(':')[0];
-                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
-                string[] efS = ef.Split(',');
+                ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                efS = ef.Split(',');
                 double[] carac = new double[efS.Length];
                 for (int i = 0; i < efS.Length; i++)
                     carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
@@ -90,7 +98,7 @@ namespace DiabManager.Metiers.ListeActions
             double poids = double.Parse(fields[5], CultureInfo.InvariantCulture);
 
 
-            return new Sport(nom, desc, duree, etatInital, etatFinal, poids, plageHoraire);
+            return new Sport(nom, desc, duree, etatInital, etatFinal, poids, jours, url, plageHoraire);
         }
     }
 }

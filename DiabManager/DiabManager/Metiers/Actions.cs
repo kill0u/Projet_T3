@@ -13,7 +13,7 @@ namespace DiabManager.Metiers
      * @author Geoffrey Kugelmann
      * @version 1
      */
-    class Actions
+    public class Actions
     {
         /** Nom de l'action.
          * Le nom de l'action, la décrivant, et permettant de la décrire
@@ -95,6 +95,21 @@ namespace DiabManager.Metiers
 
 
         /// <summary>
+        /// Les jours où l'évènement peut se passer
+        /// </summary>
+        /// 0 --> lundi
+        /// 1 --> mardi
+        /// 2 --> mercredi
+        /// 3 --> jeudi
+        /// 4 --> vendredi
+        /// 5 --> samedi
+        /// 6 --> dimanche
+        protected bool[] m_jour = new bool[7];
+
+        protected string m_url = "";
+        public string Url { get { return m_url; } }
+
+        /// <summary>
         /// Constructeur d'une action
         /// </summary>
         /// <param name="nom">Nom de l'action</param>
@@ -104,7 +119,7 @@ namespace DiabManager.Metiers
         /// <param name="etatFinal">Etat du joueur après l'action</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
         /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
-        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial,Dictionary<string, double[]> etatFinal, params TimeSpan[] values) 
+        public Actions(string nom, string description, TimeSpan duree, double[] etatInitial,Dictionary<string, double[]> etatFinal, bool[] jours, string url, params TimeSpan[] values) 
         {
             m_nom = nom;
             m_description = description;
@@ -125,10 +140,14 @@ namespace DiabManager.Metiers
                 m_plageHoraire[i, 1] = values[j];
                 j++;
             }
+
+            m_jour = jours;
+
+            m_url = url;
         }
 
         /// <summary>
-        /// Regarde si une heure est compris dans une plage horaire
+        /// Regarde si une heure est compris dans une plage horaire et si le jours correspond
         /// </summary>
         /// <param name="temps">Heure actuelle de la journée</param>
         /// <returns>
@@ -137,6 +156,11 @@ namespace DiabManager.Metiers
         /// Parcourt la plage horaire de l'action, et pour chacune, regarde si l'heure actuelle correspond
         public bool isTempsDansPlage(TimeSpan temps)
         {
+            for (int i = 0; i < m_jour.Length; i++)
+            {
+                if (!m_jour[i] && temps.Days % 7 == i)
+                    return false;
+            }
             TimeSpan heure = new TimeSpan(temps.Hours, temps.Minutes, temps.Seconds);
             for (int i = 0; i < m_nbHoraire; i++)
             {
@@ -169,7 +193,15 @@ namespace DiabManager.Metiers
 
                 }
             }
+            //On ajoute au log
+            string log = Temps.getInstance().getHeureJournee().Hours + "h" + Temps.getInstance().getHeureJournee().Minutes + "mins ---------------------------------" + Environment.NewLine;
+            log += m_nom + ":" + Environment.NewLine;
+            log += m_description + Environment.NewLine;
+            log += "Durée: " + m_duree.ToString() + Environment.NewLine;
+            log += "Glycémie actuelle: " + IHM.IHM_Joueur.getJoueur().GlycemieCourante + Environment.NewLine;
+            log += "---------------------------------------------" + Environment.NewLine;
 
+            IHM.IHM_Actions.addLog(log);
 
             Temps.getInstance().swapAction();
 
@@ -215,13 +247,22 @@ namespace DiabManager.Metiers
         /// <returns>L'action créée</returns>
         public static Actions readAction(string[] fields)
         {
+
+            string ef = Regex.Replace(fields[5], @"[\[\]]+", string.Empty);
+            string[] efS = ef.Split(',');
+            bool[] jours = new bool[7];
+            for (int i = 0; i < efS.Length; i++)
+                jours[i] = efS[i] == "1";
+
+            string url = fields[6];
+
             Dictionary<string, double[]> etatFinal = new Dictionary<string, double[]>();
-            int k = 5;
+            int k = 7;
             while (fields[k].Contains(":["))
             {            
                 string nomCharac = fields[k].Split(':')[0];
-                string ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
-                string[] efS = ef.Split(',');
+                ef = Regex.Replace(fields[k].Split(':')[1], @"[\[\]]+", string.Empty);
+                efS = ef.Split(',');
                 double[] carac = new double[efS.Length];
                 for (int i = 0; i < efS.Length; i++)
                      carac[i] = double.Parse(efS[i], CultureInfo.InvariantCulture);
@@ -256,7 +297,7 @@ namespace DiabManager.Metiers
             
                 
 
-            return new Actions(nom, desc, duree, etatInital, etatFinal, plageHoraire);
+            return new Actions(nom, desc, duree, etatInital, etatFinal, jours, url, plageHoraire);
         }
 
         public bool isCompatible(Joueur j)

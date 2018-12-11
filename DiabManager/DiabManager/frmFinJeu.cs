@@ -17,7 +17,7 @@ namespace DiabManager
             InitializeComponent();
         }
 
-        public frmFinJeu(bool res)
+        public frmFinJeu(bool res, string log)
         {
             InitializeComponent();
             if (res)
@@ -29,6 +29,8 @@ namespace DiabManager
                 label1.Text = "Raté ! Vous êtes rester trop longtemps dans des valeurs de glycémie éxcessives !";
             }
 
+            txtJournal.Text = log;
+
         }
 
         private void frmFinJeu_Load(object sender, EventArgs e)
@@ -38,14 +40,16 @@ namespace DiabManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmMenu sistema = new frmMenu();
-            sistema.ShowDialog();
+            //this.Hide();
+            //frmMenu sistema = new frmMenu();
+            //sistema.ShowDialog();
+            DialogResult = DialogResult.OK;
             this.Close();
         }
     }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DiabManager.Composants;
 using DiabManager.Metiers;
 
 namespace DiabManager
@@ -30,6 +31,10 @@ namespace DiabManager
             InitializeComponent();
             PrivateFontCollection f = new PrivateFontCollection();
             String path = Application.ExecutablePath;
+            int screenheigt = Screen.PrimaryScreen.Bounds.Height;
+            int screenwidht = Screen.PrimaryScreen.Bounds.Height;
+            this.Height = screenheigt;
+            this.Width = screenwidht;
             path = Directory.GetParent(path).ToString();
             path = path + @"\digital-7.ttf";
             f.AddFontFile(path);
@@ -39,34 +44,51 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Transforme la liste d'action en bouton 
+        /// Transforme la liste d'action en bouton
         /// </summary>
         /// <param name="liste">Liste de toutes les actions disponibles</param>
-        public void loadActions(Object liste)
+        public void loadActions(Object liste, Object lt)
         {
             Dictionary<Actions, bool> listeActions = (Dictionary<Actions, bool>)liste;
             Point p = new Point(10, 10);
             ToolTip tt = new ToolTip();
-            foreach(var a in listeActions)
+
+            Dictionary<Actions, string> listTab = (Dictionary<Actions, string>)lt;
+            Dictionary<string, Point> listPos = new Dictionary<string, Point>();
+
+            foreach(var tab in listTab.Values)
             {
-                Button b = new Button();
-                b.Location = p;
-                b.Text = a.Key.Nom;
-                b.Name = a.Key.Nom;
-                b.Size = new Size(100, 50);
-                b.Click += new System.EventHandler(boutonClick);
-
-                tt.SetToolTip(b, a.Key.Desc);
-
-                pnlActions.Controls.Add(b);
-
-                p.X += 110;
-
-                if (p.X + 100 >= pnlActions.Width)
+                if(!tcActions.TabPages.ContainsKey(tab))
                 {
-                    p.X = 10;
-                    p.Y += 60;
+                    TabPage tp = new TabPage(tab);
+                    tp.Name = tab;
+                    tp.AutoScroll = true;
+                    tcActions.TabPages.Add(tp);
+                    listPos.Add(tab, p);
                 }
+            }
+
+            foreach (var a in listeActions)
+            {
+
+                ActionPanel pan = new ActionPanel(a.Key);
+
+                Point pa = listPos[listTab[a.Key]];
+
+                pan.Location = pa;
+
+                tt.SetToolTip(pan, a.Key.Desc);
+
+                tcActions.TabPages[listTab[a.Key]].Controls.Add(pan);
+
+                pa.X += 210;
+
+                if (pa.X + 210 >= tcActions.Width)
+                {
+                    pa.X = 10;
+                    pa.Y += 210;
+                }
+                listPos[listTab[a.Key]] = pa;
             }
         }
 
@@ -86,8 +108,12 @@ namespace DiabManager
                     Control[] l = pnlActions.Controls.Find(a.Key.Nom, true);
                     if (l.Length != 0)
                     {
-                        Button b = (Button)l[0];
-                        b.Enabled = a.Value;
+                        ActionPanel p = (ActionPanel)l[0];
+                        if (a.Value)
+                            p.BackColor = Color.Green;
+                        else
+                            p.BackColor = Color.Red;
+                        p.Enabled = a.Value;
                     }
                     
 
@@ -96,6 +122,8 @@ namespace DiabManager
                 
             }
         }
+
+       
 
         /// <summary>
         /// Met à jour les informations du joueur
@@ -170,16 +198,7 @@ namespace DiabManager
 
         }
 
-        /// <summary>
-        /// Action a effectué lors du click sur le bouton
-        /// </summary>
-        /// <param name="sender">Bouton sur lequel on appuie</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void boutonClick(object sender, EventArgs e)
-        {
-            Button b = (Button)sender;
-            IHM.IHM_Actions.EffectuerAction(b.Name);
-        }
+       
 
        
 
@@ -227,10 +246,19 @@ namespace DiabManager
         /// Met à jour l'action en cours
         /// </summary>
         /// <param name="desc">Nom et description de l'action</param>
-        public void setAction(string desc)
+        public void setAction(ActionPanel pan)
+        {
+            pan.Location = new Point(5, 20);
+            this.BeginInvoke((Action)(() => {
+                pnlAction.Controls.Add(pan);
+
+            }));
+        }
+
+        public void removeAction()
         {
             this.BeginInvoke((Action)(() => {
-                lblActions.Text = desc;
+                pnlAction.Controls.OfType<ActionPanel>().First().Dispose();
 
             }));
         }
@@ -239,10 +267,32 @@ namespace DiabManager
         /// Met à jour l'(es) évènement(s) en cours
         /// </summary>
         /// <param name="desc">Nom et description d'(es) évènement(s)</param>
-        public void setEvenement(string desc)
+        public void setEvenement(List<ActionPanel> pan)
         {
             this.BeginInvoke((Action)(() => {
-                lblEvents.Text = desc;
+                List<ActionPanel> suppr = new List<ActionPanel>();
+                
+                suppr.AddRange(pnlEvent.Controls.OfType<ActionPanel>());
+                foreach (var sup in suppr)
+                {
+                    sup.Dispose();
+                }
+                Point p = new Point(5, 20);
+                foreach (var add in pan)
+                {
+                    add.Location = p;
+
+                    pnlEvent.Controls.Add(add);
+
+                    p.X += 210;
+
+                    if (p.X + 210 >= pnlActions.Width)
+                    {
+                        p.X = 10;
+                        p.Y += 210;
+                    }
+                }
+
             }));
         }
 
@@ -270,14 +320,21 @@ namespace DiabManager
 
         private void btnAvanceeTemps_Click(object sender, EventArgs e)
         {
-            Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse * 2);
-            lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+            if (Temps.getInstance().CoeffVitesse < 32)
+            {
+                Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse * 2);
+                lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse / 2);
-            lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x";
+            if (Temps.getInstance().CoeffVitesse > 0.25)
+            {
+                Temps.getInstance().changeSpeed(Temps.getInstance().CoeffVitesse / 2);
+                lblVitesse.Text = Temps.getInstance().CoeffVitesse + "x"; 
+            }
         }
 
         private void frmJeu_Shown(object sender, EventArgs e)
@@ -288,6 +345,11 @@ namespace DiabManager
             IHM.IHM_Joueur.Update();
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(Temps.getInstance().getHeureJournee());
             modifStyloInsuline();
+
+            for (int i = 0; i < 50; i++)
+            {
+                IHM.IHM_Joueur.UpdateGraph();
+            }
         }
         public System.Windows.Forms.DataVisualization.Charting.Chart getGraphe()
         {
@@ -299,7 +361,33 @@ namespace DiabManager
             
         }
 
-       
+        /// <summary>
+        /// Affiche le jour de la semaine
+        /// </summary>
+        /// <param name="j">jour</param>
+        public void setJour(string j)
+        {
+            lblAffJour.Text = j;
+            txtJournal.Text += "======================" + j + "======================" + Environment.NewLine;
+        }
+
+        /// <summary>
+        /// Ajoute au journal une action ou évènement
+        /// </summary>
+        /// <param name="l">Description de l'action</param>
+        public void addLog(string l)
+        {
+            txtJournal.Text += l;
+        }
+
+        /// <summary>
+        /// Récupère le journal d'activité
+        /// </summary>
+        /// <returns>Le journal d'activité</returns>
+        public string getLog()
+        {
+            return txtJournal.Text;
+        }
 
         
     }

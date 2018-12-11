@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiabManager.Metiers
 {
-    class Stylo
+    public class Stylo
     {
         private bool m_disponible=true;
         public bool Disponible

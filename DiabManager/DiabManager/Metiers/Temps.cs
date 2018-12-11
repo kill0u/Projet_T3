@@ -17,7 +17,7 @@ namespace DiabManager.Metiers
         /**Singleton de la classe Temps.
          * Garde la référence à la classe Temps active (afin de n'avoir qu'une instance de temps en même temps)
          */ 
-        private static Temps m_tempsInstance = new Temps();
+        private static Temps m_tempsInstance;
 
         private const int dureeTemps = 10000;
 
@@ -48,6 +48,10 @@ namespace DiabManager.Metiers
         private Timer m_dayTimer;
 
         private TimeSpan m_tempsHorsPlage = new TimeSpan(0);
+
+
+        private TimeSpan m_tempsDansPlage = new TimeSpan(0);
+        private int m_creditTempsDansPlage = 12;
 
         private double m_gMin = 0.5;
         public double gMin
@@ -92,7 +96,7 @@ namespace DiabManager.Metiers
          */
         private void SetTimer()
         {
-            //Le timer tick toutes les 30 s
+            //Le timer tick toutes les 10 s
             m_dayTimer = new Timer(dureeTemps);
 
             m_dayTimer.Elapsed += TickEvent;
@@ -162,16 +166,44 @@ namespace DiabManager.Metiers
                 {
                     m_partie.Fin(false);
                 }
+
+                //On regarde si le joueur reste suffisamment de temps dans la zone
+                double objBas = double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0]);
+                double objHaut = double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]);
+                if (double.Parse(IHM.IHM_Joueur.getInfos()[9]) > objBas && double.Parse(IHM.IHM_Joueur.getInfos()[9]) < objHaut)
+                {
+                    m_tempsDansPlage = m_tempsDansPlage.Add(new TimeSpan(0, 10, 0));
+                 
+                }
+                else
+                {
+                    if (m_creditTempsDansPlage > 0)
+                    {
+                        m_creditTempsDansPlage--;
+                        m_tempsDansPlage = m_tempsDansPlage.Add(new TimeSpan(0, 10, 0));
+                    }
+                    else
+                    {
+                        m_tempsDansPlage = new TimeSpan(0);
+                    }
+                }
+
+                if (m_tempsDansPlage.Days >= 3)
+                {
+                    m_partie.Fin(true);
+                }
             }
 
             
             //si on dépasse un jour
-            if(m_time.Days > 0)
+            if(m_time.Hours == 0 && m_time.Minutes == 0 && m_time.Seconds == 0)
             {
 
                 //On ajoute un jour sur la partie
                 m_partie.AddDay();
 
+                //On réautorise à quitter la zone de glycémie pour 2h dans toute la journée
+                m_creditTempsDansPlage = 12;
 
             }
 
@@ -223,7 +255,7 @@ namespace DiabManager.Metiers
             {
                 m_actionEnCours = false;
                 changeSpeed(m_coeffVitesse);
-                IHM.IHM_Actions.SetAction("");
+                IHM.IHM_Actions.RemoveAction();
             }
             else //On vient de commencer une action
             {
@@ -237,7 +269,17 @@ namespace DiabManager.Metiers
         */
         public static Temps getInstance()
         {
+            if (m_tempsInstance == null)
+                m_tempsInstance = new Temps();
             return m_tempsInstance;
+        }
+
+        /// <summary>
+        /// Détruit l'instance de temps (pour pouvoir redemarré)
+        /// </summary>
+        public static void destroyInstance()
+        {
+            m_tempsInstance = null;
         }
 
         public void endTimer()
