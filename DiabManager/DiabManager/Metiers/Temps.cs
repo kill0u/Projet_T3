@@ -49,6 +49,10 @@ namespace DiabManager.Metiers
 
         private TimeSpan m_tempsHorsPlage = new TimeSpan(0);
 
+
+        private TimeSpan m_tempsDansPlage = new TimeSpan(0);
+        private int m_creditTempsDansPlage = 12;
+
         private double m_gMin = 0.5;
         public double gMin
         {
@@ -162,16 +166,44 @@ namespace DiabManager.Metiers
                 {
                     m_partie.Fin(false);
                 }
+
+                //On regarde si le joueur reste suffisamment de temps dans la zone
+                double objBas = double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0]);
+                double objHaut = double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]);
+                if (double.Parse(IHM.IHM_Joueur.getInfos()[9]) > objBas && double.Parse(IHM.IHM_Joueur.getInfos()[9]) < objHaut)
+                {
+                    m_tempsDansPlage = m_tempsDansPlage.Add(new TimeSpan(0, 10, 0));
+                 
+                }
+                else
+                {
+                    if (m_creditTempsDansPlage > 0)
+                    {
+                        m_creditTempsDansPlage--;
+                        m_tempsDansPlage = m_tempsDansPlage.Add(new TimeSpan(0, 10, 0));
+                    }
+                    else
+                    {
+                        m_tempsDansPlage = new TimeSpan(0);
+                    }
+                }
+
+                if (m_tempsDansPlage.Days >= 3)
+                {
+                    m_partie.Fin(true);
+                }
             }
 
             
             //si on dépasse un jour
-            if(m_time.Days > 0)
+            if(m_time.Hours == 0 && m_time.Minutes == 0 && m_time.Seconds == 0)
             {
 
                 //On ajoute un jour sur la partie
                 m_partie.AddDay();
 
+                //On réautorise à quitter la zone de glycémie pour 2h dans toute la journée
+                m_creditTempsDansPlage = 12;
 
             }
 

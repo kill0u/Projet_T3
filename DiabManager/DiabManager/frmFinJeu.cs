@@ -17,7 +17,7 @@ namespace DiabManager
             InitializeComponent();
         }
 
-        public frmFinJeu(bool res)
+        public frmFinJeu(bool res, string log)
         {
             InitializeComponent();
             if (res)
@@ -28,6 +28,8 @@ namespace DiabManager
             {
                 label1.Text = "Raté ! Vous êtes rester trop longtemps dans des valeurs de glycémie éxcessives !";
             }
+
+            txtJournal.Text = log;
 
         }
 

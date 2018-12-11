@@ -78,7 +78,7 @@ namespace DiabManager.Metiers.ListeActions
         {
 
             //On ajoute au log
-            string log = "---------------------------------------------" + Environment.NewLine;
+            string log = Temps.getInstance().getHeureJournee().Hours + "h" + Temps.getInstance().getHeureJournee().Minutes + "mins ---------------------------------" + Environment.NewLine;
             log += m_nom + ":" + Environment.NewLine;
             log += m_description + Environment.NewLine;
             log += "Durée: " + m_duree.ToString() + Environment.NewLine;
