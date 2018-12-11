@@ -109,9 +109,6 @@
     <EmbeddedResource Include="frmPiqure.resx">
       <DependentUpon>frmPiqure.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MiniJeu\frmJeuCaPousse.resx">
-      <DependentUpon>frmJeuCaPousse.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

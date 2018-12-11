@@ -56,6 +56,8 @@ namespace DiabManager.Metiers
         {
             m_d.AddDays(1);
             IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
+
+            j.newDay();
             
 
 
@@ -126,6 +128,7 @@ namespace DiabManager.Metiers
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
+            
             if (Temps.getInstance().getHeureJournee().Hours == 8 && Temps.getInstance().getHeureJournee().Minutes == 30 && !open)
             {
                 open = true;
@@ -133,7 +136,6 @@ namespace DiabManager.Metiers
                 frmPiqure pik = new frmPiqure();
                 pik.ShowDialog();
             }
-            if (double.Parse(IHM.IHM_Joueur.getInfos()[9])> double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[1]) || double.Parse(IHM.IHM_Joueur.getInfos()[9]) < double.Parse(IHM.IHM_Joueur.getInfos()[7].Split('-')[0])) { jobj = 0; }
             if (Temps.getInstance().getHeureJournee().Hours == 7 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_matin)
             {
                 open = false;
