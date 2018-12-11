@@ -198,48 +198,6 @@ namespace DiabManager
 
         }
 
-       
-
-       
-
-        private void btnDiminuer_Click(object sender, EventArgs e)
-        {
-            if (IHM.IHM_Joueur.getJoueur().Stylo.dose != 0)
-            {
-                IHM.IHM_Joueur.getJoueur().Stylo.dose--;
-                modifStyloInsuline();
-            }
-
-        }
-
-        private void btnAugmenter_Click(object sender, EventArgs e)
-        {
-            if (IHM.IHM_Joueur.getJoueur().Stylo.dose != IHM.IHM_Joueur.getJoueur().Stylo.DoseMax)
-            {
-                IHM.IHM_Joueur.getJoueur().Stylo.dose++;
-                modifStyloInsuline();
-            }
-
-        }
-        /// <summary>
-        /// Fonction qui modifie les informations affichés du stylo d'insuline.
-        /// </summary>
-        public void modifStyloInsuline()
-        {
-            this.BeginInvoke((Action)(() => {
-                if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu != 0)
-                {
-                    progressBarInsuline.Value = IHM.IHM_Joueur.getJoueur().Stylo.dose * 100 / IHM.IHM_Joueur.getJoueur().Stylo.DoseActu;
-                }
-                else { progressBarInsuline.Value = 0; }
-                lblDose.Text = "Dose à injecter : " + IHM.IHM_Joueur.getJoueur().Stylo.dose;
-                lblDoseActu.Text = "dose restante : " + IHM.IHM_Joueur.getJoueur().Stylo.DoseActu;
-                if (!IHM.IHM_Joueur.getJoueur().Stylo.Disponible) { btnPiqure.Enabled = false; }
-                else { btnPiqure.Enabled = true; }
-            }));
-            
-
-        }
 
 
         /// <summary>
@@ -296,14 +254,32 @@ namespace DiabManager
             }));
         }
 
+        private int m_nbDose=3;
+        public int dose
+        {
+            get { return m_nbDose; }
+            set { m_nbDose = value; }
+        }
+
+        public void newDay() {
+            dose = 3;
+            progressBar1.Value=100;
+            progressBar2.Value = 100;
+            progressBarInsuline.Value = 100;
+        }
 
         private void btnPiqure_Click(object sender, EventArgs e)
         {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(-0.1 * IHM.IHM_Joueur.getJoueur().Stylo.dose, 1));
-            IHM.IHM_Joueur.getJoueur().Stylo.DoseActu -= IHM.IHM_Joueur.getJoueur().Stylo.dose;
-            if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu < IHM.IHM_Joueur.getJoueur().Stylo.dose) { IHM.IHM_Joueur.getJoueur().Stylo.dose = IHM.IHM_Joueur.getJoueur().Stylo.DoseActu; }
-            IHM.IHM_Joueur.getJoueur().Stylo.Disponible = false;
-            modifStyloInsuline();
+            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(-0.7, 1));
+
+            m_nbDose--;
+            if (dose== 0)
+            {
+                btnPiqure.Enabled = false;
+                progressBarInsuline.Value = 0;
+            }
+            else if (dose == 1) progressBar2.Value = 0;
+            else progressBar1.Value = 0;
         }
 
         private void btnPause_Click(object sender, EventArgs e)
@@ -344,7 +320,6 @@ namespace DiabManager
             IHM.IHM_Actions.updateTemps(Temps.getInstance().getHeureJournee());
             IHM.IHM_Joueur.Update();
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(Temps.getInstance().getHeureJournee());
-            modifStyloInsuline();
 
             for (int i = 0; i < 50; i++)
             {
