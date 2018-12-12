@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -128,7 +129,9 @@ namespace DiabManager.Metiers
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
-            
+            /*String path = Application.ExecutablePath;
+            path = Directory.GetParent(path).ToString();
+            path = path + @"\Ressources\Images";*/
             if (Temps.getInstance().getHeureJournee().Hours == 8 && Temps.getInstance().getHeureJournee().Minutes == 30 && !open)
             {
                 open = true;
@@ -139,25 +142,31 @@ namespace DiabManager.Metiers
             if (Temps.getInstance().getHeureJournee().Hours == 7 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_matin)
             {
                 open = false;
-                this.m_jeu.Gp.ColorTop = Color.Plum;
-                this.m_jeu.Gp.ColorBottom = Color.Orchid;
-                this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));
+                this.m_jeu.BackgroundImage = global::DiabManager.Properties.Resources.matin;
+                this.m_jeu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+                /*this.m_jeu.Gp.ColorTop = Color.Plum;
+                this.m_jeu.Gp.ColorBottom = Color.Orchid;*/
+                this.m_jeu.Invoke(new MethodInvoker(delegate { this.m_jeu.Refresh(); }));
                 m_matin = false;
                 m_midi = true;
             }
             if (Temps.getInstance().getHeureJournee().Hours == 12 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_midi)
             {
-                this.m_jeu.Gp.ColorTop = Color.LightSteelBlue;
-                this.m_jeu.Gp.ColorBottom = Color.MediumSpringGreen;
-                this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));
+                this.m_jeu.BackgroundImage = global::DiabManager.Properties.Resources.midi;
+                this.m_jeu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+                /*this.m_jeu.Gp.ColorTop = Color.LightSteelBlue;
+                this.m_jeu.Gp.ColorBottom = Color.MediumSpringGreen;*/
+                this.m_jeu.Invoke(new MethodInvoker(delegate { this.m_jeu.Refresh(); }));
                 m_midi = false;
                 m_soir = true;
             }
             if (Temps.getInstance().getHeureJournee().Hours == 20 && Temps.getInstance().getHeureJournee().Minutes == 0 && m_soir)
             {
-                this.m_jeu.Gp.ColorTop = Color.Indigo;
-                this.m_jeu.Gp.ColorBottom = Color.MidnightBlue;
-                this.m_jeu.Gp.Invoke(new MethodInvoker(delegate { this.m_jeu.Gp.Refresh(); }));
+                this.m_jeu.BackgroundImage = global::DiabManager.Properties.Resources.nuit;
+                this.m_jeu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+                /*this.m_jeu.Gp.ColorTop = Color.Indigo;
+                this.m_jeu.Gp.ColorBottom = Color.MidnightBlue;*/
+                this.m_jeu.Invoke(new MethodInvoker(delegate { this.m_jeu.Refresh(); }));
                 m_soir = false;
                 m_matin = true;
             }

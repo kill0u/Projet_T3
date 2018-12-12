@@ -40,7 +40,7 @@ namespace DiabManager
             f.AddFontFile(path);
             lblAffTemps.Font = new Font(f.Families[0], 26,FontStyle.Bold);
             lblTemps.Font = new Font(f.Families[0], 26, FontStyle.Bold);
-            g = gplFond;
+            //g = gplFond;
         }
 
         /// <summary>
@@ -161,26 +161,54 @@ namespace DiabManager
 
                 //Infos d'energie
                 double energie = double.Parse(infos[11]);
-                if (energie < 21)
+                Joueur Jcourant = IHM.IHM_Joueur.getJoueur();
+                if (Jcourant.Sexe == 'H')
                 {
-                    lblEnergie.Text = "Vous êtes épuisé";
-                }
-                else if (energie < 41)
-                {
-                    lblEnergie.Text = "Vous êtes fatigué";
-                }
-                else if (energie < 61)
-                {
-                    lblEnergie.Text = "Vous êtes un peu fatigué";
-                }
-                else if (energie < 81)
-                {
-                    lblEnergie.Text = "Vous vous sentez légèrement fatigué";
+                    if (energie < 21)
+                    {
+                        lblEnergie.Text = "Vous êtes épuisé";
+                    }
+                    else if (energie < 41)
+                    {
+                        lblEnergie.Text = "Vous êtes fatigué";
+                    }
+                    else if (energie < 61)
+                    {
+                        lblEnergie.Text = "Vous êtes un peu fatigué";
+                    }
+                    else if (energie < 81)
+                    {
+                        lblEnergie.Text = "Vous vous sentez légèrement fatigué";
+                    }
+                    else
+                    {
+                        lblEnergie.Text = "Vous êtes en pleine forme";
+                    }
                 }
                 else
                 {
-                    lblEnergie.Text = "Vous êtes en pleine forme";
+                    if (energie < 21)
+                    {
+                        lblEnergie.Text = "Vous êtes épuisée";
+                    }
+                    else if (energie < 41)
+                    {
+                        lblEnergie.Text = "Vous êtes fatiguée";
+                    }
+                    else if (energie < 61)
+                    {
+                        lblEnergie.Text = "Vous êtes un peu fatiguée";
+                    }
+                    else if (energie < 81)
+                    {
+                        lblEnergie.Text = "Vous vous sentez légèrement fatiguée";
+                    }
+                    else
+                    {
+                        lblEnergie.Text = "Vous êtes en pleine forme";
+                    }
                 }
+                
             }));
             
         }
@@ -363,7 +391,5 @@ namespace DiabManager
         {
             return txtJournal.Text;
         }
-
-        
     }
 }
