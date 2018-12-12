@@ -182,7 +182,6 @@ namespace DiabManager
             {
                 MessageBox.Show("Votre visite est entièrement remboursée à 90% par la Sécurité Sociale.");
                 bu.Enabled = false;
-                bu.BackColor = Color.Red;
                 compt --;
             }
             else
@@ -190,7 +189,6 @@ namespace DiabManager
                 MessageBox.Show("Vous êtes diabétique, vous allez donc devoirs faire attention a votre taux de glycémie, " +
                     "a ce que vous mangerais et à ce que vous allez faire.");
                 bu.Enabled = false;
-                bu.BackColor = Color.Red;
                 compt--;
             }
             if (compt == 0)
@@ -331,10 +329,19 @@ namespace DiabManager
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoLetter_keyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
+            TextBox t = (TextBox)sender;
+            if(t.Text.Length < 3)
             {
-                e.Handled = true; // On interdit les lettres
+                if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
+                {
+                    e.Handled = true; // On interdit les lettres
+                }
             }
+            else
+            {
+                e.Handled = false;
+            }
+            
         }
         /// <summary>
         /// Handles the keyPress event of the NoDigit control.
@@ -343,10 +350,19 @@ namespace DiabManager
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoDigit_keyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
+            TextBox t = (TextBox)sender;
+            if (t.Text.Length < 20)
             {
-                e.Handled = true; //On interdit les nombres
+                if (char.IsDigit(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
+                {
+                    e.Handled = true; //On interdit les nombres
+                }
             }
+            else
+            {
+                e.Handled = false;
+            }
+            
         }
         /// <summary>
         /// Handles the KeyPress event of the NoLetterOneComma control.
@@ -355,21 +371,29 @@ namespace DiabManager
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoLetterOneComma_KeyPress(Object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
-            {
-                e.Handled = true;
-            }
-            if (e.KeyChar == ',') // Si l'utilisateur appuie sur la touche virgule
-            {
-                if (txtPoid.Text.Contains(","))
+            TextBox t = (TextBox)sender;
+            if(t.Text.Length < 3) {
+                if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
                 {
                     e.Handled = true;
                 }
-                else
+                if (e.KeyChar == ',') // Si l'utilisateur appuie sur la touche virgule
                 {
-                    e.Handled = false;
-                } 
+                    if (txtPoid.Text.Contains(","))
+                    {
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        e.Handled = false;
+                    }
+                }
             }
+            else
+            {
+                e.Handled = false;
+            }
+            
         }
         #endregion
 
@@ -695,6 +719,7 @@ namespace DiabManager
 
         private void nettoyage()
         {
+            string[] tab = { "Sportif", "Gourmand", "VideoGamer", "Social", "Studieux", "Dépressif", "Peureux" };
             foreach (TextBox c in this.Controls.OfType<TextBox>())
             {
                 c.Text = "";
@@ -706,6 +731,11 @@ namespace DiabManager
             foreach(RadioButton r in grbSexe.Controls)
             {
                 r.Checked = false;
+            }
+            clboxPersonnalite.Items.Clear();
+            foreach(String s in tab)
+            {
+                clboxPersonnalite.Items.Add(s);
             }
 
         }
