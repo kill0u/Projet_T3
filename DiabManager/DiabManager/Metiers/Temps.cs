@@ -136,9 +136,16 @@ namespace DiabManager.Metiers
             m_dayTimer.Start();
         }
 
+        private Boolean m_matin = true;
+        private Boolean m_matinInter = true;
+        private Boolean m_midi = true;
+        private Boolean m_midiInter = true;
+        private Boolean m_soir = true;
+        private Boolean m_soirInter = true;
+
         /**Evènements lancé à chaque tick du timer.
          * Fonction à exécuté à chaque tick du timer, mettre à jour l'heure
-         */ 
+         */
         private void TickEvent(Object source, ElapsedEventArgs e)
         {
             //On ne fait l'action que si le timer est en cours
@@ -156,6 +163,58 @@ namespace DiabManager.Metiers
                     PlayPause();
                     frmPiqure pik = new frmPiqure();
                     pik.ShowDialog();
+                }
+                if (getHeureJournee().Hours < 12 && getHeureJournee().Minutes == 0 &&
+                    m_matin && m_matinInter)
+                {
+                    //open = false;
+                    m_partie.j.setFond("matin");
+                    /*this.m_jeu.Gp.ColorTop = Color.Plum;
+                    this.m_jeu.Gp.ColorBottom = Color.Orchid;*/
+                    //this.m_jeu.Invoke(new MethodInvoker(delegate { this.m_jeu.Refresh(); }));
+                    m_matin = false;
+                    m_matinInter = false;
+                    m_midiInter = false;
+                    m_soirInter = false;
+                    m_midi = true;
+                }
+                if (getHeureJournee().Hours == 12)
+                {
+                    m_midiInter = true;
+                }
+                if(getHeureJournee().Hours == 20)
+                {
+                    m_soirInter = true;
+                }
+                if(getHeureJournee().Hours == 7)
+                {
+                    m_matinInter = true;
+                }
+                if (getHeureJournee().Hours < 20 && getHeureJournee().Minutes == 0 &&
+                    m_midi && m_midiInter)
+                {
+                    m_partie.j.setFond("midi");
+                    /*this.m_jeu.Gp.ColorTop = Color.LightSteelBlue;
+                    this.m_jeu.Gp.ColorBottom = Color.MediumSpringGreen;*/
+                    //this.m_jeu.Invoke(new MethodInvoker(delegate { this.m_jeu.Refresh(); }));
+                    m_midi = false;
+                    m_soir = true;
+                    m_matinInter = false;
+                    m_midiInter = false;
+                    m_soirInter = false;
+                }
+                if (getHeureJournee().Hours <= 23 && getHeureJournee().Minutes <= 59 && getHeureJournee().Minutes == 0 &&
+                    m_soir && m_soirInter|| getHeureJournee().Hours >= 0 && getHeureJournee().Hours < 6 && m_soirInter)
+                {
+                    m_partie.j.setFond("soir");
+                    /*this.m_jeu.Gp.ColorTop = Color.Indigo;
+                    this.m_jeu.Gp.ColorBottom = Color.MidnightBlue;*/
+                    //this.m_jeu.Invoke(new MethodInvoker(delegate { this.m_jeu.Refresh(); }));
+                    m_soir = false;
+                    m_matin = true;
+                    m_matinInter = false;
+                    m_midiInter = false;
+                    m_soirInter = false;
                 }
 
                 //On regarde si le joueur est en dehors des taux possibles pendant plus de 6 heures

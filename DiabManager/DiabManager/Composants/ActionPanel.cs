@@ -30,6 +30,8 @@ namespace DiabManager.Composants
             Label l = new Label();
             l.Text = a.Nom;
             l.Location = new Point(5, 5);
+            l.MaximumSize = new Size(190, 30);
+            l.AutoSize = true;
             l.Click += new EventHandler(componentClick);
 
             Label l2 = new Label();
