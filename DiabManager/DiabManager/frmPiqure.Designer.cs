@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPiqure));
             this.pnlPiqure = new System.Windows.Forms.Panel();
             this.lblDose = new System.Windows.Forms.Label();
             this.btnPiqure = new System.Windows.Forms.Button();
@@ -114,6 +115,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(430, 301);
             this.Controls.Add(this.pnlPiqure);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPiqure";
             this.Text = "frmPiqure";
             this.Load += new System.EventHandler(this.frmPiqure_Load);

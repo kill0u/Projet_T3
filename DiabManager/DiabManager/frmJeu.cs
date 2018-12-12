@@ -181,6 +181,9 @@ namespace DiabManager
                 {
                     lblEnergie.Text = "Vous êtes en pleine forme";
                 }
+
+                //Mise à jour du poids
+                lblPoids.Text = infos[2];
             }));
             
         }
