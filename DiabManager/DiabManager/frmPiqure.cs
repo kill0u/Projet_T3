@@ -37,8 +37,6 @@ namespace DiabManager
                 else { progressBarInsuline.Value = 0; }
                 lblDose.Text = "Dose à injecter : " + IHM.IHM_Joueur.getJoueur().Stylo.dose;
                 lblDoseActu.Text = "dose restante : " + IHM.IHM_Joueur.getJoueur().Stylo.DoseActu;
-                if (!IHM.IHM_Joueur.getJoueur().Stylo.Disponible) { btnPiqure.Enabled = false; }
-                else { btnPiqure.Enabled = true; }
             }));
         }
 
@@ -73,7 +71,6 @@ namespace DiabManager
         {
             IHM.IHM_Joueur.getJoueur().Stylo.DoseActu -= IHM.IHM_Joueur.getJoueur().Stylo.dose;
             if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu < IHM.IHM_Joueur.getJoueur().Stylo.dose) { IHM.IHM_Joueur.getJoueur().Stylo.dose = IHM.IHM_Joueur.getJoueur().Stylo.DoseActu; }
-            IHM.IHM_Joueur.getJoueur().Stylo.Disponible = false;
             modifStyloInsuline();
             Temps.getInstance().PlayPause();
             this.Close();
