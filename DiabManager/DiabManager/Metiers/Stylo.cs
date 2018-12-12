@@ -8,12 +8,6 @@ namespace DiabManager.Metiers
 {
     public class Stylo
     {
-        private bool m_disponible=true;
-        public bool Disponible
-        {
-            get { return m_disponible; }
-            set { m_disponible = value; }
-        }
         /// <summary>
         /// dose maximale du stylo d'insuline
         /// </summary>
@@ -49,14 +43,6 @@ namespace DiabManager.Metiers
         {
             m_dose = 5;
             m_doseActu = m_doseMax;
-        }
-        /// <summary>
-        /// Fonction resetStylo qui remet a disposition l'injection pour ce jour. 
-        /// </summary>
-        public void resetStylo()
-        {
-            //TODO calcul de la prochaine dose à injecter conseillée.
-            m_disponible = true;
         }
         /// <summary>
         /// Fonction qui recharge le stylo d'insuline à sa dose maximale.
