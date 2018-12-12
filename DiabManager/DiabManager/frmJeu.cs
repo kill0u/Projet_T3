@@ -268,15 +268,17 @@ namespace DiabManager
         // action a effectuer pour la piqure rapide lors du nouveau jour (renouvellement de stock)
         public void newDay() {
             dose = 3;
-            progressBar1.Value=100;
-            progressBar2.Value = 100;
-            progressBarInsuline.Value = 100;
+            this.BeginInvoke((Action)(() => {
+                progressBar1.Value=100;
+                progressBar2.Value = 100;
+                progressBarInsuline.Value = 100;
+            }));
         }
 
         // Piqure rapide
         private void btnPiqure_Click(object sender, EventArgs e)
         {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(-0.7, 1));
+            IHM.IHM_Joueur.getJoueur().GlycemieCourante-=0.6;
 
             m_nbDose--;
             if (dose== 0)
@@ -348,8 +350,10 @@ namespace DiabManager
         /// <param name="j">jour</param>
         public void setJour(string j)
         {
-            lblAffJour.Text = j;
-            txtJournal.Text += "======================" + j + "======================" + Environment.NewLine;
+            this.BeginInvoke((Action)(() => {
+                lblAffJour.Text = j;
+                txtJournal.Text += "======================" + j + "======================" + Environment.NewLine;
+            }));
         }
 
         /// <summary>
@@ -358,7 +362,9 @@ namespace DiabManager
         /// <param name="l">Description de l'action</param>
         public void addLog(string l)
         {
-            txtJournal.Text += l;
+            this.BeginInvoke((Action)(() => {
+                txtJournal.Text += l;
+            }));
         }
 
         /// <summary>
@@ -370,6 +376,12 @@ namespace DiabManager
             return txtJournal.Text;
         }
 
-        
+        /// <summary>
+        /// Bouton de resucrage de la personne
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IHM.IHM_Joueur.getJoueur().GlycemieCourante += 0.4;
+        }
     }
 }

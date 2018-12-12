@@ -54,6 +54,7 @@ namespace DiabManager.Metiers
         public double GlycemieCourante /**<Le taux de glycémie courant du joueur. L'accesseur du taux de glycémie courant. */
         {
             get { return m_glycemieCourante; }
+            set { this.m_glycemieCourante = value; }
         }
         private double m_glycemieObjectifBas; /**<L'objectif bas du taux de glycémie du joueur. */
         public double GlycemieObjectifBas /**<L'objectif bas du taux de glycémie du joueur. L'accesseur de l'objectif bas du taux de glycémie.*/
