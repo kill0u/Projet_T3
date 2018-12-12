@@ -76,6 +76,8 @@ namespace DiabManager
             this.lblAffNom = new System.Windows.Forms.Label();
             this.lblGlycemie = new System.Windows.Forms.Label();
             this.lblAffGlycemie = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.gplFond.SuspendLayout();
             this.pnlEvent.SuspendLayout();
             this.pnlHeure.SuspendLayout();
@@ -431,6 +433,8 @@ namespace DiabManager
             // 
             this.pnlPiqure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlPiqure.BackColor = System.Drawing.Color.Transparent;
+            this.pnlPiqure.Controls.Add(this.button1);
+            this.pnlPiqure.Controls.Add(this.label1);
             this.pnlPiqure.Controls.Add(this.progressBar2);
             this.pnlPiqure.Controls.Add(this.progressBar1);
             this.pnlPiqure.Controls.Add(this.btnPiqure);
@@ -443,7 +447,7 @@ namespace DiabManager
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(82, 123);
+            this.progressBar2.Location = new System.Drawing.Point(82, 183);
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(75, 23);
             this.progressBar2.TabIndex = 6;
@@ -451,7 +455,7 @@ namespace DiabManager
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(163, 123);
+            this.progressBar1.Location = new System.Drawing.Point(163, 183);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(75, 23);
             this.progressBar1.TabIndex = 5;
@@ -469,7 +473,7 @@ namespace DiabManager
             // 
             // progressBarInsuline
             // 
-            this.progressBarInsuline.Location = new System.Drawing.Point(3, 123);
+            this.progressBarInsuline.Location = new System.Drawing.Point(3, 183);
             this.progressBarInsuline.Name = "progressBarInsuline";
             this.progressBarInsuline.Size = new System.Drawing.Size(75, 23);
             this.progressBarInsuline.TabIndex = 1;
@@ -478,7 +482,7 @@ namespace DiabManager
             // lblDoseActu
             // 
             this.lblDoseActu.AutoSize = true;
-            this.lblDoseActu.Location = new System.Drawing.Point(7, 4);
+            this.lblDoseActu.Location = new System.Drawing.Point(7, 149);
             this.lblDoseActu.Name = "lblDoseActu";
             this.lblDoseActu.Size = new System.Drawing.Size(190, 31);
             this.lblDoseActu.TabIndex = 0;
@@ -543,6 +547,25 @@ namespace DiabManager
             this.lblAffGlycemie.Size = new System.Drawing.Size(142, 31);
             this.lblAffGlycemie.TabIndex = 0;
             this.lblAffGlycemie.Text = "Glycémie: ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(146, 31);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Resucrage";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 44);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(235, 42);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Sucre";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmJeu
             // 
@@ -620,5 +643,7 @@ namespace DiabManager
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label lblPoids;
         private System.Windows.Forms.Label lblAffPoids;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
