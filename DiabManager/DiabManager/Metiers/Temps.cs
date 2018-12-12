@@ -51,7 +51,7 @@ namespace DiabManager.Metiers
 
 
         private TimeSpan m_tempsDansPlage = new TimeSpan(0);
-        private int m_creditTempsDansPlage = 12;
+        private int m_creditTempsDansPlage = 18;
 
         private double m_gMin = 0.5;
         public double gMin
@@ -272,7 +272,7 @@ namespace DiabManager.Metiers
                 m_partie.AddDay();
 
                 //On réautorise à quitter la zone de glycémie pour 2h dans toute la journée
-                m_creditTempsDansPlage = 12;
+                m_creditTempsDansPlage = 18;
 
             }
 
