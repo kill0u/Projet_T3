@@ -523,11 +523,12 @@ namespace DiabManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.gplFond);
             this.Name = "frmJeu";
-            this.Text = "frmJeu";
+            this.Text = "DiabManager";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.frmJeu_Shown);
             this.gplFond.ResumeLayout(false);
