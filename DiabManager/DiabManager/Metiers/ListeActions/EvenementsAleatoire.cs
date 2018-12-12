@@ -92,6 +92,8 @@ namespace DiabManager.Metiers.ListeActions
             //Si l'évènement est bloquant, on passe en vitesse élevé, comme si il s'agissait d'une action
             if (m_bloquant)
             {
+                if (Temps.getInstance().isActionEnCours) //si il y a deja une action, on la remplace
+                    Temps.getInstance().swapAction();
                 Temps.getInstance().swapAction();
 
             }

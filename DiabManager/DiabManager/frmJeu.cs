@@ -279,7 +279,8 @@ namespace DiabManager
         public void removeAction()
         {
             this.BeginInvoke((Action)(() => {
-                pnlAction.Controls.OfType<ActionPanel>().First().Dispose();
+                if (pnlAction.Controls.OfType<ActionPanel>().Count() > 0)
+                    pnlAction.Controls.OfType<ActionPanel>().First().Dispose();
 
             }));
         }
