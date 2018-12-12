@@ -37,6 +37,7 @@ namespace DiabManager
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmJeu));
             this.gplFond = new DiabManager.Composants.GradientPanel();
             this.pnlEvent = new System.Windows.Forms.Panel();
             this.lblAffEvent = new System.Windows.Forms.Label();
@@ -54,6 +55,8 @@ namespace DiabManager
             this.pnlActions = new System.Windows.Forms.Panel();
             this.tcActions = new System.Windows.Forms.TabControl();
             this.pnlInfos = new System.Windows.Forms.Panel();
+            this.lblPoids = new System.Windows.Forms.Label();
+            this.lblAffPoids = new System.Windows.Forms.Label();
             this.tabGraphJournal = new System.Windows.Forms.TabControl();
             this.tabGraph = new System.Windows.Forms.TabPage();
             this.GraphiqueGlycemie = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -133,7 +136,7 @@ namespace DiabManager
             this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
             this.pnlHeure.Location = new System.Drawing.Point(1295, 7);
             this.pnlHeure.Name = "pnlHeure";
-            this.pnlHeure.Size = new System.Drawing.Size(594, 58);
+            this.pnlHeure.Size = new System.Drawing.Size(542, 58);
             this.pnlHeure.TabIndex = 6;
             // 
             // lblAffJour
@@ -142,7 +145,7 @@ namespace DiabManager
             this.lblAffJour.AutoSize = true;
             this.lblAffJour.Font = new System.Drawing.Font("Arial Rounded MT Bold", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAffJour.ForeColor = System.Drawing.Color.Red;
-            this.lblAffJour.Location = new System.Drawing.Point(452, 13);
+            this.lblAffJour.Location = new System.Drawing.Point(400, 13);
             this.lblAffJour.Name = "lblAffJour";
             this.lblAffJour.Size = new System.Drawing.Size(110, 39);
             this.lblAffJour.TabIndex = 4;
@@ -249,7 +252,7 @@ namespace DiabManager
             this.pnlActions.Controls.Add(this.tcActions);
             this.pnlActions.Location = new System.Drawing.Point(1295, 74);
             this.pnlActions.Name = "pnlActions";
-            this.pnlActions.Size = new System.Drawing.Size(594, 955);
+            this.pnlActions.Size = new System.Drawing.Size(542, 899);
             this.pnlActions.TabIndex = 0;
             // 
             // tcActions
@@ -259,13 +262,15 @@ namespace DiabManager
             this.tcActions.Multiline = true;
             this.tcActions.Name = "tcActions";
             this.tcActions.SelectedIndex = 0;
-            this.tcActions.Size = new System.Drawing.Size(591, 949);
+            this.tcActions.Size = new System.Drawing.Size(542, 896);
             this.tcActions.TabIndex = 0;
             // 
             // pnlInfos
             // 
             this.pnlInfos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlInfos.BackColor = System.Drawing.Color.Transparent;
+            this.pnlInfos.Controls.Add(this.lblPoids);
+            this.pnlInfos.Controls.Add(this.lblAffPoids);
             this.pnlInfos.Controls.Add(this.tabGraphJournal);
             this.pnlInfos.Controls.Add(this.lblEnergie);
             this.pnlInfos.Controls.Add(this.lblAffEnergie);
@@ -279,8 +284,28 @@ namespace DiabManager
             this.pnlInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlInfos.Location = new System.Drawing.Point(58, 159);
             this.pnlInfos.Name = "pnlInfos";
-            this.pnlInfos.Size = new System.Drawing.Size(1217, 870);
+            this.pnlInfos.Size = new System.Drawing.Size(1217, 824);
             this.pnlInfos.TabIndex = 1;
+            // 
+            // lblPoids
+            // 
+            this.lblPoids.AutoSize = true;
+            this.lblPoids.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPoids.Location = new System.Drawing.Point(13, 204);
+            this.lblPoids.Name = "lblPoids";
+            this.lblPoids.Size = new System.Drawing.Size(79, 31);
+            this.lblPoids.TabIndex = 11;
+            this.lblPoids.Text = "poids";
+            // 
+            // lblAffPoids
+            // 
+            this.lblAffPoids.AutoSize = true;
+            this.lblAffPoids.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAffPoids.Location = new System.Drawing.Point(12, 173);
+            this.lblAffPoids.Name = "lblAffPoids";
+            this.lblAffPoids.Size = new System.Drawing.Size(90, 31);
+            this.lblAffPoids.TabIndex = 10;
+            this.lblAffPoids.Text = "Poids:";
             // 
             // tabGraphJournal
             // 
@@ -289,7 +314,7 @@ namespace DiabManager
             this.tabGraphJournal.Location = new System.Drawing.Point(276, 153);
             this.tabGraphJournal.Name = "tabGraphJournal";
             this.tabGraphJournal.SelectedIndex = 0;
-            this.tabGraphJournal.Size = new System.Drawing.Size(938, 704);
+            this.tabGraphJournal.Size = new System.Drawing.Size(938, 661);
             this.tabGraphJournal.TabIndex = 9;
             // 
             // tabGraph
@@ -298,7 +323,7 @@ namespace DiabManager
             this.tabGraph.Location = new System.Drawing.Point(4, 40);
             this.tabGraph.Name = "tabGraph";
             this.tabGraph.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGraph.Size = new System.Drawing.Size(930, 660);
+            this.tabGraph.Size = new System.Drawing.Size(930, 617);
             this.tabGraph.TabIndex = 0;
             this.tabGraph.Text = "Graphique";
             this.tabGraph.UseVisualStyleBackColor = true;
@@ -355,7 +380,7 @@ namespace DiabManager
             this.GraphiqueGlycemie.Series.Add(series3);
             this.GraphiqueGlycemie.Series.Add(series4);
             this.GraphiqueGlycemie.Series.Add(series5);
-            this.GraphiqueGlycemie.Size = new System.Drawing.Size(938, 664);
+            this.GraphiqueGlycemie.Size = new System.Drawing.Size(938, 617);
             this.GraphiqueGlycemie.TabIndex = 6;
             this.GraphiqueGlycemie.Text = "chart1";
             this.GraphiqueGlycemie.Customize += new System.EventHandler(this.GraphiqueGlycemie_Customize);
@@ -366,7 +391,7 @@ namespace DiabManager
             this.tabJournal.Location = new System.Drawing.Point(4, 40);
             this.tabJournal.Name = "tabJournal";
             this.tabJournal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabJournal.Size = new System.Drawing.Size(930, 660);
+            this.tabJournal.Size = new System.Drawing.Size(930, 617);
             this.tabJournal.TabIndex = 1;
             this.tabJournal.Text = "Journal";
             this.tabJournal.UseVisualStyleBackColor = true;
@@ -411,7 +436,7 @@ namespace DiabManager
             this.pnlPiqure.Controls.Add(this.btnPiqure);
             this.pnlPiqure.Controls.Add(this.progressBarInsuline);
             this.pnlPiqure.Controls.Add(this.lblDoseActu);
-            this.pnlPiqure.Location = new System.Drawing.Point(13, 588);
+            this.pnlPiqure.Location = new System.Drawing.Point(19, 499);
             this.pnlPiqure.Name = "pnlPiqure";
             this.pnlPiqure.Size = new System.Drawing.Size(242, 269);
             this.pnlPiqure.TabIndex = 5;
@@ -523,11 +548,13 @@ namespace DiabManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.ClientSize = new System.Drawing.Size(1864, 961);
             this.Controls.Add(this.gplFond);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmJeu";
-            this.Text = "frmJeu";
+            this.Text = "DiabManager";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.frmJeu_Shown);
             this.gplFond.ResumeLayout(false);
@@ -591,5 +618,7 @@ namespace DiabManager
         private System.Windows.Forms.TabControl tcActions;
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label lblPoids;
+        private System.Windows.Forms.Label lblAffPoids;
     }
 }
