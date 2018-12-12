@@ -254,6 +254,7 @@ namespace DiabManager
             }));
         }
 
+        // nombre de doses restantes pour la piqure rapide.
         private int m_nbDose=3;
         public int dose
         {
@@ -261,6 +262,7 @@ namespace DiabManager
             set { m_nbDose = value; }
         }
 
+        // action a effectuer pour la piqure rapide lors du nouveau jour (renouvellement de stock)
         public void newDay() {
             dose = 3;
             progressBar1.Value=100;
@@ -268,6 +270,7 @@ namespace DiabManager
             progressBarInsuline.Value = 100;
         }
 
+        // Piqure rapide
         private void btnPiqure_Click(object sender, EventArgs e)
         {
             IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(-0.7, 1));

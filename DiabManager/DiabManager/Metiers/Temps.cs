@@ -146,6 +146,8 @@ namespace DiabManager.Metiers
             {
                 //On ajoute le temps 
                 m_time = m_time.Add(new TimeSpan(0, 10, 0));
+
+                //Modification de la glyémie via piqure lente
                 IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>((-0.1 * IHM.IHM_Joueur.getJoueur().Stylo.dose) / (24 * 6), 1));
 
                 //On regarde si le joueur est en dehors des taux possibles pendant plus de 6 heures

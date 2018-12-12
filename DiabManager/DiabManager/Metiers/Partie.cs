@@ -132,6 +132,7 @@ namespace DiabManager.Metiers
             if (Temps.getInstance().getHeureJournee().Hours == 8 && Temps.getInstance().getHeureJournee().Minutes == 30 && !open)
             {
                 open = true;
+                if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu == 0) IHM.IHM_Joueur.getJoueur().Stylo.DoseActu = IHM.IHM_Joueur.getJoueur().Stylo.DoseMax;
                 Temps.getInstance().PlayPause();
                 frmPiqure pik = new frmPiqure();
                 pik.ShowDialog();

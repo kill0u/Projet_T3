@@ -21,6 +21,7 @@ namespace DiabManager
         private void frmPiqure_Load(object sender, EventArgs e)
         {
             modifStyloInsuline();
+            lblConseil.Text = lblConseil.Text + (double.Parse(IHM.IHM_Joueur.getInfos()[2]) / 10).ToString();
         }
 
         /// <summary>
@@ -41,6 +42,9 @@ namespace DiabManager
             }));
         }
 
+        /// <summary>
+        /// Fonction que permet de diminuer la dose à s'injecter.
+        /// </summary>
         private void btnDiminuer_Click(object sender, EventArgs e)
         {
             if (IHM.IHM_Joueur.getJoueur().Stylo.dose != 0)
@@ -50,6 +54,9 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Fonction que permet de d'augmenter la dose à s'injecter.
+        /// </summary>
         private void btnAugmenter_Click(object sender, EventArgs e)
         {
             if (IHM.IHM_Joueur.getJoueur().Stylo.dose != IHM.IHM_Joueur.getJoueur().Stylo.DoseMax)
@@ -59,6 +66,9 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Déclenche la piqure sur la personne pour la journée
+        /// </summary>
         private void btnPiqure_Click(object sender, EventArgs e)
         {
             IHM.IHM_Joueur.getJoueur().Stylo.DoseActu -= IHM.IHM_Joueur.getJoueur().Stylo.dose;
