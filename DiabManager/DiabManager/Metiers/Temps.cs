@@ -146,7 +146,17 @@ namespace DiabManager.Metiers
             {
                 //On ajoute le temps 
                 m_time = m_time.Add(new TimeSpan(0, 10, 0));
-                IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>((-0.1 * IHM.IHM_Joueur.getJoueur().Stylo.dose) / (24 * 6), 1));
+
+                //Modification de la glyémie via piqure lente
+                IHM.IHM_Joueur.getJoueur().GlycemieCourante -= (0.1 * IHM.IHM_Joueur.getJoueur().Stylo.dose) / (24 * 6);
+
+                if (getHeureJournee().Hours == 8 && getHeureJournee().Minutes == 30)
+                {
+                    if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu == 0) IHM.IHM_Joueur.getJoueur().Stylo.DoseActu = IHM.IHM_Joueur.getJoueur().Stylo.DoseMax;
+                    PlayPause();
+                    frmPiqure pik = new frmPiqure();
+                    pik.ShowDialog();
+                }
 
                 //On regarde si le joueur est en dehors des taux possibles pendant plus de 6 heures
                 if (IHM.IHM_Joueur.getJoueur().GlycemieCourante < m_gMin)

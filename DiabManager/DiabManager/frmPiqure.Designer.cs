@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPiqure));
             this.pnlPiqure = new System.Windows.Forms.Panel();
             this.lblDose = new System.Windows.Forms.Label();
             this.btnPiqure = new System.Windows.Forms.Button();
@@ -35,6 +36,8 @@
             this.btnDiminuer = new System.Windows.Forms.Button();
             this.progressBarInsuline = new System.Windows.Forms.ProgressBar();
             this.lblDoseActu = new System.Windows.Forms.Label();
+            this.lblConseil = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlPiqure.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,9 +51,9 @@
             this.pnlPiqure.Controls.Add(this.btnDiminuer);
             this.pnlPiqure.Controls.Add(this.progressBarInsuline);
             this.pnlPiqure.Controls.Add(this.lblDoseActu);
-            this.pnlPiqure.Location = new System.Drawing.Point(94, 16);
+            this.pnlPiqure.Location = new System.Drawing.Point(12, 12);
             this.pnlPiqure.Name = "pnlPiqure";
-            this.pnlPiqure.Size = new System.Drawing.Size(242, 269);
+            this.pnlPiqure.Size = new System.Drawing.Size(242, 257);
             this.pnlPiqure.TabIndex = 6;
             // 
             // lblDose
@@ -108,18 +111,43 @@
             this.lblDoseActu.TabIndex = 0;
             this.lblDoseActu.Text = "label1";
             // 
+            // lblConseil
+            // 
+            this.lblConseil.AutoSize = true;
+            this.lblConseil.Location = new System.Drawing.Point(269, 36);
+            this.lblConseil.MaximumSize = new System.Drawing.Size(150, 0);
+            this.lblConseil.Name = "lblConseil";
+            this.lblConseil.Size = new System.Drawing.Size(149, 26);
+            this.lblConseil.TabIndex = 7;
+            this.lblConseil.Text = "On vous conseille selon votre poids : ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(269, 179);
+            this.label1.MaximumSize = new System.Drawing.Size(150, 900);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(149, 65);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Si votre taux de glycémie est trop bas, diminuer votre dose. Invrsement,augmenter" +
+    " votre dose si votre taux est trop élevé";
+            // 
             // frmPiqure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(430, 301);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblConseil);
             this.Controls.Add(this.pnlPiqure);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPiqure";
             this.Text = "frmPiqure";
             this.Load += new System.EventHandler(this.frmPiqure_Load);
             this.pnlPiqure.ResumeLayout(false);
             this.pnlPiqure.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -132,5 +160,7 @@
         private System.Windows.Forms.Button btnDiminuer;
         private System.Windows.Forms.ProgressBar progressBarInsuline;
         private System.Windows.Forms.Label lblDoseActu;
+        private System.Windows.Forms.Label lblConseil;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -56,7 +56,6 @@ namespace DiabManager.Metiers
         public void AddDay()
         {
             m_d.AddDays(1);
-            IHM.IHM_Joueur.getJoueur().Stylo.resetStylo();
 
             j.newDay();
             
@@ -121,7 +120,6 @@ namespace DiabManager.Metiers
         private Boolean m_matin = true;
         private Boolean m_midi = true;
         private Boolean m_soir = true;
-        private bool open = false;
         /**Evènements lancé à chaque tick du timer.
          * Fonction à exécuté à chaque tick du timer, mettre à jour les infos.
          */
@@ -129,9 +127,7 @@ namespace DiabManager.Metiers
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
-            /*String path = Application.ExecutablePath;
-            path = Directory.GetParent(path).ToString();
-            path = path + @"\Ressources\Images";*/
+            
             if (Temps.getInstance().getHeureJournee().Hours == 8 && Temps.getInstance().getHeureJournee().Minutes == 30 && !open)
             {
                 open = true;

@@ -209,6 +209,29 @@ namespace DiabManager
                     }
                 }
                 
+                if (energie < 21)
+                {
+                    lblEnergie.Text = "Vous êtes épuisé";
+                }
+                else if (energie < 41)
+                {
+                    lblEnergie.Text = "Vous êtes fatigué";
+                }
+                else if (energie < 61)
+                {
+                    lblEnergie.Text = "Vous êtes un peu fatigué";
+                }
+                else if (energie < 81)
+                {
+                    lblEnergie.Text = "Vous vous sentez légèrement fatigué";
+                }
+                else
+                {
+                    lblEnergie.Text = "Vous êtes en pleine forme";
+                }
+
+                //Mise à jour du poids
+                lblPoids.Text = infos[2];
             }));
             
         }
@@ -282,6 +305,7 @@ namespace DiabManager
             }));
         }
 
+        // nombre de doses restantes pour la piqure rapide.
         private int m_nbDose=3;
         public int dose
         {
@@ -289,16 +313,20 @@ namespace DiabManager
             set { m_nbDose = value; }
         }
 
+        // action a effectuer pour la piqure rapide lors du nouveau jour (renouvellement de stock)
         public void newDay() {
             dose = 3;
-            progressBar1.Value=100;
-            progressBar2.Value = 100;
-            progressBarInsuline.Value = 100;
+            this.BeginInvoke((Action)(() => {
+                progressBar1.Value=100;
+                progressBar2.Value = 100;
+                progressBarInsuline.Value = 100;
+            }));
         }
 
+        // Piqure rapide
         private void btnPiqure_Click(object sender, EventArgs e)
         {
-            IHM.IHM_Joueur.getJoueur().calculGlycemieCourante(new Tuple<double, double>(-0.7, 1));
+            IHM.IHM_Joueur.getJoueur().GlycemieCourante-=0.6;
 
             m_nbDose--;
             if (dose== 0)
@@ -370,8 +398,10 @@ namespace DiabManager
         /// <param name="j">jour</param>
         public void setJour(string j)
         {
-            lblAffJour.Text = j;
-            txtJournal.Text += "======================" + j + "======================" + Environment.NewLine;
+            this.BeginInvoke((Action)(() => {
+                lblAffJour.Text = j;
+                txtJournal.Text += "======================" + j + "======================" + Environment.NewLine;
+            }));
         }
 
         /// <summary>
@@ -380,7 +410,9 @@ namespace DiabManager
         /// <param name="l">Description de l'action</param>
         public void addLog(string l)
         {
-            txtJournal.Text += l;
+            this.BeginInvoke((Action)(() => {
+                txtJournal.Text += l;
+            }));
         }
 
         /// <summary>
@@ -390,6 +422,14 @@ namespace DiabManager
         public string getLog()
         {
             return txtJournal.Text;
+        }
+
+        /// <summary>
+        /// Bouton de resucrage de la personne
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IHM.IHM_Joueur.getJoueur().GlycemieCourante += 0.4;
         }
     }
 }
