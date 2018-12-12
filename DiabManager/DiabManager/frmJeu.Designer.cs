@@ -92,29 +92,14 @@ namespace DiabManager
             this.pnlPiqure.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gplFond
-            // 
-            this.gplFond.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.gplFond.ColorBottom = System.Drawing.Color.Indigo;
-            this.gplFond.ColorTop = System.Drawing.Color.MidnightBlue;
-            this.gplFond.Controls.Add(this.pnlEvent);
-            this.gplFond.Controls.Add(this.pnlHeure);
-            this.gplFond.Controls.Add(this.pnlAction);
-            this.gplFond.Controls.Add(this.pnlGestionTemps);
-            this.gplFond.Controls.Add(this.pnlActions);
-            this.gplFond.Controls.Add(this.pnlInfos);
-            this.gplFond.Location = new System.Drawing.Point(2, -1);
-            this.gplFond.Name = "gplFond";
-            this.gplFond.Size = new System.Drawing.Size(1905, 1048);
-            this.gplFond.TabIndex = 8;
-            // 
             // pnlEvent
             // 
             this.pnlEvent.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pnlEvent.AutoScroll = true;
-            this.pnlEvent.BackColor = System.Drawing.Color.Transparent;
+            this.pnlEvent.BackColor = System.Drawing.Color.Silver;
             this.pnlEvent.Controls.Add(this.lblAffEvent);
-            this.pnlEvent.Location = new System.Drawing.Point(614, 3);
+            this.pnlEvent.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pnlEvent.Location = new System.Drawing.Point(621, 7);
             this.pnlEvent.Name = "pnlEvent";
             this.pnlEvent.Size = new System.Drawing.Size(661, 150);
             this.pnlEvent.TabIndex = 8;
@@ -136,7 +121,7 @@ namespace DiabManager
             this.pnlHeure.Controls.Add(this.lblAffTemps);
             this.pnlHeure.Controls.Add(this.lblTemps);
             this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlHeure.Location = new System.Drawing.Point(1295, 7);
+            this.pnlHeure.Location = new System.Drawing.Point(1303, 11);
             this.pnlHeure.Name = "pnlHeure";
             this.pnlHeure.Size = new System.Drawing.Size(542, 58);
             this.pnlHeure.TabIndex = 6;
@@ -179,9 +164,10 @@ namespace DiabManager
             // 
             this.pnlAction.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pnlAction.AutoScroll = true;
-            this.pnlAction.BackColor = System.Drawing.Color.Transparent;
+            this.pnlAction.BackColor = System.Drawing.Color.Silver;
             this.pnlAction.Controls.Add(this.lblAffActions);
-            this.pnlAction.Location = new System.Drawing.Point(172, 3);
+            this.pnlAction.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pnlAction.Location = new System.Drawing.Point(179, 7);
             this.pnlAction.Name = "pnlAction";
             this.pnlAction.Size = new System.Drawing.Size(436, 150);
             this.pnlAction.TabIndex = 7;
@@ -189,6 +175,7 @@ namespace DiabManager
             // lblAffActions
             // 
             this.lblAffActions.AutoSize = true;
+            this.lblAffActions.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblAffActions.Location = new System.Drawing.Point(3, 4);
             this.lblAffActions.Name = "lblAffActions";
             this.lblAffActions.Size = new System.Drawing.Size(87, 13);
@@ -202,10 +189,10 @@ namespace DiabManager
             this.pnlGestionTemps.Controls.Add(this.button2);
             this.pnlGestionTemps.Controls.Add(this.btnAvanceeTemps);
             this.pnlGestionTemps.Controls.Add(this.btnPause);
-            this.pnlGestionTemps.Location = new System.Drawing.Point(1, 3);
+            this.pnlGestionTemps.Location = new System.Drawing.Point(7, 7);
             this.pnlGestionTemps.Name = "pnlGestionTemps";
             this.pnlGestionTemps.Size = new System.Drawing.Size(169, 27);
-            this.pnlGestionTemps.TabIndex = 4;
+            this.pnlGestionTemps.TabIndex = 11;
             // 
             // lblVitesse
             // 
@@ -252,7 +239,7 @@ namespace DiabManager
             this.pnlActions.AutoScroll = true;
             this.pnlActions.BackColor = System.Drawing.Color.Transparent;
             this.pnlActions.Controls.Add(this.tcActions);
-            this.pnlActions.Location = new System.Drawing.Point(1295, 74);
+            this.pnlActions.Location = new System.Drawing.Point(1303, 78);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(542, 899);
             this.pnlActions.TabIndex = 0;
@@ -284,7 +271,7 @@ namespace DiabManager
             this.pnlInfos.Controls.Add(this.lblGlycemie);
             this.pnlInfos.Controls.Add(this.lblAffGlycemie);
             this.pnlInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlInfos.Location = new System.Drawing.Point(58, 159);
+            this.pnlInfos.Location = new System.Drawing.Point(64, 162);
             this.pnlInfos.Name = "pnlInfos";
             this.pnlInfos.Size = new System.Drawing.Size(1217, 824);
             this.pnlInfos.TabIndex = 1;
@@ -573,6 +560,14 @@ namespace DiabManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = global::DiabManager.Properties.Resources.matin;
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.pnlEvent);
+            this.Controls.Add(this.pnlHeure);
+            this.Controls.Add(this.pnlAction);
+            this.Controls.Add(this.pnlGestionTemps);
+            this.Controls.Add(this.pnlActions);
+            this.Controls.Add(this.pnlInfos);
             this.ClientSize = new System.Drawing.Size(1864, 961);
             this.Controls.Add(this.gplFond);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -580,7 +575,6 @@ namespace DiabManager
             this.Text = "DiabManager";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.frmJeu_Shown);
-            this.gplFond.ResumeLayout(false);
             this.pnlEvent.ResumeLayout(false);
             this.pnlEvent.PerformLayout();
             this.pnlHeure.ResumeLayout(false);
@@ -605,20 +599,32 @@ namespace DiabManager
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlActions;
-        private System.Windows.Forms.Panel pnlInfos;
-        private System.Windows.Forms.Label lblNom;
-        private System.Windows.Forms.Label lblAffNom;
-        private System.Windows.Forms.Label lblGlycemie;
-        private System.Windows.Forms.Label lblAffGlycemie;
+        private System.Windows.Forms.Panel pnlEvent;
+        private System.Windows.Forms.Label lblAffEvent;
+        private System.Windows.Forms.Panel pnlHeure;
+        private System.Windows.Forms.Label lblAffJour;
         private System.Windows.Forms.Label lblAffTemps;
         private System.Windows.Forms.Label lblTemps;
+        private System.Windows.Forms.Panel pnlAction;
+        private System.Windows.Forms.Label lblAffActions;
         private System.Windows.Forms.Panel pnlGestionTemps;
-        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Label lblVitesse;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnAvanceeTemps;
-        private System.Windows.Forms.Label lblVitesse;
+        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Panel pnlActions;
+        private System.Windows.Forms.TabControl tcActions;
+        private System.Windows.Forms.Panel pnlInfos;
+        private System.Windows.Forms.TabControl tabGraphJournal;
+        private System.Windows.Forms.TabPage tabGraph;
+        private System.Windows.Forms.DataVisualization.Charting.Chart GraphiqueGlycemie;
+        private System.Windows.Forms.TabPage tabJournal;
+        private System.Windows.Forms.TextBox txtJournal;
+        private System.Windows.Forms.Label lblEnergie;
+        private System.Windows.Forms.Label lblAffEnergie;
         private System.Windows.Forms.Panel pnlPiqure;
+        private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnPiqure;
         private System.Windows.Forms.ProgressBar progressBarInsuline;
         private System.Windows.Forms.Label lblDoseActu;
@@ -645,5 +651,9 @@ namespace DiabManager
         private System.Windows.Forms.Label lblAffPoids;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNom;
+        private System.Windows.Forms.Label lblAffNom;
+        private System.Windows.Forms.Label lblGlycemie;
+        private System.Windows.Forms.Label lblAffGlycemie;
     }
 }

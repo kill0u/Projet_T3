@@ -16,19 +16,7 @@ namespace DiabManager
      */
     public partial class frmMenu : Form
     {
-        #region variables local
-        private Boolean m_difficulte; /**<La Difficulté du jeu, si true Difficulté difficile sinon facile */
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="frmMenu"/> is difficulte.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if difficulte; otherwise, <c>false</c>.
-        /// </value>
-        public Boolean difficulte /**<La Difficulté du jeu . L'accesseur de la Difficulté du jeu. */
-        {
-            get { return m_difficulte; }
-            set { this.m_difficulte = value; }
-        }
+        #region variables local       
         private DialogResult Exit;
         /// <summary>
         /// Gets the menu exit.
@@ -257,7 +245,6 @@ namespace DiabManager
         private void btndFacile_Click(object sender, EventArgs e)
         {
             affFormJoueur();
-            m_difficulte = false;
         }
         /// <summary>
         /// Handles the Click event of the btndDifficile control.
@@ -267,7 +254,6 @@ namespace DiabManager
         private void btndDifficile_Click(object sender, EventArgs e)
         {
             affFormJoueur();
-            m_difficulte = true;
         }
         /// <summary>
         /// Handles the Click event of the btnProfils control.
@@ -282,15 +268,15 @@ namespace DiabManager
             nettoyage();
             if (b.Text== "Profil 1")
             {
-                remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 2.5, 0.8, 1.3);
+                remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 1, 0.5,2 );
             }
             else if(b.Text == "Profil 2")
             {
-                remplirFormulaireJoueur("Jean",new string[]{"Gourmand","VideoGamer"}, 10, "Holler", 'H', 130, 30, 2.8, 1.8, 2.3);
+                remplirFormulaireJoueur("Jean",new string[]{"Gourmand","VideoGamer"}, 10, "Holler", 'H', 130, 30, 0.7, 1, 1.8);
             }
             else
             {
-                remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.3, 1.7, 2);
+                remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.1, 1.5, 2);
             }
         }
         /// <summary>
@@ -329,17 +315,9 @@ namespace DiabManager
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoLetter_keyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox t = (TextBox)sender;
-            if(t.Text.Length < 3)
+            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
             {
-                if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
-                {
-                    e.Handled = true; // On interdit les lettres
-                }
-            }
-            else
-            {
-                e.Handled = false;
+                e.Handled = true; // On interdit les lettres
             }
             
         }
@@ -350,19 +328,11 @@ namespace DiabManager
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
         private void NoDigit_keyPress(object sender, KeyPressEventArgs e)
         {
-            TextBox t = (TextBox)sender;
-            if (t.Text.Length < 20)
+            if (char.IsDigit(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
             {
-                if (char.IsDigit(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
-                {
-                    e.Handled = true; //On interdit les nombres
-                }
+                e.Handled = true; //On interdit les nombres
             }
-            else
-            {
-                e.Handled = false;
-            }
-            
+
         }
         /// <summary>
         /// Handles the KeyPress event of the NoLetterOneComma control.
@@ -372,28 +342,30 @@ namespace DiabManager
         private void NoLetterOneComma_KeyPress(Object sender, KeyPressEventArgs e)
         {
             TextBox t = (TextBox)sender;
-            if(t.Text.Length < 3) {
-                if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
+            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSeparator(e.KeyChar) || (char.IsSymbol(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+            if (e.KeyChar == ',') // Si l'utilisateur appuie sur la touche virgule
+            {
+                if (txtPoid.Text.Contains(","))
                 {
                     e.Handled = true;
                 }
-                if (e.KeyChar == ',') // Si l'utilisateur appuie sur la touche virgule
+                else
                 {
-                    if (txtPoid.Text.Contains(","))
-                    {
-                        e.Handled = true;
-                    }
-                    else
-                    {
-                        e.Handled = false;
-                    }
+                    e.Handled = false;
                 }
+            }
+            if (!t.Text.Contains(','))
+            {
+                txtPoid.MaxLength = 3;
             }
             else
             {
-                e.Handled = false;
+                txtPoid.MaxLength = 5;
             }
-            
+
         }
         #endregion
 
@@ -586,6 +558,15 @@ namespace DiabManager
             this.Controls.Add(btnProfil2);
             this.Controls.Add(btnProfil3);
             #endregion
+
+            txtPrenom.MaxLength = 20;
+            txtNom.MaxLength = 20;
+            txtAge.MaxLength = 3;
+            txtPoid.MaxLength = 3;
+            txtTaille.MaxLength = 3;
+            txtGlyc.MaxLength = 3;
+            txtObjGlycHaut.MaxLength = 3;
+            txtObjGlycBas.MaxLength = 3;
 
             grbSexe.Visible = true;
             btnRetour.Visible = true;
