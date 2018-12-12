@@ -17,14 +17,6 @@ namespace DiabManager
 {
     public partial class frmJeu : Form
     {
-        public Composants.GradientPanel g;
-        public Composants.GradientPanel Gp
-        {
-            get
-            {
-                return g;
-            }
-        }
 
         public frmJeu()
         {
@@ -40,7 +32,6 @@ namespace DiabManager
             f.AddFontFile(path);
             lblAffTemps.Font = new Font(f.Families[0], 26,FontStyle.Bold);
             lblTemps.Font = new Font(f.Families[0], 26, FontStyle.Bold);
-            //g = gplFond;
         }
 
         /// <summary>
@@ -135,33 +126,56 @@ namespace DiabManager
             this.BeginInvoke((Action)(() => {
                 //Infos du joueur
                 lblNom.Text = infos[1] + " " + infos[0];
-
+                Joueur Jcourant = IHM.IHM_Joueur.getJoueur();
                 //Infos du stress
-               
-                if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
+                if(Jcourant.Sexe == 'H')
                 {
-                    lblStress.Text = "Vous n'etes pas stressée";
+                    if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
+                    {
+                        lblStress.Text = "Vous n'etes pas stressé";
+                    }
+                    if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
+                    {
+                        lblStress.Text = "Vous etes stressé";
+                    }
+                    if (double.Parse(infos[10]) >= 61)
+                    {
+                        lblStress.Text = "Vous etes beaucoup stressé";
+                    }
+
+                    if (double.Parse(infos[10]) >= 90)
+                    {
+                        lblStress.Text = "Burnout";
+                    }
                 }
-                if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
+                else
                 {
-                    lblStress.Text = "Vous etes stressée";
-                }
-                if (double.Parse(infos[10]) >= 61)
-                {
-                    lblStress.Text = "Vous etes beaucoup stressée";
+                    if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
+                    {
+                        lblStress.Text = "Vous n'etes pas stressée";
+                    }
+                    if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
+                    {
+                        lblStress.Text = "Vous etes stressée";
+                    }
+                    if (double.Parse(infos[10]) >= 61)
+                    {
+                        lblStress.Text = "Vous etes beaucoup stressée";
+                    }
+
+                    if (double.Parse(infos[10]) >= 90)
+                    {
+                        lblStress.Text = "Burnout";
+                    }
                 }
                 
-                if (double.Parse(infos[10]) >=90)
-                {
-                    lblStress.Text = "Burnout";
-                }
 
                 //Infos de glycémie
                 lblGlycemie.Text = infos[9];
 
                 //Infos d'energie
                 double energie = double.Parse(infos[11]);
-                Joueur Jcourant = IHM.IHM_Joueur.getJoueur();
+                
                 if (Jcourant.Sexe == 'H')
                 {
                     if (energie < 21)
@@ -208,27 +222,6 @@ namespace DiabManager
                         lblEnergie.Text = "Vous êtes en pleine forme";
                     }
                 }
-                
-                if (energie < 21)
-                {
-                    lblEnergie.Text = "Vous êtes épuisé";
-                }
-                else if (energie < 41)
-                {
-                    lblEnergie.Text = "Vous êtes fatigué";
-                }
-                else if (energie < 61)
-                {
-                    lblEnergie.Text = "Vous êtes un peu fatigué";
-                }
-                else if (energie < 81)
-                {
-                    lblEnergie.Text = "Vous vous sentez légèrement fatigué";
-                }
-                else
-                {
-                    lblEnergie.Text = "Vous êtes en pleine forme";
-                }
 
                 //Mise à jour du poids
                 lblPoids.Text = infos[2];
@@ -262,6 +255,25 @@ namespace DiabManager
                 pnlAction.Controls.Add(pan);
 
             }));
+        }
+
+        public void setFond(String s)
+        {
+            if (s.ToLower() == "matin")
+            {
+                this.BackgroundImage = global::DiabManager.Properties.Resources.matin;
+                //this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            }
+            if(s.ToLower() == "midi")
+            {
+                this.BackgroundImage = global::DiabManager.Properties.Resources.midi;
+                //this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            }
+            if(s.ToLower() == "soir")
+            {
+                this.BackgroundImage = global::DiabManager.Properties.Resources.nuit;
+                //this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            }
         }
 
         public void removeAction()
