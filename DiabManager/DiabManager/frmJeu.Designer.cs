@@ -569,6 +569,7 @@ namespace DiabManager
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::DiabManager.Properties.Resources.matin;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -579,6 +580,7 @@ namespace DiabManager
             this.Controls.Add(this.pnlGestionTemps);
             this.Controls.Add(this.pnlActions);
             this.Controls.Add(this.pnlInfos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmJeu";
             this.Text = "DiabManager";
