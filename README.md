@@ -4,7 +4,7 @@
 Vous allez chez le médecin ce matin et vous êtes diagnostiqué diabétique. Vous allez devoir changer votre vie et vous habituez à controller votre glycémie. Vous aurez plusieurs choix possibles, et certaines choses imprévues vous arriveront. Attention à bien respecter les doses prescrites pour éviter des complications, voir la mort !
 
 ![Menu](Images/menu.png "Menu")
-![Jeu](Images/jeu.png "Jeu")
+![Jeu](Images/tuto.png "Jeu")
 
 ---
 
