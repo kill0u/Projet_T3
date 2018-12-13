@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace DiabManager
 {
+
     public partial class frmTuto : Form
     {
-        public frmTuto()
+        Color couleur;
+        Color basec ;
+        public frmTuto(Color c,Color basecol)
         {
             InitializeComponent();
+            couleur = c;
+            basec = basecol;
+            lblExplication.ForeColor = couleur == Color.Black ? basec : couleur;
+            btnSuivant.BackColor = couleur==Color.Black ? basec : couleur;
+            btnSuivant.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btnSuivant.Font = new System.Drawing.Font("Myanmar Text", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnSuivant.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
 
         private void btnSuivant_Click(object sender, EventArgs e)

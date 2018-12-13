@@ -31,7 +31,7 @@ namespace DiabManager
             get { return Exit; }
         }
 
-        Color couleurOrigin = Color.Aqua;
+        Color couleurOrigin = Color.Azure;
         string text;
         private Point p = new Point(280, 35);
         private Size s = new Size(520, 101);
@@ -41,7 +41,7 @@ namespace DiabManager
         private Button btnLancerTuto;
         //deuxieme affichage
         private Label lblText;
-        private Button btnRetour;
+        private Button btnLancerJeu;
         private Button btnSuite;
         //troixieme affichage
         private Button btnProfil1;
@@ -110,10 +110,10 @@ namespace DiabManager
             s = new Size(154, 32);
             p = new Point(408, 310);
             //creation du bouton retour
-            btnRetour = creerButton("Retour", "btnRetour", p, s);
-            ajoutEvClick(btnRetour, new EventHandler(btnRetour_Click));
-            this.Controls.Add(btnRetour);
-            btnRetour.Visible = false;
+            btnLancerJeu = creerButton("Lancer jeu", "btnLancerJeu", p, s);
+            ajoutEvClick(btnLancerJeu, new EventHandler(btnLancerJeu_Click));
+            this.Controls.Add(btnLancerJeu);
+            btnLancerJeu.Visible = false;
             p.X += 165;
             //creation du bouton valider
             btnValider = creerButton("Valider", "btnValider", p, s);
@@ -145,7 +145,9 @@ namespace DiabManager
 
 
         #region evenements
+
         //events
+
         /// <summary>
         /// Handles the Click event of the Titre control.
         /// </summary>
@@ -155,6 +157,7 @@ namespace DiabManager
         {
             changercolor();
         }
+
         /// <summary>
         /// Handles the Click event of the LancerPart control.
         /// </summary>
@@ -162,32 +165,44 @@ namespace DiabManager
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void LancerPart_Click(object sender, EventArgs e)
         {
-            //affFormJoueur();
-            affDifficulte();
+            affScenario();
         }
+
+        /// <summary>
+        /// Handles the Click event of the btnNouv control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnNouv_Click(object sender, EventArgs e)
         {
-            
             Button bu = (Button)sender;
             if (bu.Text == "Bonne nouvelle")
             {
-                MessageBox.Show("Votre visite est remboursée à 90% par la Sécurité Sociale.");
+                if (!lblNouvelles.Visible)
+                {
+                    lblNouvelles.Visible = true;
+                }
+                lblNouvelles.Text = "Votre visite est remboursée à 90% par la Sécurité Sociale.";
                 bu.Enabled = false;
                 compt --;
             }
             else
             {
-                MessageBox.Show("Vous êtes diabétique, vous allez donc devoirs faire attention a votre taux de glycémie, " +
-                    "a ce que vous mangerais et à ce que vous allez faire.");
+                if (!lblNouvelles.Visible)
+                {
+                    lblNouvelles.Visible = true;
+                }
+                lblNouvelles.Text = "Vous êtes diabétique, vous allez donc devoirs faire attention a votre taux de glycémie, " +
+                    Environment.NewLine+"a ce que vous mangerais et à ce que vous allez faire.";
                 bu.Enabled = false;
                 compt--;
             }
             if (compt == 0)
             {
-                Exit = DialogResult.OK;
-                this.Close();
+                btnLancerJeu.Visible = true;
             }
         }
+
         /// <summary>
         /// Handles the Click event of the btnLancerTuto control.
         /// </summary>
@@ -195,70 +210,21 @@ namespace DiabManager
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnLancerTuto_Click(object sender, EventArgs e)
         {
-            frmTuto frm = new frmTuto();
+            frmTuto frm = new frmTuto(cdPicker.Color,couleurOrigin);
             frm.ShowDialog();
         }
-        /// <summary>
-        /// Handles the Click event of the btnRetour control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnRetour_Click(object sender, EventArgs e)
-        {
-            /*if (!btnLancerTuto.Visible && btndFacile.Visible)
-            {
-                btndFacile.Visible = false;
-                btndDifficile.Visible = false;
-                btnLancerTuto.Visible = true;
-                btnLancePart.Visible = true;
-                btnRetour.Visible = false;
-            }*/
-            if(!btnLancerTuto.Visible /*&& !btndFacile.Visible*/)
-            {
-                grbSexe.Visible = false;
-                foreach (TextBox c in this.Controls.OfType<TextBox>())
-                {
-                    c.Visible = false;
-                }
-                foreach (Label c in this.Controls.OfType<Label>())
-                {
-                    if(c != Titre)
-                        c.Visible = false;
-                }
-                btnProfil1.Visible = false;
-                btnProfil2.Visible = false;
-                btnProfil3.Visible = false;
-                btnValider.Visible = false;
-                clboxPersonnalite.Visible = false;
-                //btndDifficile.Visible = true;
-                //btndFacile.Visible = true;
-                btnLancerTuto.Visible = true;
-                btnLancePart.Visible = true;
-                btnRetour.Visible = false;
-                btnBonneNouv.Visible = false;
 
-                btnMauvaiseNouv.Visible = false;
-                compt = 2;
-            }
-        }
         /// <summary>
-        /// Handles the Click event of the btndFacile control.
+        /// Handles the Click event of the btnLancerJeu control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btndFacile_Click(object sender, EventArgs e)
+        private void btnLancerJeu_Click(object sender, EventArgs e)
         {
-            affFormJoueur();
+            Exit = DialogResult.OK;
+            this.Close();
         }
-        /// <summary>
-        /// Handles the Click event of the btndDifficile control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btndDifficile_Click(object sender, EventArgs e)
-        {
-            affFormJoueur();
-        }
+
         /// <summary>
         /// Handles the Click event of the btnProfils control.
         /// </summary>
@@ -283,6 +249,7 @@ namespace DiabManager
                 remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.1, 1.5, 2);
             }
         }
+
         /// <summary>
         /// Handles the Click event of the btnValider control.
         /// </summary>
@@ -305,6 +272,11 @@ namespace DiabManager
             
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnSuite control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnSuite_Click(object sender, EventArgs e)
         {
             btnSuite.Visible = false;
@@ -325,6 +297,7 @@ namespace DiabManager
             }
             
         }
+
         /// <summary>
         /// Handles the keyPress event of the NoDigit control.
         /// </summary>
@@ -337,6 +310,7 @@ namespace DiabManager
                 e.Handled = true; //On interdit les nombres
             }
         }
+
         /// <summary>
         /// Handles the KeyPress event of the NoLetterOneComma control.
         /// </summary>
@@ -370,9 +344,11 @@ namespace DiabManager
             }
 
         }
+
         #endregion
 
         #region fonctions
+
         /// <summary>
         /// Changercolors this instance.
         /// </summary>
@@ -396,10 +372,11 @@ namespace DiabManager
                 Titre.ForeColor = cdPicker.Color;
             }
         }
+
         /// <summary>
         /// Affs the difficulte.
         /// </summary>
-        private void affDifficulte()
+        private void affScenario()
         {
             foreach(Button c in this.Controls.OfType<Button>())
             {
@@ -416,10 +393,13 @@ namespace DiabManager
             btnSuite.Visible = true;
 
         }
-        
+
+        /// <summary>
+        /// Affs the result diag.
+        /// </summary>
         private void affResultDiag()
         {
-            btnRetour.Visible = false;
+            
             grbSexe.Visible = false;
             foreach (TextBox c in this.Controls.OfType<TextBox>())
             {
@@ -440,6 +420,7 @@ namespace DiabManager
             lblText = creerLabel("Bien, j'ai ici vos résultats de votre diagnostic, " +
                 "j'ai une bonne et une mauvaise nouvelle, laquelle voulez vous entendre en premier ?","txtdiag", p, s);
             lblText.Visible = true;
+            text = lblText.Text;
             this.Controls.Add(lblText);
             p.Y += 40;
             s = new System.Drawing.Size(154, 32);
@@ -447,6 +428,7 @@ namespace DiabManager
             btnBonneNouv.Visible = true;
             btnMauvaiseNouv.Visible = true;
         }
+        
         /// <summary>
         /// Affs the form joueur.
         /// </summary>
@@ -572,12 +554,13 @@ namespace DiabManager
             txtObjGlycBas.MaxLength = 3;
 
             grbSexe.Visible = true;
-            btnRetour.Visible = false;
+            btnLancerJeu.Visible = false;
             btnValider.Visible = true;
             btnProfil1.Visible = true;
             btnProfil2.Visible = true;
             btnProfil3.Visible = true;
         }
+        
         /// <summary>
         /// RDBs the cocher.
         /// </summary>
@@ -624,6 +607,7 @@ namespace DiabManager
 
             IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(nom, age, personalitee,prenom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
         }
+        
         /// <summary>
         /// Checks the formulaire.
         /// </summary>
@@ -644,6 +628,7 @@ namespace DiabManager
             }
             return check;
         }
+        
         /// <summary>
         /// Remplirs the formulaire joueur.
         /// </summary>
@@ -686,7 +671,13 @@ namespace DiabManager
                 rdbSfem.Checked = true;
             }
         }
-
+        
+        /// <summary>
+        /// Recherches the specified CLB.
+        /// </summary>
+        /// <param name="clb">The checkedlistbox searched.</param>
+        /// <param name="s">The string searched in the checkedlistbox</param>
+        /// <returns></returns>
         private int recherche(CheckedListBox clb, string s)
         {
             int res =0;
@@ -700,7 +691,10 @@ namespace DiabManager
             }
             return res;
         }
-
+        
+        /// <summary>
+        /// Nettoyages this instance.
+        /// </summary>
         private void nettoyage()
         {
             string[] tab = { "Sportif", "Gourmand", "VideoGamer", "Social", "Studieux", "Dépressif", "Peureux" };
@@ -723,6 +717,7 @@ namespace DiabManager
             }
 
         }
+
         #endregion
 
         #region fonction génération dynamique de composant
@@ -760,7 +755,7 @@ namespace DiabManager
         private Button creerButton(String texte, String nombutton, Point location, Size size)
         {
             Button btn = new Button();
-            btn.BackColor = System.Drawing.Color.Aqua;
+            btn.BackColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             btn.Font = new System.Drawing.Font("Myanmar Text", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             btn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -792,7 +787,7 @@ namespace DiabManager
             rdbSmasc = creerRadioButton("H", "rdbMasc", p, s, 1);
             grbx.Controls.Add(rdbSfem);
             grbx.Controls.Add(rdbSmasc);
-            grbx.ForeColor = couleurOrigin;
+            grbx.ForeColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             grbx.Location = location;
             grbx.Name = nomGroupbox;
             grbx.Size = size;
@@ -841,7 +836,12 @@ namespace DiabManager
             txt.TabIndex = 0;
             return txt;
         }
-
+        /// <summary>
+        /// Creers the check list.
+        /// </summary>
+        /// <param name="nom">The nom.</param>
+        /// <param name="Point">The point.</param>
+        /// <returns></returns>
         private CheckedListBox creerCheckList(string nom, Point Point)
         {
             CheckedListBox clbox1 = new CheckedListBox();
@@ -860,7 +860,11 @@ namespace DiabManager
             clbox1.TabIndex = 1;
             return clbox1;
         }
-        
+        /// <summary>
+        /// Ajouts the ev click.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="eHand">The e hand.</param>
         private void ajoutEvClick(Control c,EventHandler eHand) {
             c.Click += eHand;
         }
@@ -876,6 +880,5 @@ namespace DiabManager
         }
 
         #endregion
-
     }
 }
