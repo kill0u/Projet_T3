@@ -19,6 +19,9 @@ namespace DiabManager.Metiers
          */ 
         private static Temps m_tempsInstance;
 
+        /// <summary>
+        /// Temps que dure un tick du jeu (en ms)
+        /// </summary>
         private const int dureeTemps = 10000;
 
         /** Heure de la journée. Heure:minutes:secondes de la journée actuelle
@@ -29,8 +32,11 @@ namespace DiabManager.Metiers
         /// Heure de fin de l'action (ou évènement) en cours
         /// </summary>
         private TimeSpan m_destTime = new TimeSpan(-1,0,0);
-        
 
+
+        /// <summary>
+        /// Boolean pour savoir si une action est en cours ou non
+        /// </summary>
         private bool m_actionEnCours = false;
         public bool isActionEnCours
         {
@@ -47,18 +53,33 @@ namespace DiabManager.Metiers
          Le Timer qui fait défiler automatiquement le temps, et lance un event à chaque tick*/
         private Timer m_dayTimer;
 
+        /// <summary>
+        /// Durée que le joueur passe hors des valeurs permises
+        /// </summary>
         private TimeSpan m_tempsHorsPlage = new TimeSpan(0);
 
 
+        /// <summary>
+        /// Durée que le joueur passe dans les valeurs cibles
+        /// </summary>
         private TimeSpan m_tempsDansPlage = new TimeSpan(0);
+        /// <summary>
+        /// Nombre qui compte le reste de temps hors de temps dans la zone
+        /// </summary>
         private int m_creditTempsDansPlage = 18;
 
+        /// <summary>
+        /// Taux de glycémie minimum possible (en dessous = hypoglycémie)
+        /// </summary>
         private double m_gMin = 0.5;
         public double gMin
         {
             get { return m_gMin; }
         }
 
+        /// <summary>
+        /// Taux de glycémie maximum possible (au dessus = hyperglycémie)
+        /// </summary>
         private double m_gMax = 2;
         public double gMax
         {
@@ -272,6 +293,9 @@ namespace DiabManager.Metiers
 
         }
 
+        /// <summary>
+        /// Permet de lancer ou d'arreter une action
+        /// </summary>
         public void swapAction()
         {
             if (m_actionEnCours) //On vient de finir notre action
@@ -305,6 +329,9 @@ namespace DiabManager.Metiers
             m_tempsInstance = null;
         }
 
+        /// <summary>
+        /// Fin du timer (lorsque le jeu est finit)
+        /// </summary>
         public void endTimer()
         {
             m_dayTimer.Stop();

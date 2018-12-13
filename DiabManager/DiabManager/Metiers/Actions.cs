@@ -106,6 +106,9 @@ namespace DiabManager.Metiers
         /// 6 --> dimanche
         protected bool[] m_jour = new bool[7];
 
+        /// <summary>
+        /// URL de l'image de l'action
+        /// </summary>
         protected string m_url = "";
         public string Url { get { return m_url; } }
 
@@ -117,6 +120,8 @@ namespace DiabManager.Metiers
         /// <param name="duree">Durée de l'action</param>
         /// <param name="etatInitial">Etat initial nécessaire pour l'action</param>
         /// <param name="etatFinal">Etat du joueur après l'action</param>
+        /// <param name="jours">Jours où l'action est actif</param>
+        /// <param name="url">URL de l'image</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
         /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
         public Actions(string nom, string description, TimeSpan duree, double[] etatInitial,Dictionary<string, double[]> etatFinal, bool[] jours, string url, params TimeSpan[] values) 
@@ -207,12 +212,22 @@ namespace DiabManager.Metiers
 
         }
 
+        /// <summary>
+        /// Regarde si l'action est fini
+        /// </summary>
+        /// <param name="temps">Heure actuelle</param>
+        /// <returns>
+        ///   <c>true</c> si l'action est finit, sinon <c>false</c>.
+        /// </returns>
         public bool isFinished(TimeSpan temps)
         {
             return m_endTime < temps;
                 
         }
 
+        /// <summary>
+        /// FOnction utilisé pendant l'action
+        /// </summary>
         public void duringAction()
         {
             double mGlycAdd = 0;
@@ -300,6 +315,13 @@ namespace DiabManager.Metiers
             return new Actions(nom, desc, duree, etatInital, etatFinal, jours, url, plageHoraire);
         }
 
+        /// <summary>
+        /// Détermien si le joueur est compatible avec l'action
+        /// </summary>
+        /// <param name="j">The j.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified j is compatible; otherwise, <c>false</c>.
+        /// </returns>
         public bool isCompatible(Joueur j)
         {
             if (m_etatInitial[0] > j.Energie) //Vérifie l'energie

@@ -56,8 +56,11 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="duree">Durée de l'évènements (ex: sortie au bar --&gt; 5h)</param>
         /// <param name="etatInitial">Etat initial nécessaire pour l'action</param>
         /// <param name="etatFinal">Etat du joueur après l'action</param>
+        /// <param name="chanceCharac">The chance charac.</param>
         /// <param name="chanceInit">Le pourcentage de chance que l'évènements se déclenche initialement</param>
         /// <param name="bloquant">Si l'évènement lancé bloque toutes les autres actions possibles</param>
+        /// <param name="jours">Jours ou l'évènement aléatoire est actif</param>
+        /// <param name="url">URL de l'image</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
         public EvenementsAleatoire(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, Dictionary<string, Tuple<double, double>[]> chanceCharac, double chanceInit, bool bloquant,bool[] jours , string url, params TimeSpan[] values): base(nom, description, duree, etatInitial, etatFinal, jours, url, values)
@@ -114,6 +117,9 @@ namespace DiabManager.Metiers.ListeActions
 
         }
 
+        /// <summary>
+        /// Cette fonction s'effectue pendant qu'un évènement aléatoire est actif
+        /// </summary>
         public new void duringAction()
         {
             //On modifie les données du joueur 
@@ -123,6 +129,11 @@ namespace DiabManager.Metiers.ListeActions
         }
 
 
+        /// <summary>
+        /// Lit et crée un évènement aléatories dans un fichier
+        /// </summary>
+        /// <param name="fields">La ligne du fichier concernée</param>
+        /// <returns>L'évènement aléatoire</returns>
         public new static EvenementsAleatoire readAction(string[] fields)
         {
 
@@ -154,7 +165,7 @@ namespace DiabManager.Metiers.ListeActions
                 Tuple<double, double>[] car = new Tuple<double, double>[efS.Length];
                 for (int i = 0; i < efS.Length; i++)
                 {
-                    car[i] = new Tuple<double, double>(double.Parse(efS[i].Split(',')[0]), double.Parse(efS[i].Split(',')[1]));
+                    car[i] = new Tuple<double, double>(double.Parse(efS[i].Split(',')[0], CultureInfo.InvariantCulture), double.Parse(efS[i].Split(',')[1], CultureInfo.InvariantCulture));
                 }
                 chanceCharac.Add(nomCharac, car);
                 k++;
