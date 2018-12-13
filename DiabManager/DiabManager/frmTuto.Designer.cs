@@ -47,9 +47,10 @@
             // 
             // btnSuivant
             // 
-            this.btnSuivant.Location = new System.Drawing.Point(844, 631);
+            this.btnSuivant.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSuivant.Location = new System.Drawing.Point(781, 603);
             this.btnSuivant.Name = "btnSuivant";
-            this.btnSuivant.Size = new System.Drawing.Size(75, 23);
+            this.btnSuivant.Size = new System.Drawing.Size(138, 51);
             this.btnSuivant.TabIndex = 1;
             this.btnSuivant.Text = "Suivant";
             this.btnSuivant.UseVisualStyleBackColor = true;
