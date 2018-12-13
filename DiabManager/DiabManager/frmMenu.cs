@@ -35,15 +35,15 @@ namespace DiabManager
         string text;
         private Point p = new Point(280, 35);
         private Size s = new Size(520, 101);
-        //premier affichage
+        //Premier affichage
         private Label Titre;
         private Button btnLancePart;
         private Button btnLancerTuto;
-        //deuxieme affichage
+        //Deuxième affichage
         private Label lblText;
         private Button btnLancerJeu;
         private Button btnSuite;
-        //troixieme affichage
+        //Troixième affichage
         private Button btnProfil1;
         private Button btnProfil2;
         private Button btnProfil3;
@@ -75,13 +75,13 @@ namespace DiabManager
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="frmMenu"/> class.
+        /// Création d'une instance de la classe frmMenu
         /// </summary>
         public frmMenu()
         {
             InitializeComponent();
             #region Titre
-            //creation du Titre
+            //Création du titre
             Titre = new Label();
             Titre.AutoSize = true;
             Titre.BackColor = System.Drawing.Color.Transparent;
@@ -98,34 +98,34 @@ namespace DiabManager
 
             p = new Point(360, 173);
             s = new Size(244, 52);
-            //creation du bouton de lancement de partie
+            //Création du bouton de lancement de partie
             btnLancePart = creerButton("Lancer Partie", "btnPartie",p,s);
             ajoutEvClick(btnLancePart, new EventHandler(LancerPart_Click));
 
             p = new Point(360, 240);
-            //creation du bouton de lancement de tuto
+            //Création du bouton de lancement de tuto
             btnLancerTuto = creerButton("Lancer Tutoriel", "btnTuto",p,s);
             ajoutEvClick(btnLancerTuto, new EventHandler(btnLancerTuto_Click));
 
             s = new Size(154, 32);
             p = new Point(408, 310);
-            //creation du bouton retour
+            //Création du bouton retour
             btnLancerJeu = creerButton("Lancer jeu", "btnLancerJeu", p, s);
             ajoutEvClick(btnLancerJeu, new EventHandler(btnLancerJeu_Click));
             this.Controls.Add(btnLancerJeu);
             btnLancerJeu.Visible = false;
             p.X += 165;
-            //creation du bouton valider
+            //Création du bouton valider
             btnValider = creerButton("Valider", "btnValider", p, s);
             ajoutEvClick(btnValider, new EventHandler(btnValider_Click));
             this.Controls.Add(btnValider);
             btnValider.Visible = false;
-            //creation bouton suite
+            //Création bouton suite
             btnSuite = creerButton("Suite", "btnSuite", p, s);
             ajoutEvClick(btnSuite, new EventHandler(btnSuite_Click));
             this.Controls.Add(btnSuite);
             btnSuite.Visible = false;
-            //creation bouton bonne nouvelle
+            //Création bouton bonne nouvelle
             s.Width = 200;
             btnBonneNouv = creerButton("Bonne nouvelle", "btnBon", p, s);
             this.Controls.Add(btnBonneNouv);
@@ -142,14 +142,12 @@ namespace DiabManager
             this.Controls.Add(btnLancerTuto);
         }
 
-
-
         #region evenements
 
-        //events
+        //Événements
 
         /// <summary>
-        /// Handles the Click event of the Titre control.
+        /// Fonction qui gère le clic sur le titre
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -159,7 +157,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the LancerPart control.
+        /// Fonction qui démarre la fenêtre de scénario
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
@@ -169,7 +167,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the btnNouv control.
+        /// Fonction qui gère le clic sur le bouton nouveau
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -206,7 +204,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the btnLancerTuto control.
+        /// Fonction qui gère le clic sur le bouton Lancer tuto
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -217,7 +215,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the btnLancerJeu control.
+        /// Fonction qui gère le clic sur le bouton Lancer jeu
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -228,7 +226,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the btnProfils control.
+        /// Fonction qui gère le clic sur le bouton Profils
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -253,7 +251,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the btnValider control.
+        /// Fonction qui gère le clic sur le bouton valider
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -275,7 +273,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the Click event of the btnSuite control.
+        /// Fonction qui gère le clic sur le bouton suite
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -285,9 +283,9 @@ namespace DiabManager
             affFormJoueur();
         }
 
-        //les keypress
+        //Les keypress
         /// <summary>
-        /// Handles the keyPress event of the NoLetter control.
+        /// Fonction qui interdit l'entrée de lettres
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
@@ -301,7 +299,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the keyPress event of the NoDigit control.
+        /// Fonction qui interdit l'entrée de nombres
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
@@ -314,7 +312,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Handles the KeyPress event of the NoLetterOneComma control.
+        /// Fonction qui gère l'entrée des virgules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
@@ -352,7 +350,7 @@ namespace DiabManager
         #region fonctions
 
         /// <summary>
-        /// Changercolors this instance.
+        /// Fonction qui permet de changer la couleur (easter egg)
         /// </summary>
         private void changercolor()
         {
@@ -376,7 +374,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Affs the difficulte.
+        /// Affichage des scénarios
         /// </summary>
         private void affScenario()
         {
@@ -397,7 +395,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Affs the result diag.
+        /// Affichage du résultat du dialogue
         /// </summary>
         private void affResultDiag()
         {
@@ -432,7 +430,7 @@ namespace DiabManager
         }
         
         /// <summary>
-        /// Affs the form joueur.
+        /// Affichage du formulaire joueur
         /// </summary>
         private void affFormJoueur()
         {
@@ -564,7 +562,7 @@ namespace DiabManager
         }
         
         /// <summary>
-        /// RDBs the cocher.
+        /// Radiobutton du sexe du joueur
         /// </summary>
         /// <returns></returns>
         private String rdbCocher()
@@ -581,7 +579,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Creers the joueur.
+        /// Créer le joueur
         /// </summary>
         private void creerJoueur()
         {
@@ -611,9 +609,9 @@ namespace DiabManager
         }
         
         /// <summary>
-        /// Checks the formulaire.
+        /// Personnalités du joueur
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Si la personnalité est cochée</returns>
         private Boolean checkFormulaire()
         {
             Boolean check = true;
@@ -632,20 +630,19 @@ namespace DiabManager
         }
         
         /// <summary>
-        /// Remplirs the formulaire joueur.
+        /// Replissage du formulaire du joueur
         /// </summary>
-        /// <param name="prenom">The prenom.</param>
-        /// <param name="age">The age.</param>
-        /// <param name="nom">The nom.</param>
-        /// <param name="sex">The sex.</param>
-        /// <param name="taille">The taille.</param>
-        /// <param name="poids">The poids.</param>
-        /// <param name="glyc">The glycémie.</param>
-        /// <param name="glycObBas">The objectif glycémique bas.</param>
-        /// <param name="glycObHaut">The objectif glycémique haut.</param>
+        /// <param name="prenom">Le prenom.</param>
+        /// <param name="age">L'âge.</param>
+        /// <param name="nom">Le nom.</param>
+        /// <param name="sex">Le sexe.</param>
+        /// <param name="taille">La taille.</param>
+        /// <param name="poids">Le poids.</param>
+        /// <param name="glyc">La glycémie.</param>
+        /// <param name="glycObBas">L'objectif glycémique bas.</param>
+        /// <param name="glycObHaut">L'objectif glycémique haut.</param>
         private void remplirFormulaireJoueur(string prenom, string[]pers,int age, string nom, char sex, int taille, double poids, double glyc, double glycObBas, double glycObHaut)
         {
-            
             /*for(int i = 0; i < clboxPersonnalite.Items.Count; i++)
             {
                 clboxPersonnalite.SetItemChecked(i, false);
@@ -695,7 +692,7 @@ namespace DiabManager
         }
         
         /// <summary>
-        /// Nettoyages this instance.
+        /// Nettoyage des cases à cocher
         /// </summary>
         private void nettoyage()
         {
@@ -724,13 +721,13 @@ namespace DiabManager
 
         #region fonction génération dynamique de composant
         /// <summary>
-        /// Creers the label.
+        /// Creer un label
         /// </summary>
-        /// <param name="texte">The texte.</param>
-        /// <param name="nomlabel">The nomlabel.</param>
-        /// <param name="location">The location.</param>
-        /// <param name="size">The size.</param>
-        /// <returns></returns>
+        /// <param name="texte">Le texte.</param>
+        /// <param name="nomlabel">Le nom du label.</param>
+        /// <param name="location">La location.</param>
+        /// <param name="size">La taille.</param>
+        /// <returns>Le label</returns>
         private Label creerLabel(String texte,String nomlabel,Point location, Size size)
         {
             Label lbl = new Label();
@@ -747,13 +744,13 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Creers the button.
+        /// Creer un bouton
         /// </summary>
-        /// <param name="texte">The texte.</param>
-        /// <param name="nombutton">The nombutton.</param>
-        /// <param name="location">The location.</param>
-        /// <param name="size">The size.</param>
-        /// <returns></returns>
+        /// <param name="texte">Le texte.</param>
+        /// <param name="nombutton">Le nom du button.</param>
+        /// <param name="location">La location.</param>
+        /// <param name="size">La taille.</param>
+        /// <returns>Le bouton</returns>
         private Button creerButton(String texte, String nombutton, Point location, Size size)
         {
             Button btn = new Button();
@@ -771,13 +768,13 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Creers the groupbox.
+        /// Creer un groupbox
         /// </summary>
-        /// <param name="texte">The texte.</param>
-        /// <param name="nomGroupbox">The nom groupbox.</param>
-        /// <param name="location">The location.</param>
-        /// <param name="size">The size.</param>
-        /// <returns></returns>
+        /// <param name="texte">Le texte.</param>
+        /// <param name="nomGroupbox">Le nom du groupbox.</param>
+        /// <param name="location">La location.</param>
+        /// <param name="size">La taille.</param>
+        /// <returns>Le groupbox</returns>
         private GroupBox creerGroupbox(String texte, String nomGroupbox, Point location, Size size)
         {
             GroupBox grbx = new GroupBox();
@@ -800,14 +797,14 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Creers the RadioButton.
+        /// Creer un radiobutton
         /// </summary>
-        /// <param name="texte">The texte.</param>
-        /// <param name="nomRdb">The nom RDB.</param>
-        /// <param name="loc">The loc.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="tabind">The tabind.</param>
-        /// <returns></returns>
+        /// <param name="texte">Le texte.</param>
+        /// <param name="nomRdb">Le nom du radiobutton.</param>
+        /// <param name="loc">La location</param>
+        /// <param name="size">La size.</param>
+        /// <param name="tabind">Le tabind.</param>
+        /// <returns>Le radiobutton</returns>
         private RadioButton creerRadioButton(String texte, String nomRdb, Point loc, Size size,int tabind)
         {
             RadioButton rdb = new RadioButton();
@@ -823,12 +820,12 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Creers the textbox.
+        /// Creer un textbox
         /// </summary>
-        /// <param name="nomTxt">The nom text.</param>
-        /// <param name="loc">The loc.</param>
-        /// <param name="size">The size.</param>
-        /// <returns></returns>
+        /// <param name="nomTxt">Le nom du textbox.</param>
+        /// <param name="loc">La location.</param>
+        /// <param name="size">La taille.</param>
+        /// <returns>Le textbox</returns>
         private TextBox creerTextbox(String nomTxt, Point loc, Size size)
         {
             TextBox txt = new TextBox();
@@ -839,11 +836,11 @@ namespace DiabManager
             return txt;
         }
         /// <summary>
-        /// Creers the check list.
+        /// Creer un checkedlistbox
         /// </summary>
-        /// <param name="nom">The nom.</param>
-        /// <param name="Point">The point.</param>
-        /// <returns></returns>
+        /// <param name="nom">Le nom.</param>
+        /// <param name="Point">Le point.</param>
+        /// <returns>Le checkedlistbox</returns>
         private CheckedListBox creerCheckList(string nom, Point Point)
         {
             CheckedListBox clbox1 = new CheckedListBox();
@@ -863,19 +860,19 @@ namespace DiabManager
             return clbox1;
         }
         /// <summary>
-        /// Ajouts the ev click.
+        /// Ajouter un événement clic
         /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="eHand">The e hand.</param>
+        /// <param name="c">Le contrôle.</param>
+        /// <param name="eHand">Le handler</param>
         private void ajoutEvClick(Control c,EventHandler eHand) {
             c.Click += eHand;
         }
 
         /// <summary>
-        /// Ajouts the ev keypress.
+        /// Ajouter un événement keypress
         /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="eHand">The e hand.</param>
+        /// <param name="c">Le cotntrôle.</param>
+        /// <param name="eHand">Le handler.</param>
         private void ajoutEvKeypress(Control c,KeyPressEventHandler eHand)
         {
             c.KeyPress += eHand;

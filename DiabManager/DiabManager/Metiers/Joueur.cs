@@ -15,11 +15,11 @@ namespace DiabManager.Metiers
     {
 
         /// <summary>
-        /// Le Stylo d'insuline.
+        /// Le stylo d'insuline.
         /// </summary>
         private Stylo m_stylo = new Stylo();
         /// <summary>
-        /// Accesseurs du Stylo d'insuline.
+        /// Accesseurs du stylo d'insuline.
         /// </summary>
         public Stylo Stylo
         {
@@ -74,7 +74,7 @@ namespace DiabManager.Metiers
             get { return m_sexe; }
             set { this.m_sexe = value; }
         }
-        private string m_profilPhysique; /**<Le profil physique du joueur. Le profil physique du joueur permet de connaître les attitudes et/ou la situation physique du joueur (sportif, agé, enceinte, ...). */
+        private string m_profilPhysique; /**<Le profil physique du joueur. Le profil physique du joueur permet de connaître les attitudes et/ou la situation physique du joueur (sportif, paresseux, gourmand, ...). */
         public string ProfilPhysique /**<Le profil physique du joueur. L'accesseur du profil physique du joueur.*/
         {
             get { return m_profilPhysique; }
@@ -92,7 +92,7 @@ namespace DiabManager.Metiers
             get { return m_stress; }
             set { this.m_stress = value; }
         }
-        /*type de profil dispo {"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif", "Peureux"}*/
+        /*Type de profil disponible {"Sportif","Gourmand","VideoGamer","Social","Studieux","Dépressif", "Peureux"}*/
         private string[] m_personalite = {};
         public string[] Personalite
         {
@@ -264,7 +264,7 @@ namespace DiabManager.Metiers
         /// <summary>
         /// Le calcul du stress du joueur.
         /// </summary>
-        /// <param name="stress">La valeur de stress a ajouter/diminuer de la valeur courante de stress.</param>
+        /// <param name="stress">La valeur de stress à ajouter/diminuer de la valeur courante de stress.</param>
         public void calculStress(double stress)
         {
             if (this.m_stress + stress < 0) { this.m_stress = 0; }
@@ -282,7 +282,5 @@ namespace DiabManager.Metiers
             else if (this.m_energie - energie >= 100) { this.m_energie = 100; }
             else { this.m_energie -= energie; }
         }
-
-
     }
 }

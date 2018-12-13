@@ -12,7 +12,7 @@ using DiabManager.Composants;
 
 namespace DiabManager.Gestionnaires
 {
-    /**Classe controllant les actions disponibles.
+    /**Classe contrôlant les actions disponibles.
      * Cette classe stocke toutes les actions possibles, et fait le lien avec le temps (autorise notamment certaines actions à certains moments)
      * @author Geoffrey Kugelmann
      * @version 1
@@ -24,7 +24,7 @@ namespace DiabManager.Gestionnaires
          */
         private static ActionControlleur m_actionControlleurInstance;
 
-        /** Liste de toutes les actions lancés actuellement.
+        /**Liste de toutes les actions lancées actuellement.
          * Liste les actions possibles pour l'utilisateur, avec pour valeur vrai si l'utilisateur peut les faire
          */ 
         private Dictionary<Actions, bool> m_listActions = new Dictionary<Actions, bool>();
@@ -33,8 +33,7 @@ namespace DiabManager.Gestionnaires
             get { return new Dictionary<Actions, bool>(m_listActions); }
         }
 
-
-        /** Liste de toutes les événements possibles pour le joueur actuellement.
+        /**Liste de toutes les événements possibles pour le joueur actuellement.
          * Liste les évènements possibles pour l'utilisateur <see cref="EvenementsAleatoires"/>, avec pour valeur vrai si l'évènement est possible pour le joueur
          */
         private Dictionary<EvenementsAleatoire, bool> m_listEvent = new Dictionary<EvenementsAleatoire, bool>();
@@ -62,9 +61,8 @@ namespace DiabManager.Gestionnaires
 
         }
 
-
-        /** Ajoute une action.
-         * Chaque action possible pour l'utilisateur doit être ajouter dans le controlleur
+        /**Ajoute une action.
+         * Chaque action possible pour l'utilisateur doit être ajoutée dans le controlleur
          * @param a Action possible pour l'utilisateur
          */ 
         public void AddAction(Actions a)
@@ -73,10 +71,10 @@ namespace DiabManager.Gestionnaires
         }
 
         /// <summary>
-        /// Mets à jour les actions disponibles
+        /// Met à jour les actions disponibles
         /// </summary>
-        /// <param name="temps">The temps.</param>
-        /// Les actions disponibles dépendent des heures de la journée, cette fonction regarde toutes les actions, et mets à jour m_listActions
+        /// <param name="temps">Le temps.</param>
+        /// Les actions disponibles dépendent des heures de la journée, cette fonction regarde toutes les actions, et met à jour m_listActions
         public void UpdateAction(TimeSpan temps)
         {
 
@@ -110,7 +108,7 @@ namespace DiabManager.Gestionnaires
             {
                 m_actionActive.duringAction();
 
-                if (m_actionActive.isFinished(m_temps.getHeureJournee())) //On regarde si l'action est fini
+                if (m_actionActive.isFinished(m_temps.getHeureJournee())) //On regarde si l'action est finie
                 {
                     m_actionActive = null;
                     m_temps.swapAction();
@@ -119,7 +117,6 @@ namespace DiabManager.Gestionnaires
             }
                
         }
-
 
         /// <summary>
         /// Charge toutes les actions disponibles, depuis un fichier de configuration
@@ -133,11 +130,9 @@ namespace DiabManager.Gestionnaires
             var path = @"actions.csv"; 
             using (var reader = new StreamReader(path))
             {
-
-
                 while (!reader.EndOfStream)
                 {
-                    // Read current line fields, pointer moves to the next line.
+                    //Lecture de la ligne courante
                     string line = reader.ReadLine();
                     if(!string.IsNullOrWhiteSpace(line)) { 
                         string[] fields = line.Split(';');
@@ -162,12 +157,8 @@ namespace DiabManager.Gestionnaires
                     }
                 }
             }
-
-
-           
             IHM.IHM_Actions.LoadAction(listTab);
         }
-
 
         /// <summary>
         /// Charge tous les évènements possible
@@ -185,7 +176,7 @@ namespace DiabManager.Gestionnaires
 
                 while (!reader.EndOfStream)
                 {
-                    // Read current line fields, pointer moves to the next line.
+                    //Lecture de la ligne courante
                     string line = reader.ReadLine();
                     if (!string.IsNullOrWhiteSpace(line))
                     {
@@ -198,10 +189,6 @@ namespace DiabManager.Gestionnaires
             }
             
         }
-
-
-
-
 
         /// <summary>
         /// On regarde si des évènements aléatoires sont en cours, si oui on effectue leur action
@@ -219,13 +206,11 @@ namespace DiabManager.Gestionnaires
             }
             IHM.IHM_Actions.SetEvenement(list);
         }
-
-
-
+        
         /// <summary>
-        /// On regarde si de nouveaux évènements doivent se lancer ou si d'anciens doivent s'arreter
+        /// On regarde si de nouveaux évènements doivent se lancer ou si d'anciens doivent s'arrêter
         /// </summary>
-        /// <param name="temps">Heure actuel</param>
+        /// <param name="temps">Heure actuelle</param>
         public void CalcEvenement(TimeSpan temps)
         {
             Random r = new Random();
@@ -279,20 +264,20 @@ namespace DiabManager.Gestionnaires
                 }
                 else //sinon on regarde si il faut l'arreter
                 {
-                    if(temps > e.Key.EndTime) //SI le temps est fini
+                    if(temps > e.Key.EndTime) //Si le temps est fini
                     {
                         m_listEvent[e.Key] = false;
-                        //Si on arrete un event, on enleve le statut de maladie si il y est encore
+                        //Si on arrête un event, on enlève le statut de maladie si il y est encore
                         if (IHM.IHM_Joueur.getJoueur().Etat[1] == 1)
                             IHM.IHM_Joueur.getJoueur().Etat[1] = 0;
 
-                        //si l'evenement est bloquant
+                        //si l'événement est bloquant
                         if (e.Key.isBloquant)
                         {
                             m_temps.swapAction();
                         }
                     }
-                    //Si la personne est soigné après une maladie
+                    //Si la personne est soignée après une maladie
                     if(IHM.IHM_Joueur.getJoueur().Etat[1] == 0 && e.Key.EtatFinalCharac.First().Value[5] == 1)
                     {
                         m_listEvent[e.Key] = false;
@@ -302,13 +287,10 @@ namespace DiabManager.Gestionnaires
             }
         }
 
-
-
-
         /// <summary>
-        /// Renvoie l'instance du controlleur actuel
+        /// Renvoie l'instance du contrôleur actuel
         /// </summary>
-        /// <returns>instance du controlleur</returns>
+        /// <returns>Instance du contrôleur</returns>
         public static ActionControlleur getInstance()
         {
             if (m_actionControlleurInstance == null)
@@ -317,15 +299,11 @@ namespace DiabManager.Gestionnaires
         }
 
         /// <summary>
-        /// Détruit le controlleur (pour pouvoir redémarrer)
+        /// Détruit le contrôleur (pour pouvoir redémarrer)
         /// </summary>
         public static void destroyInstance()
         {
             m_actionControlleurInstance = null;
         }
-
-
-
-
     }
 }

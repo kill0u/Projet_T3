@@ -8,8 +8,8 @@ using DiabManager.Metiers;
 
 namespace DiabManager.IHM
 {
-    /**Classe faisant le lien entre les actions et la fenetre.
-     * Cette classe définit les fonctions faisant le lien entre la fenetre du jeu et les actions, ou le controleur d'actions
+    /**Classe faisant le lien entre les actions et la fenêtre.
+     * Cette classe définit les fonctions faisant le lien entre la fenêtre du jeu et les actions, ou le contrôleur d'actions
      * @author Geoffrey Kugelmann
      * @version 1
      */
@@ -28,7 +28,7 @@ namespace DiabManager.IHM
         /// <summary>
         /// Met à jour le formulaire utilisé actuellement
         /// </summary>
-        /// <param name="frm">le formulaire</param>
+        /// <param name="frm">Le formulaire</param>
         public static void setForm(frmJeu frm)
         {
             m_frm = frm;
@@ -55,7 +55,7 @@ namespace DiabManager.IHM
         /// <param name="nom">Nom de l'action</param>
         public static void EffectuerAction(string nom)
         {
-            //on regarde qu'il n'y est pas déjà une action en cours
+            //on regarde qu'il n'y ait pas déjà une action en cours
             if(!Temps.getInstance().isActionEnCours)
             { 
                 IHM_Joueur.Update();
@@ -70,7 +70,7 @@ namespace DiabManager.IHM
                     }
                 }
                 SetAction(new ActionPanel(action));
-                //On notifie action controlleur qu'un action s'est lancé
+                //On notifie actionControlleur qu'un action s'est lancée
                 m_actionControlleur.ActionActive = action;
                 //Réalise le code de l'action
                 action.makeAction(Temps.getInstance().getHeureJournee());
@@ -80,7 +80,7 @@ namespace DiabManager.IHM
         /// <summary>
         /// Met à jour l'évènement actuel
         /// </summary>
-        /// <param name="desc">The desc.</param>
+        /// <param name="pan">L'événement à mettre à jour</param>
         public static void SetEvenement(List<ActionPanel> pan)
         {
             m_frm.setEvenement(pan);
@@ -89,7 +89,7 @@ namespace DiabManager.IHM
         /// <summary>
         /// Met à jour l'action actuelle
         /// </summary>
-        /// <param name="desc">The desc.</param>
+        /// <param name="pan">L'action à mettre à jour</param>
         public static void SetAction(ActionPanel pan)
         {
             m_frm.setAction(pan);

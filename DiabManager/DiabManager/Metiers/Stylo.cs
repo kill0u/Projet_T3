@@ -9,7 +9,7 @@ namespace DiabManager.Metiers
     public class Stylo
     {
         /// <summary>
-        /// dose maximale du stylo d'insuline
+        /// Dose maximale du stylo d'insuline
         /// </summary>
         private const int m_doseMax = 80;
         public int DoseMax
@@ -17,8 +17,9 @@ namespace DiabManager.Metiers
             get { return m_doseActu; }
             set { m_doseActu = value; }
         }
+
         /// <summary>
-        /// dose maximale du stylo d'insuline
+        /// Dose actuelle du stylo d'insuline
         /// </summary>
         private int m_doseActu = 80;
         public int DoseActu
@@ -26,8 +27,9 @@ namespace DiabManager.Metiers
             get { return m_doseActu; }
             set { m_doseActu = value; }
         }
+
         /// <summary>
-        /// dose a injecter du stylo d'insuline
+        /// Dose du stylo d'insuline à injecter
         /// </summary>
         private int m_dose;
         public int dose
@@ -37,13 +39,14 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// Constructeur du Stylo
+        /// Constructeur du stylo
         /// </summary>
         public Stylo()
         {
             m_dose = 5;
             m_doseActu = m_doseMax;
         }
+
         /// <summary>
         /// Fonction qui recharge le stylo d'insuline à sa dose maximale.
         /// </summary>

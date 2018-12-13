@@ -15,9 +15,6 @@ namespace DiabManager.Metiers
     /// </summary>
     class Partie
     {
-        //Attributs
-
-
         /// <summary>
         /// Timer pour actualiser le formulaire de Jeu.
         /// </summary>
@@ -38,9 +35,6 @@ namespace DiabManager.Metiers
         /// </summary>
         private Temps m_t;
 
-
-
-
         /// <summary>
         /// Référence vers le formulaire de jeu
         /// </summary>
@@ -51,8 +45,6 @@ namespace DiabManager.Metiers
             set { m_jeu = value; }
         }
 
-
-        //Fonctions
         /// <summary>
         /// Fonction d'ajout d'un jour dans la partie.
         /// </summary>
@@ -62,8 +54,6 @@ namespace DiabManager.Metiers
 
             j.newDay();
             
-
-
             //On change le jour
             switch (Temps.getInstance().getHeureJournee().Days%7) 
             {
@@ -103,10 +93,10 @@ namespace DiabManager.Metiers
             m_ac = Gestionnaires.ActionControlleur.getInstance();
             m_ac.chargerAction();
             m_ac.chargerEvenement();
-            //Met en place le temps.
+            //Met en place le temps
             m_t = Temps.getInstance();
             m_t.StartTime(this);
-            //Met en place les actions.
+            //Met en place les actions
 
             //Le timer tick toutes les 500 ms
             m_updateTimer = new System.Timers.Timer(500);
@@ -115,26 +105,19 @@ namespace DiabManager.Metiers
             m_updateTimer.AutoReset = true;
 
             m_updateTimer.Start();
-
-            
         }
-
-
         
-        /**Evènements lancé à chaque tick du timer.
-         * Fonction à exécuté à chaque tick du timer, mettre à jour les infos.
+        /**Événements lancés à chaque tick du timer.
+         * Fonction à exécuter à chaque tick du timer, mettre à jour les infos.
          */
         public void JeuEnCours(Object source, ElapsedEventArgs e)
         {
             IHM.IHM_Actions.Update();
             IHM.IHM_Joueur.Update();
-            
-            
-            
         }
 
         /// <summary>
-        /// Fonction qui fini la partie.
+        /// Fonction qui finit la partie.
         /// </summary>
         public void Fin(bool res)
         {

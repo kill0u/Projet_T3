@@ -17,7 +17,6 @@ namespace DiabManager
 {
     public partial class frmJeu : Form
     {
-
         /// <summary>
         /// Constructeur du jeu, initialise certaines valeurs
         /// </summary>
@@ -39,7 +38,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Transforme la liste d'action en bouton
+        /// Transforme la liste d'actions en boutons
         /// </summary>
         /// <param name="liste">Liste de toutes les actions disponibles</param>
         /// <param name="lt">Liste des onglets d'actions</param>
@@ -96,9 +95,8 @@ namespace DiabManager
         {
             Dictionary<Actions, bool> liste = (Dictionary<Actions, bool>)listActions;
             foreach(var a in liste)
-            {
-                            
-                //Etant donné que cette fonction est appelé depuis un timer (=thread), il faut utiliser une fonction qui va déléguer ca au thread principal pour pouvoir utilisé controls
+            {         
+                //Étant donné que cette fonction est appelée depuis un timer (=thread), il faut utiliser une fonction qui va la déléguer au thread principal pour pouvoir utiliser controls
                 this.BeginInvoke((Action)(() => {
 
                     Control[] l = pnlActions.Controls.Find(a.Key.Nom, true);
@@ -111,15 +109,9 @@ namespace DiabManager
                             p.BackColor = Color.Red;
                         p.Enabled = a.Value;
                     }
-                    
-
-                }));
-                        
-                
+                })); 
             }
         }
-
-       
 
         /// <summary>
         /// Met à jour les informations du joueur
@@ -127,7 +119,6 @@ namespace DiabManager
         /// <param name="infos">Tableau rassemblant les infos du joueur (<see cref="Joueur"/>: nom, glycemie, etc.)</param>
         public void setInfosJoueur(string[] infos)
         {
-
             this.BeginInvoke((Action)(() => {
                 //Infos du joueur
                 lblNom.Text = infos[1] + " " + infos[0];
@@ -173,12 +164,11 @@ namespace DiabManager
                         lblStress.Text = "Burnout";
                     }
                 }
-                
 
                 //Infos de glycémie
                 lblGlycemie.Text = infos[9];
 
-                //Infos d'energie
+                //Infos d'énergie
                 double energie = double.Parse(infos[11]);
                 
                 if (Jcourant.Sexe == 'H')
@@ -247,8 +237,6 @@ namespace DiabManager
 
         }
 
-
-
         /// <summary>
         /// Met à jour l'action en cours
         /// </summary>
@@ -300,7 +288,7 @@ namespace DiabManager
         /// <summary>
         /// Met à jour l'(es) évènement(s) en cours
         /// </summary>
-        /// <param name="desc">Nom et description d'(es) évènement(s)</param>
+        /// <param name="desc">Nom et description du(des) évènement(s)</param>
         public void setEvenement(List<ActionPanel> pan)
         {
             this.BeginInvoke((Action)(() => {
@@ -326,11 +314,10 @@ namespace DiabManager
                         p.Y += 210;
                     }
                 }
-
             }));
         }
 
-        // nombre de doses restantes pour la piqure rapide.
+        //Nombre de doses restantes pour la piqûre rapide.
         private int m_nbDose=3;
         public int dose
         {
@@ -338,7 +325,7 @@ namespace DiabManager
             set { m_nbDose = value; }
         }
 
-        // action a effectuer pour la piqure rapide lors du nouveau jour (renouvellement de stock)
+        //Action à effectuer pour la piqûre rapide lors du nouveau jour (renouvellement des stocks)
         public void newDay() {
             dose = 3;
             this.BeginInvoke((Action)(() => {
@@ -348,7 +335,11 @@ namespace DiabManager
             }));
         }
 
-        // Piqure rapide
+        /// <summary>
+        /// La fonction permettant de cliquer sur le bouton piqûre
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnPiqure_Click(object sender, EventArgs e)
         {
             IHM.IHM_Joueur.getJoueur().GlycemieCourante-=0.6;
@@ -409,6 +400,11 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Fonction de la mise en place du jeu
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void frmJeu_Shown(object sender, EventArgs e)
         {
             //Mise en place du jeu
@@ -422,11 +418,21 @@ namespace DiabManager
                 IHM.IHM_Joueur.UpdateGraph();
             }
         }
+
+        /// <summary>
+        /// Accesseur du graphe
+        /// </summary>
+        /// <returns>Le graphe de la glycémie</returns>
         public System.Windows.Forms.DataVisualization.Charting.Chart getGraphe()
         {
             return GraphiqueGlycemie;
         }
 
+        /// <summary>
+        /// Fonction de customisation du graphe
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void GraphiqueGlycemie_Customize(object sender, EventArgs e)
         {
             
@@ -445,7 +451,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Ajoute au journal une action ou évènement
+        /// Ajoute au journal une action ou un événement
         /// </summary>
         /// <param name="l">Description de l'action</param>
         public void addLog(string l)
