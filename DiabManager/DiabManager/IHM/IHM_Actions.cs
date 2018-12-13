@@ -95,6 +95,9 @@ namespace DiabManager.IHM
             m_frm.setAction(pan);
         }
 
+        /// <summary>
+        /// Enlève l'action active
+        /// </summary>
         public static void RemoveAction()
         {
             m_frm.removeAction();

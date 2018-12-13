@@ -17,6 +17,11 @@ namespace DiabManager
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Constructeur, mets à jour le texte et le journal
+        /// </summary>
+        /// <param name="res">SI le joueur a gagné ou non</param>
+        /// <param name="log">Journal</param>
         public frmFinJeu(bool res, string log)
         {
             InitializeComponent();
@@ -38,19 +43,17 @@ namespace DiabManager
 
         }
 
+        /// <summary>
+        /// Evènement pour quitter le jeu
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //this.Hide();
-            //frmMenu sistema = new frmMenu();
-            //sistema.ShowDialog();
-            DialogResult = DialogResult.OK;
-            this.Close();
-        }
+
     }
 }

@@ -123,7 +123,8 @@ namespace DiabManager.Metiers
         /// Le constructeur d'un joueur.
         /// </summary>
         /// <param name="nom">Le nom de famille du joueur. En string.</param>
-        /// <param name="age">The age.</param>
+        /// <param name="age">Age du joueur</param>
+        /// <param name="personalite">Personnalité (peureux, social, ...)</param>
         /// <param name="prenom">Le prénom du joueur. En string.</param>
         /// <param name="sexe">Le sexe du joueur. En char.</param>
         /// <param name="taille">La taille du joueur. En int.</param>

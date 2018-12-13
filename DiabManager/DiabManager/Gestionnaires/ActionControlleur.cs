@@ -48,6 +48,9 @@ namespace DiabManager.Gestionnaires
         /// </summary>
         private Temps m_temps = Temps.getInstance();
 
+        /// <summary>
+        /// Référence vers l'action active en ce moment
+        /// </summary>
         private Actions m_actionActive = null;
         public Actions ActionActive { set { m_actionActive = value; } }
 

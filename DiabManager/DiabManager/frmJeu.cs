@@ -18,6 +18,9 @@ namespace DiabManager
     public partial class frmJeu : Form
     {
 
+        /// <summary>
+        /// Constructeur du jeu, initialise certaines valeurs
+        /// </summary>
         public frmJeu()
         {
             InitializeComponent();
@@ -39,6 +42,7 @@ namespace DiabManager
         /// Transforme la liste d'action en bouton
         /// </summary>
         /// <param name="liste">Liste de toutes les actions disponibles</param>
+        /// <param name="lt">Liste des onglets d'actions</param>
         public void loadActions(Object liste, Object lt)
         {
             Dictionary<Actions, bool> listeActions = (Dictionary<Actions, bool>)liste;
@@ -258,6 +262,10 @@ namespace DiabManager
             }));
         }
 
+        /// <summary>
+        /// Change le fond du jeu
+        /// </summary>
+        /// <param name="s">Nom du fond</param>
         public void setFond(String s)
         {
             if (s.ToLower() == "matin")
@@ -277,6 +285,9 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Enlève une action de l'affichage
+        /// </summary>
         public void removeAction()
         {
             this.BeginInvoke((Action)(() => {
@@ -352,6 +363,11 @@ namespace DiabManager
             else progressBar1.Value = 0;
         }
 
+        /// <summary>
+        /// Bouton de pause
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnPause_Click(object sender, EventArgs e)
         {
             if (Temps.getInstance().PlayPause())
@@ -364,6 +380,11 @@ namespace DiabManager
             }
         }
 
+        /// <summary>
+        /// Bouton pour accélerer le temps
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAvanceeTemps_Click(object sender, EventArgs e)
         {
             if (Temps.getInstance().CoeffVitesse < 32)
@@ -374,6 +395,11 @@ namespace DiabManager
 
         }
 
+        /// <summary>
+        /// Bouton pour ralentir
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button2_Click(object sender, EventArgs e)
         {
             if (Temps.getInstance().CoeffVitesse > 0.25)

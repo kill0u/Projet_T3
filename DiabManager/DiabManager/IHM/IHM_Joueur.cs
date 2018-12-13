@@ -16,6 +16,9 @@ namespace DiabManager.IHM
     {
         private static Joueur m_j; /**<Le joueur courant. */
 
+        /// <summary>
+        /// Référence vers le formulaire de jeu
+        /// </summary>
         private static frmJeu m_frm;
 
         public static void setForm(frmJeu frm)
@@ -80,6 +83,9 @@ namespace DiabManager.IHM
 
         }
 
+        /// <summary>
+        /// Mets à jour les informations du graphique avec les informations du joueur
+        /// </summary>
         public static void UpdateGraph()
         {
             m_frm.BeginInvoke((Action)(() => {
