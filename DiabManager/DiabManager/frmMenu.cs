@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+
 
 namespace DiabManager
 {
@@ -30,6 +32,7 @@ namespace DiabManager
         }
 
         Color couleurOrigin = Color.Aqua;
+        string text;
         private Point p = new Point(280, 35);
         private Size s = new Size(520, 101);
         //premier affichage
@@ -168,7 +171,7 @@ namespace DiabManager
             Button bu = (Button)sender;
             if (bu.Text == "Bonne nouvelle")
             {
-                MessageBox.Show("Votre visite est entièrement remboursée à 90% par la Sécurité Sociale.");
+                MessageBox.Show("Votre visite est remboursée à 90% par la Sécurité Sociale.");
                 bu.Enabled = false;
                 compt --;
             }
@@ -268,7 +271,7 @@ namespace DiabManager
             nettoyage();
             if (b.Text== "Profil 1")
             {
-                remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 1, 0.5,2 );
+                remplirFormulaireJoueur("Anne", new string[] { "Social", "Studieux" }, 18, "Metzger", 'F', 160, 55, 1, 0.9,1.8 );
             }
             else if(b.Text == "Profil 2")
             {
@@ -332,7 +335,6 @@ namespace DiabManager
             {
                 e.Handled = true; //On interdit les nombres
             }
-
         }
         /// <summary>
         /// Handles the KeyPress event of the NoLetterOneComma control.
@@ -405,7 +407,7 @@ namespace DiabManager
             Point p = new System.Drawing.Point(173, 125);
             Size s = new System.Drawing.Size(600, 100);
             lblText = creerLabel("Bienvenue dans notre Laboratoire DiabManager ! " +
-                "Si vous êtes ici c'est pour un diagnostique pour le Diabète n'est ce pas ? " +
+                "Si vous êtes ici c'est pour un diagnostic pour le Diabète n'est ce pas ? " +
                 "Veuillez remplir le formulaire suivant afin de mener à bien votre diagnostic",
                 "txtTextHisto",p,s);
             lblText.Visible = true;
@@ -416,6 +418,7 @@ namespace DiabManager
         
         private void affResultDiag()
         {
+            btnRetour.Visible = false;
             grbSexe.Visible = false;
             foreach (TextBox c in this.Controls.OfType<TextBox>())
             {
@@ -433,8 +436,8 @@ namespace DiabManager
             clboxPersonnalite.Visible = false;
             Point p = new System.Drawing.Point(173, 125);
             Size s = new System.Drawing.Size(600, 100);
-            lblText = creerLabel("Bien J'ai ici vos résultats de votre Diagnostique, " +
-                "j'ai une bonne et une mauvaise nouvelle, laquelle voulais vous entendre en premier ?","txtdiag", p, s);
+            lblText = creerLabel("Bien, j'ai ici vos résultats de votre diagnostic, " +
+                "j'ai une bonne et une mauvaise nouvelle, laquelle voulez vous entendre en premier ?","txtdiag", p, s);
             lblText.Visible = true;
             this.Controls.Add(lblText);
             p.Y += 40;
@@ -569,7 +572,7 @@ namespace DiabManager
             txtObjGlycBas.MaxLength = 3;
 
             grbSexe.Visible = true;
-            btnRetour.Visible = true;
+            btnRetour.Visible = false;
             btnValider.Visible = true;
             btnProfil1.Visible = true;
             btnProfil2.Visible = true;
