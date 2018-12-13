@@ -28,6 +28,23 @@ Certains évènements aléatoires peuvent vous indiquer une situation anormale d
 
 ---
 
+## Installation
+Pour installer le jeu, téléchargez l'installeur (disponible dans la section en dessous), et double-cliquez sur l'installeur.<br>
+Laissez-vous guider pour l'installation. <br>
+Une fois que le jeu est installé, vous pouvez le démarrer en double-cliquant sur le nom du jeu (sur le bureau ou dans le menu de votre ordinateur).
+
+---
+
+## Récupérer le projet
+Prérequis:
+ - Visual Studio avec C# [disponible ici](https://visualstudio.microsoft.com/fr/downloads/).
+ - Le framework .NET 4.7 [disponible ici](https://www.microsoft.com/fr-fr/download/details.aspx?id=55167).
+
+Pour récupérer le projet, téléchargez l'archive (ou clonez-la avec GIT), puis dirigez-vous dans le dossier DiabManager/. <br>
+Ensuite, lancez le fichier DiabManager.sln avec Visual Studio.
+
+---
+
 ## Liens
 - [Téléchargement](https://git.unistra.fr/T432_SPA18_T3_B/T432_SPA18_T3_B/blob/master/DiabManagerSetup.exe "Lien de téléchargement")
 - [Doc (disponible depuis l'IUT)](https://webetu.iutrs.unistra.fr/~gkugelmann/T3/doc/ "Lien de doc")
