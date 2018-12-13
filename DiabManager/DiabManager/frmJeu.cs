@@ -32,6 +32,7 @@ namespace DiabManager
             f.AddFontFile(path);
             lblAffTemps.Font = new Font(f.Families[0], 26,FontStyle.Bold);
             lblTemps.Font = new Font(f.Families[0], 26, FontStyle.Bold);
+            setFond("matin");
         }
 
         /// <summary>
