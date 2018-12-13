@@ -31,7 +31,7 @@ namespace DiabManager
             get { return Exit; }
         }
 
-        Color couleurOrigin = Color.Azure;
+        Color couleurOrigin = Color.Cyan;
         string text;
         private Point p = new Point(280, 35);
         private Size s = new Size(520, 101);

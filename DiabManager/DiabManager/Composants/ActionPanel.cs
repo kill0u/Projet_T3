@@ -41,6 +41,7 @@ namespace DiabManager.Composants
             l.MaximumSize = new Size(190, 30);
             l.AutoSize = true;
             l.Click += new EventHandler(componentClick);
+            l.Font = new Font(FontFamily.GenericSansSerif, 8);
 
             Label l2 = new Label();
             l2.Text = a.Desc;
@@ -48,6 +49,7 @@ namespace DiabManager.Composants
             l2.MaximumSize = new Size(190, 30);
             l2.AutoSize = true;
             l2.Click += new EventHandler(componentClick);
+            l2.Font = new Font(FontFamily.GenericSansSerif, 8);
 
             if (a.Url != "")
             {
