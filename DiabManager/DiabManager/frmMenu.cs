@@ -195,7 +195,8 @@ namespace DiabManager
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnLancerTuto_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("fonction non codé pour le moment");
+            frmTuto frm = new frmTuto();
+            frm.ShowDialog();
         }
         /// <summary>
         /// Handles the Click event of the btnRetour control.
@@ -451,10 +452,6 @@ namespace DiabManager
         /// </summary>
         private void affFormJoueur()
         {
-            //btndDifficile.Visible = false;
-            //btndFacile.Visible = false;
-            //btnLancePart.Visible = false;
-            //btnLancerTuto.Visible = false;
             lblText.Visible = false;
             int x = 350;
             int y = 140;
@@ -487,12 +484,15 @@ namespace DiabManager
             p.Y += 30;
             txtGlyc = creerTextbox("txtGlyc", p, s);
             ajoutEvKeypress(txtGlyc, new KeyPressEventHandler(NoLetter_keyPress));
+            toolTipGlyc.SetToolTip(txtGlyc, "Glycémie de départ");
             p.Y += 30;
             txtObjGlycHaut = creerTextbox("txtObjGlycHaut", p, s);
             ajoutEvKeypress(txtObjGlycHaut, new KeyPressEventHandler(NoLetter_keyPress));
+            toolTipHaut.SetToolTip(txtObjGlycHaut, "Votre glycémie devra rester en dessous de cette valeur");
             p.Y += 30;
             txtObjGlycBas = creerTextbox("txtObjGlycBas", p, s);
             ajoutEvKeypress(txtObjGlycBas, new KeyPressEventHandler(NoLetter_keyPress));
+            toolTipBas.SetToolTip(txtObjGlycBas, "Votre glycémie devra rester en dessous de cette valeur");
             #endregion
             #region creation des label
             x = 210;
@@ -507,7 +507,7 @@ namespace DiabManager
             p.Y += 30;
             lblTaille = creerLabel("Taille (en cm)", "lblTaille", p, s);
             p.Y += 30;
-            lblPoid = creerLabel("Poids", "lblPoid", p, s);
+            lblPoid = creerLabel("Poids (kg)", "lblPoid", p, s);
             p.Y = y +0;
             p.X = x + 250;
             lblPersonalite = creerLabel("Personnalité", "txtpersonal", p, s);
@@ -739,7 +739,7 @@ namespace DiabManager
             Label lbl = new Label();
             lbl.AutoSize = false;
             lbl.BackColor = System.Drawing.Color.Transparent;
-            lbl.Font = new System.Drawing.Font("Calisto MT", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lbl.Font = new System.Drawing.Font("Myanmar Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lbl.ForeColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
             lbl.Location = location;
             lbl.Name = nomlabel;
@@ -762,7 +762,7 @@ namespace DiabManager
             Button btn = new Button();
             btn.BackColor = System.Drawing.Color.Aqua;
             btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            btn.Font = new System.Drawing.Font("Harlow Solid Italic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btn.Font = new System.Drawing.Font("Myanmar Text", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             btn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             btn.Location = location;
             btn.Name = nombutton;
