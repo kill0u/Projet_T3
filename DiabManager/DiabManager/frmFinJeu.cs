@@ -18,9 +18,9 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Constructeur, mets à jour le texte et le journal
+        /// Constructeur, met à jour le texte et le journal
         /// </summary>
-        /// <param name="res">SI le joueur a gagné ou non</param>
+        /// <param name="res">Si le joueur a gagné ou non</param>
         /// <param name="log">Journal</param>
         public frmFinJeu(bool res, string log)
         {
@@ -35,19 +35,23 @@ namespace DiabManager
             }
 
             txtJournal.Text = log;
-
         }
 
+        /// <summary>
+        /// Constructeur vide
+        /// </summary>
+        /// <param name="sender">La source</param>
+        /// <param name="e">e</param>
         private void frmFinJeu_Load(object sender, EventArgs e)
         {
 
         }
 
         /// <summary>
-        /// Evènement pour quitter le jeu
+        /// Événement pour quitter le jeu
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La source</param>
+        /// <param name="e">e</param>
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

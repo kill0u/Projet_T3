@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace DiabManager.Metiers
 {
     /** La classe définissant les actions disponibles.
-     * Cette classe définit les composants de base pour une action. Cette classe sera hérité par d'autre actions pour une définition plus rigoureuse
+     * Cette classe définit les composants de base pour une action. Cette classe sera héritée par d'autres actions pour une définition plus rigoureuse
      * @author Geoffrey Kugelmann
      * @version 1
      */
     public class Actions
     {
         /** Nom de l'action.
-         * Le nom de l'action, la décrivant, et permettant de la décrire
+         * Le nom de l'action la décrivant et permettant de la décrire
          */ 
         protected string m_nom;
         public string Nom
@@ -24,7 +24,7 @@ namespace DiabManager.Metiers
             get { return m_nom; }
         }
 
-        /** Description sur l'action.
+        /** Description de l'action.
          * Description longue de l'action
          */ 
         protected string m_description;
@@ -34,35 +34,31 @@ namespace DiabManager.Metiers
         }
 
         /** Temps pris par l'action.
-         * Chaque action prends du temps à se faire
+         * Chaque action prend du temps à se faire
          */ 
         protected TimeSpan m_duree;
 
-
         /// <summary>
-        /// Heure de fin de l'action (calculer en additionnant la durée et l'heure de début de l'évènement)
+        /// Heure de fin de l'action (calculée en additionnant la durée et l'heure de début de l'évènement)
         /// </summary>
         protected TimeSpan m_endTime;
         public TimeSpan EndTime { get { return m_endTime; } }
 
-
         /// <summary>
         /// Définit la plage horaire de disponibilités pour une action
         /// </summary>
-        /// La plage horaire est définit sur un tableau à deux dimensions, la premiere pour le nombre de plage possible, et la deuxième de taille 2 pour avoir deux bornes
+        /// La plage horaire est définie sur un tableau à deux dimensions, la première valeur pour le nombre de plage possible, et la deuxième valeur de taille 2 pour avoir deux bornes
         protected TimeSpan[,] m_plageHoraire;
 
         /// <summary>
-        /// Définit le nombre de plage horaire pour l'action 
+        /// Définit le nombre de plages horaires pour l'action 
         /// </summary>
         protected int m_nbHoraire;
 
-
-
         /// <summary>
-        /// Etat nécessaire pour réaliser l'action
+        /// État nécessaire pour réaliser l'action
         /// </summary>
-        /// Case 0: Energie nécessaire
+        /// Case 0: Énergie nécessaire
         /// Pour le reste des cases, on a : 
         /// - 0 --> le joueur ne doit pas avoir cette caractéristique active
         /// - 1 --> le joueur peut avoir cette caractéristique active
@@ -72,9 +68,8 @@ namespace DiabManager.Metiers
         /// Case 3: Est au travail
         protected double[] m_etatInitial = new double[4];
 
-
         /// <summary>
-        /// Etat final après avoir réalisé l'action
+        /// État final après avoir réalisé l'action
         /// </summary>
         /// Case 0: Perte d'énergie (entre -100 et 100 --> -100 on augmente de 100 l'énergie, et 100 on diminue de 100)
         /// Case 1: Glycémie --> Multiplie la glycémie par ce nombre
@@ -93,9 +88,8 @@ namespace DiabManager.Metiers
             get { return m_etatFinalCharac; }
         }
 
-
         /// <summary>
-        /// Les jours où l'évènement peut se passer
+        /// Les jours où l'évènement peut se produire
         /// </summary>
         /// 0 --> lundi
         /// 1 --> mardi
@@ -118,9 +112,9 @@ namespace DiabManager.Metiers
         /// <param name="nom">Nom de l'action</param>
         /// <param name="description">Description longue de l'action</param>
         /// <param name="duree">Durée de l'action</param>
-        /// <param name="etatInitial">Etat initial nécessaire pour l'action</param>
-        /// <param name="etatFinal">Etat du joueur après l'action</param>
-        /// <param name="jours">Jours où l'action est actif</param>
+        /// <param name="etatInitial">État initial nécessaire pour l'action</param>
+        /// <param name="etatFinal">État du joueur après l'action</param>
+        /// <param name="jours">Jours où l'action est active</param>
         /// <param name="url">URL de l'image</param>
         /// <param name="values">Plage horaire, couple de valeurs</param>
         /// Déclarer une action (nom, description, durée, modif de glycémie, stress, plage horaire, composée de 2 valeurs)
@@ -183,8 +177,7 @@ namespace DiabManager.Metiers
         {
             m_endTime = start.Add(m_duree);
 
-            
-            //On mets à jour son etat
+            //On met à jour son état
             for (int i = 0; i < IHM.IHM_Joueur.getJoueur().Etat.Length; i++)
             {
                 foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
@@ -192,7 +185,7 @@ namespace DiabManager.Metiers
 
                     if (m_etatFinalCharac.ContainsKey(charac))
                     {
-                        if (m_etatFinalCharac[charac][i + 4] != 2) //on ne change l'etat du joueur que s'il le faut
+                        if (m_etatFinalCharac[charac][i + 4] != 2) //On ne change l'état du joueur que s'il le faut
                             IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4]; 
                     }
 
@@ -213,11 +206,11 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// Regarde si l'action est fini
+        /// Regarde si l'action est terminée
         /// </summary>
         /// <param name="temps">Heure actuelle</param>
         /// <returns>
-        ///   <c>true</c> si l'action est finit, sinon <c>false</c>.
+        ///   <c>true</c> si l'action est terminée, sinon <c>false</c>.
         /// </returns>
         public bool isFinished(TimeSpan temps)
         {
@@ -226,7 +219,7 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// FOnction utilisé pendant l'action
+        /// Fonction utilisée pendant l'action
         /// </summary>
         public void duringAction()
         {
@@ -256,7 +249,7 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// Charge l'action depuis un la ligne du fichier
+        /// Charge l'action depuis la ligne du fichier
         /// </summary>
         /// <param name="fields">Ligne du fichier</param>
         /// <returns>L'action créée</returns>
@@ -299,28 +292,21 @@ namespace DiabManager.Metiers
             string desc = fields[2];
             TimeSpan duree = TimeSpan.Parse(fields[3]);
 
-            //On lit les deux tableaux (etat initial et final)
+            //On lit les deux tableaux (état initial et état final)
             double[] etatInital = new double[4];
             string ei = Regex.Replace(fields[4], @"[\[\]]+", string.Empty);
             string[] eiS = ei.Split(',');
             for (int i = 0; i < eiS.Length; i++)
                 etatInital[i] = double.Parse(eiS[i], CultureInfo.InvariantCulture);
-
-            
-
-            
-            
-                
-
             return new Actions(nom, desc, duree, etatInital, etatFinal, jours, url, plageHoraire);
         }
 
         /// <summary>
-        /// Détermien si le joueur est compatible avec l'action
+        /// Détermine si le joueur est compatible avec l'action
         /// </summary>
-        /// <param name="j">The j.</param>
+        /// <param name="j">Le joueur</param>
         /// <returns>
-        ///   <c>true</c> if the specified j is compatible; otherwise, <c>false</c>.
+        ///   <c>true</c> si le joueur est compatible avec l'action, sinon <c>false</c>.
         /// </returns>
         public bool isCompatible(Joueur j)
         {
@@ -331,8 +317,6 @@ namespace DiabManager.Metiers
                 if ((m_etatInitial[i+1] == 0 && j.Etat[i] == 1) || (m_etatInitial[i+1] == 2 && j.Etat[i] == 0))
                     return false;
             }
-            
-
             return true;
         }
     }

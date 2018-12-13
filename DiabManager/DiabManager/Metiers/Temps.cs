@@ -33,7 +33,6 @@ namespace DiabManager.Metiers
         /// </summary>
         private TimeSpan m_destTime = new TimeSpan(-1,0,0);
 
-
         /// <summary>
         /// Boolean pour savoir si une action est en cours ou non
         /// </summary>
@@ -44,7 +43,7 @@ namespace DiabManager.Metiers
         }
 
         /** Récupère l'instance de la partie actuelle.
-         * Permet de savoir à quel partie se réfère le temps actuel (la partie s'initialise lors de la mise en marche du timer)
+         * Permet de savoir à quelle partie se réfère le temps actuel (la partie s'initialise lors de la mise en marche du timer)
          */
         private Partie m_partie;
 
@@ -63,6 +62,7 @@ namespace DiabManager.Metiers
         /// Durée que le joueur passe dans les valeurs cibles
         /// </summary>
         private TimeSpan m_tempsDansPlage = new TimeSpan(0);
+
         /// <summary>
         /// Nombre qui compte le reste de temps hors de temps dans la zone
         /// </summary>
@@ -98,7 +98,7 @@ namespace DiabManager.Metiers
     
 
         /**Constructeur: initialise les infos importantes.
-         * Initiliase l'heure de la journée et initialise le timer
+         * Initialise l'heure de la journée et initialise le timer
          * @see SetTimer()
          */ 
         private Temps()
@@ -110,31 +110,27 @@ namespace DiabManager.Metiers
             SetTimer();
         }
 
-       
-
-
         /** Mets en place le timer.
          */
         private void SetTimer()
         {
-            //Le timer tick toutes les 10 s
+            //Le timer tick toutes les 10s
             m_dayTimer = new Timer(dureeTemps);
 
             m_dayTimer.Elapsed += TickEvent;
             m_dayTimer.AutoReset = true;
         }
 
-        /// <summary>Change l'etat du jeu (en cours ou en pause)</summary>
-        /// <returns>Etat actuel du jeu (false = pause)</returns>
+        /// <summary>Change l'état du jeu (en cours ou en pause)</summary>
+        /// <returns>État actuel du jeu (false = pause)</returns>
         public bool PlayPause()
         {
             m_dayTimer.AutoReset = !m_dayTimer.AutoReset;
             return m_dayTimer.AutoReset;
         }
 
-
         /// <summary>Change la vitesse de défilement du jeu</summary>
-        /// <param name="coeff">Coeffcient de changement de vitesse </param>
+        /// <param name="coeff">Coefficient de changement de vitesse </param>
         public void changeSpeed(double coeff)
         {
             if (m_destTime.Hours < 0) //on ne peut changer la vitesse que si on est en jeu normal
@@ -144,7 +140,6 @@ namespace DiabManager.Metiers
             }
             
         }
-
 
         /// <summary>
         /// Démarre le timer et enregistre la partie actuelle
@@ -156,10 +151,9 @@ namespace DiabManager.Metiers
 
             m_dayTimer.Start();
         }
-        
 
-        /**Evènements lancé à chaque tick du timer.
-         * Fonction à exécuté à chaque tick du timer, mettre à jour l'heure
+        /**Événements lancé à chaque tick du timer.
+         * Fonction à exécuter à chaque tick du timer, mettre à jour l'heure
          */
         private void TickEvent(Object source, ElapsedEventArgs e)
         {
@@ -169,7 +163,7 @@ namespace DiabManager.Metiers
                 //On ajoute le temps 
                 m_time = m_time.Add(new TimeSpan(0, 10, 0));
 
-                //Modification de la glyémie via piqure lente
+                //Modification de la glycémie via la piqûre lente
                 IHM.IHM_Joueur.getJoueur().GlycemieCourante -= (0.1 * IHM.IHM_Joueur.getJoueur().Stylo.dose) / (24 * 6);
 
                 if (getHeureJournee().Hours == 8 && getHeureJournee().Minutes == 30)
@@ -238,22 +232,18 @@ namespace DiabManager.Metiers
                     m_partie.Fin(true);
                 }
             }
-
             
-            //si on dépasse un jour
+            //Si on dépasse un jour
             if(m_time.Hours == 0 && m_time.Minutes == 0 && m_time.Seconds == 0)
             {
-
                 //On ajoute un jour sur la partie
                 m_partie.AddDay();
 
                 //On réautorise à quitter la zone de glycémie pour 2h dans toute la journée
                 m_creditTempsDansPlage = 18;
-
             }
 
-
-            //On mets à jour les actions disponibles (vues que l'heure à changé)
+            //On mets à jour les actions disponibles (comme l'heure a changé)
             Gestionnaires.ActionControlleur.getInstance().UpdateAction(m_time);
 
             //On regarde si une action est en cours, et si oui, on fait son effet
@@ -262,7 +252,7 @@ namespace DiabManager.Metiers
             //On déclenche potentiellement des événements aléatoires
             Gestionnaires.ActionControlleur.getInstance().CalcEvenement(m_time);
 
-            //On regarde si des événement aléatoires sont en cours
+            //On regarde si des événements aléatoires sont en cours
             Gestionnaires.ActionControlleur.getInstance().UpdateEvenement();
 
             //On update le graph
@@ -273,33 +263,28 @@ namespace DiabManager.Metiers
         }
 
         /**Retourne l'heure actuelle.
-         * Retourne l'heure du jours actuelle 
+         * Retourne l'heure du jour actuel
          */ 
         public TimeSpan getHeureJournee()
         {
             return m_time;
         }
 
-
         /// <summary>
         /// Fonction permettant d'ajouter du temps (en le faisant défiler)
         /// </summary>
-        /// <param name="temps">Temps à ajouté</param>
+        /// <param name="temps">Temps à ajouter</param>
         public void addTime(TimeSpan temps)
         {
-
-           
-
             m_destTime = m_time.Add(temps);
-
         }
 
         /// <summary>
-        /// Permet de lancer ou d'arreter une action
+        /// Permet de lancer ou d'arrêter une action
         /// </summary>
         public void swapAction()
         {
-            if (m_actionEnCours) //On vient de finir notre action
+            if (m_actionEnCours) //On vient de finir une action
             {
                 m_actionEnCours = false;
                 changeSpeed(m_coeffVitesse);
@@ -312,8 +297,8 @@ namespace DiabManager.Metiers
             }
         }
 
-        /** Renvoie l'instance de temps actuel
-        * @return instance du controleur
+        /** Renvoie l'instance de temps actuelle
+        * @return instance du contrôleur
         */
         public static Temps getInstance()
         {
@@ -323,7 +308,7 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// Détruit l'instance de temps (pour pouvoir redemarré)
+        /// Détruit l'instance de temps (pour pouvoir redémarrer)
         /// </summary>
         public static void destroyInstance()
         {
@@ -331,7 +316,7 @@ namespace DiabManager.Metiers
         }
 
         /// <summary>
-        /// Fin du timer (lorsque le jeu est finit)
+        /// Fin du timer (lorsque le jeu est fini)
         /// </summary>
         public void endTimer()
         {

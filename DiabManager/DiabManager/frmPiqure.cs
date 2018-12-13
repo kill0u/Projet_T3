@@ -13,11 +13,19 @@ namespace DiabManager
 {
     public partial class frmPiqure : Form
     {
+        /// <summary>
+        /// Initialisation du formulaire piqûre
+        /// </summary>
         public frmPiqure()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Chargement du formulaire piqûre
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void frmPiqure_Load(object sender, EventArgs e)
         {
             modifStyloInsuline();
@@ -25,7 +33,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Fonction qui modifie les informations affichés du stylo d'insuline.
+        /// Fonction qui modifie les informations affichées du stylo d'insuline.
         /// </summary>
         public void modifStyloInsuline()
         {
@@ -53,7 +61,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Fonction que permet de d'augmenter la dose à s'injecter.
+        /// Fonction que permet d'augmenter la dose à s'injecter.
         /// </summary>
         private void btnAugmenter_Click(object sender, EventArgs e)
         {
@@ -65,7 +73,7 @@ namespace DiabManager
         }
 
         /// <summary>
-        /// Déclenche la piqure sur la personne pour la journée
+        /// Déclenche la piqûre sur la personne pour la journée
         /// </summary>
         private void btnPiqure_Click(object sender, EventArgs e)
         {

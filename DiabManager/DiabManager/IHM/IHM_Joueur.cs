@@ -14,7 +14,7 @@ namespace DiabManager.IHM
      */
     class IHM_Joueur
     {
-        private static Joueur m_j; /**<Le joueur courant. */
+        private static Joueur m_j; //Le joueur courant
 
         /// <summary>
         /// Référence vers le formulaire de jeu
@@ -104,11 +104,7 @@ namespace DiabManager.IHM
                 chart1.Series[2].Points.AddY(double.Parse(getInfos()[7].Split('-')[1]));
                 chart1.Series[3].Points.AddY(double.Parse(getInfos()[7].Split('-')[0]));
                 chart1.Series[4].Points.AddY(double.Parse(getInfos()[9]));
-                //chart1.ChartAreas[0].AxisX.CustomLabels[0].Text = Temps.getInstance().getHeureJournee().ToString();
-
-
-            }));
-            
+            }));       
         }
     }
 }

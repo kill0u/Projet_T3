@@ -11,7 +11,7 @@ namespace DiabManager
     static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Le main de l'application DiabManager
         /// </summary>
         [STAThread]
         static void Main()
@@ -25,7 +25,7 @@ namespace DiabManager
                 frmMenu Menu = new frmMenu();
                 Application.Run(Menu);
                 dr = Menu.MenuExit;
-                //IHM_Joueur.addJoueur(new Metiers.Joueur("Krebs",21,"leo", 'H', 180, 65.5, 2.5, 0.8, 1.3)); //Doit etre fait dans le menu avec les infos entré
+                //IHM_Joueur.addJoueur(new Metiers.Joueur("Krebs",21,"leo", 'H', 180, 65.5, 2.5, 0.8, 1.3)); //Doit etre fait dans le menu avec les infos entrées
                 if (Menu.MenuExit == DialogResult.OK)
                 {
                     IHM_Joueur.getJoueur();
@@ -35,7 +35,7 @@ namespace DiabManager
                     IHM_Actions.setForm(jeu);
                     IHM_Joueur.setForm(jeu);
 
-                    //On créer la partie
+                    //On créé la partie
                     Partie partie = new Partie();
                     partie.Demarrer(jeu);
 
