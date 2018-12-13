@@ -11,6 +11,10 @@ using System.Windows.Forms;
 
 namespace DiabManager.Composants
 {
+    /// <summary>
+    /// Composants permettant d'affiché une action
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.Panel" />
     public partial class ActionPanel : Panel
     {
         public ActionPanel()
@@ -18,6 +22,10 @@ namespace DiabManager.Composants
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Constructeur de l'Action Panel, construit autour des informations d'une action
+        /// </summary>
+        /// <param name="a">Action à présenter</param>
         public ActionPanel(Actions a)
         {
             InitializeComponent();

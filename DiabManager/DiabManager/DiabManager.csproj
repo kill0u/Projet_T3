@@ -56,9 +56,6 @@
     <Compile Include="Composants\ActionPanel.Designer.cs">
       <DependentUpon>ActionPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Composants\GradientPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="frmFinJeu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,7 +91,6 @@
     <Compile Include="Gestionnaires\ActionControlleur.cs" />
     <Compile Include="Metiers\Actions.cs" />
     <Compile Include="Metiers\ListeActions\EvenementsAleatoire.cs" />
-    <Compile Include="Metiers\ListeActions\Medicaments.cs" />
     <Compile Include="Metiers\ListeActions\Nourriture.cs" />
     <Compile Include="Metiers\ListeActions\Sport.cs" />
     <Compile Include="Metiers\Joueur.cs" />
@@ -141,9 +137,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MiniJeu\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="bin\Debug\Ressources\Images\matin.jpg" />
   </ItemGroup>

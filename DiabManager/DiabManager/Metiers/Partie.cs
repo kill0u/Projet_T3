@@ -38,10 +38,13 @@ namespace DiabManager.Metiers
         /// </summary>
         private Temps m_t;
 
- 
 
 
-        private frmJeu m_jeu= new frmJeu();
+
+        /// <summary>
+        /// Référence vers le formulaire de jeu
+        /// </summary>
+        private frmJeu m_jeu;
         public frmJeu j
         {
             get { return m_jeu; }

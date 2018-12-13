@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace DiabManager.Metiers.ListeActions
 {
+    /// <summary>
+    /// Classe représentant une action de sport
+    /// </summary>
+    /// <seealso cref="DiabManager.Metiers.Actions" />
     class Sport : Actions
     {
         /// <summary>
@@ -28,6 +32,8 @@ namespace DiabManager.Metiers.ListeActions
         /// <param name="etatInitial">Etat initial nécessaire pour l'action</param>
         /// <param name="etatFinal">Etat du joueur après l'action</param>
         /// <param name="poids">Le poids a ajouter au joueur après avoir fait du sport</param>
+        /// <param name="jours">Jours où l'action est actif</param>
+        /// <param name="url">URL de l'image</param>
         /// <param name="values">Plage horaire</param>
         /// Cette classe comporte tous les effets qui peuvent agir le joueur
         public Sport(string nom, string description, TimeSpan duree, double[] etatInitial, Dictionary<string,double[]> etatFinal, double poids,bool[]jours, string url, params TimeSpan[] values) : base(nom, description, duree, etatInitial, etatFinal, jours, url, values)
@@ -35,6 +41,10 @@ namespace DiabManager.Metiers.ListeActions
             m_poids = poids;
         }
 
+        /// <summary>
+        /// Fonction à utilisée lorsque l'action est lancée
+        /// </summary>
+        /// <param name="temps">Heure de début de l'action</param>
         public new void makeAction(TimeSpan temps)
         {
             base.makeAction(temps);

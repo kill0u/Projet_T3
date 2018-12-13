@@ -142,7 +142,7 @@
             this.Controls.Add(this.pnlPiqure);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPiqure";
-            this.Text = "frmPiqure";
+            this.Text = "Piqure basale";
             this.Load += new System.EventHandler(this.frmPiqure_Load);
             this.pnlPiqure.ResumeLayout(false);
             this.pnlPiqure.PerformLayout();
