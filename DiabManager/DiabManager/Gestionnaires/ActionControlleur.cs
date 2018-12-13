@@ -282,6 +282,12 @@ namespace DiabManager.Gestionnaires
                         //Si on arrete un event, on enleve le statut de maladie si il y est encore
                         if (IHM.IHM_Joueur.getJoueur().Etat[1] == 1)
                             IHM.IHM_Joueur.getJoueur().Etat[1] = 0;
+
+                        //si l'evenement est bloquant
+                        if (e.Key.isBloquant)
+                        {
+                            m_temps.swapAction();
+                        }
                     }
                     //Si la personne est soigné après une maladie
                     if(IHM.IHM_Joueur.getJoueur().Etat[1] == 0 && e.Key.EtatFinalCharac.First().Value[5] == 1)

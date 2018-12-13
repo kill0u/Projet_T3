@@ -97,9 +97,9 @@ namespace DiabManager
             this.pnlEvent.BackColor = System.Drawing.Color.Silver;
             this.pnlEvent.Controls.Add(this.lblAffEvent);
             this.pnlEvent.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlEvent.Location = new System.Drawing.Point(586, 7);
+            this.pnlEvent.Location = new System.Drawing.Point(578, 18);
             this.pnlEvent.Name = "pnlEvent";
-            this.pnlEvent.Size = new System.Drawing.Size(643, 197);
+            this.pnlEvent.Size = new System.Drawing.Size(643, 202);
             this.pnlEvent.TabIndex = 8;
             // 
             // lblAffEvent
@@ -119,7 +119,7 @@ namespace DiabManager
             this.pnlHeure.Controls.Add(this.lblAffTemps);
             this.pnlHeure.Controls.Add(this.lblTemps);
             this.pnlHeure.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlHeure.Location = new System.Drawing.Point(1235, 11);
+            this.pnlHeure.Location = new System.Drawing.Point(1228, 19);
             this.pnlHeure.Name = "pnlHeure";
             this.pnlHeure.Size = new System.Drawing.Size(542, 58);
             this.pnlHeure.TabIndex = 6;
@@ -165,9 +165,9 @@ namespace DiabManager
             this.pnlAction.BackColor = System.Drawing.Color.Silver;
             this.pnlAction.Controls.Add(this.lblAffActions);
             this.pnlAction.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnlAction.Location = new System.Drawing.Point(206, 7);
+            this.pnlAction.Location = new System.Drawing.Point(198, 18);
             this.pnlAction.Name = "pnlAction";
-            this.pnlAction.Size = new System.Drawing.Size(374, 197);
+            this.pnlAction.Size = new System.Drawing.Size(374, 202);
             this.pnlAction.TabIndex = 7;
             // 
             // lblAffActions
@@ -187,7 +187,7 @@ namespace DiabManager
             this.pnlGestionTemps.Controls.Add(this.button2);
             this.pnlGestionTemps.Controls.Add(this.btnAvanceeTemps);
             this.pnlGestionTemps.Controls.Add(this.btnPause);
-            this.pnlGestionTemps.Location = new System.Drawing.Point(7, 7);
+            this.pnlGestionTemps.Location = new System.Drawing.Point(12, 18);
             this.pnlGestionTemps.Name = "pnlGestionTemps";
             this.pnlGestionTemps.Size = new System.Drawing.Size(169, 27);
             this.pnlGestionTemps.TabIndex = 11;
@@ -237,7 +237,7 @@ namespace DiabManager
             this.pnlActions.AutoScroll = true;
             this.pnlActions.BackColor = System.Drawing.Color.Transparent;
             this.pnlActions.Controls.Add(this.tcActions);
-            this.pnlActions.Location = new System.Drawing.Point(1245, 78);
+            this.pnlActions.Location = new System.Drawing.Point(1228, 78);
             this.pnlActions.Name = "pnlActions";
             this.pnlActions.Size = new System.Drawing.Size(532, 899);
             this.pnlActions.TabIndex = 0;
@@ -249,7 +249,7 @@ namespace DiabManager
             this.tcActions.Multiline = true;
             this.tcActions.Name = "tcActions";
             this.tcActions.SelectedIndex = 0;
-            this.tcActions.Size = new System.Drawing.Size(539, 896);
+            this.tcActions.Size = new System.Drawing.Size(529, 890);
             this.tcActions.TabIndex = 0;
             // 
             // pnlInfos
@@ -269,7 +269,7 @@ namespace DiabManager
             this.pnlInfos.Controls.Add(this.lblGlycemie);
             this.pnlInfos.Controls.Add(this.lblAffGlycemie);
             this.pnlInfos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlInfos.Location = new System.Drawing.Point(64, 210);
+            this.pnlInfos.Location = new System.Drawing.Point(64, 226);
             this.pnlInfos.Name = "pnlInfos";
             this.pnlInfos.Size = new System.Drawing.Size(1217, 824);
             this.pnlInfos.TabIndex = 1;
@@ -380,7 +380,7 @@ namespace DiabManager
             this.tabJournal.Location = new System.Drawing.Point(4, 40);
             this.tabJournal.Name = "tabJournal";
             this.tabJournal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabJournal.Size = new System.Drawing.Size(930, 617);
+            this.tabJournal.Size = new System.Drawing.Size(894, 557);
             this.tabJournal.TabIndex = 1;
             this.tabJournal.Text = "Journal";
             this.tabJournal.UseVisualStyleBackColor = true;
@@ -429,7 +429,7 @@ namespace DiabManager
             this.pnlPiqure.Controls.Add(this.btnPiqure);
             this.pnlPiqure.Controls.Add(this.progressBarInsuline);
             this.pnlPiqure.Controls.Add(this.lblDoseActu);
-            this.pnlPiqure.Location = new System.Drawing.Point(19, 499);
+            this.pnlPiqure.Location = new System.Drawing.Point(23, 458);
             this.pnlPiqure.Name = "pnlPiqure";
             this.pnlPiqure.Size = new System.Drawing.Size(242, 269);
             this.pnlPiqure.TabIndex = 5;

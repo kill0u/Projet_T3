@@ -132,15 +132,15 @@ namespace DiabManager
                 {
                     if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
                     {
-                        lblStress.Text = "Vous n'etes pas stressé";
+                        lblStress.Text = "Vous n'êtes pas stressé";
                     }
                     if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
                     {
-                        lblStress.Text = "Vous etes stressé";
+                        lblStress.Text = "Vous êtes stressé";
                     }
                     if (double.Parse(infos[10]) >= 61)
                     {
-                        lblStress.Text = "Vous etes beaucoup stressé";
+                        lblStress.Text = "Vous êtes très stressé";
                     }
 
                     if (double.Parse(infos[10]) >= 90)
@@ -152,15 +152,15 @@ namespace DiabManager
                 {
                     if (double.Parse(infos[10]) >= 0 && double.Parse(infos[10]) < 21)
                     {
-                        lblStress.Text = "Vous n'etes pas stressée";
+                        lblStress.Text = "Vous n'êtes pas stressée";
                     }
                     if (double.Parse(infos[10]) >= 21 && double.Parse(infos[10]) < 61)
                     {
-                        lblStress.Text = "Vous etes stressée";
+                        lblStress.Text = "Vous êtes stressée";
                     }
                     if (double.Parse(infos[10]) >= 61)
                     {
-                        lblStress.Text = "Vous etes beaucoup stressée";
+                        lblStress.Text = "Vous êtes très stressée";
                     }
 
                     if (double.Parse(infos[10]) >= 90)
@@ -443,6 +443,11 @@ namespace DiabManager
         private void button1_Click(object sender, EventArgs e)
         {
             IHM.IHM_Joueur.getJoueur().GlycemieCourante += 0.4;
+            if (IHM.IHM_Joueur.getJoueur().GlycemieCourante > Temps.getInstance().gMax)
+
+                MessageBox.Show("Vous avez pris du sucre, mais ce n'était pas la meilleure idée");
+            else
+                MessageBox.Show("Vous avez pris du sucre, vous allez mieux");
         }
     }
 }
