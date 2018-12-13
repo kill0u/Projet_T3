@@ -177,6 +177,7 @@ namespace DiabManager.Metiers
                     if (IHM.IHM_Joueur.getJoueur().Stylo.DoseActu == 0) IHM.IHM_Joueur.getJoueur().Stylo.DoseActu = IHM.IHM_Joueur.getJoueur().Stylo.DoseMax;
                     PlayPause();
                     frmPiqure pik = new frmPiqure();
+                    pik.TopMost = true;
                     pik.ShowDialog();
                 }
                 if (getHeureJournee().Hours == 12 && getHeureJournee().Minutes == 0)
