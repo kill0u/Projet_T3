@@ -180,6 +180,7 @@ namespace DiabManager
             {
                 if (!lblNouvelles.Visible)
                 {
+                    lblNouvelles.ForeColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
                     lblNouvelles.Visible = true;
                 }
                 lblNouvelles.Text = "Votre visite est remboursée à 90% par la Sécurité Sociale.";
@@ -190,6 +191,7 @@ namespace DiabManager
             {
                 if (!lblNouvelles.Visible)
                 {
+                    lblNouvelles.ForeColor = cdPicker.Color == Color.Black ? couleurOrigin : cdPicker.Color;
                     lblNouvelles.Visible = true;
                 }
                 lblNouvelles.Text = "Vous êtes diabétique, vous allez donc devoirs faire attention a votre taux de glycémie, " +
