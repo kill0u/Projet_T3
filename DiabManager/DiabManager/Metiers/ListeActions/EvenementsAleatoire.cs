@@ -43,6 +43,7 @@ namespace DiabManager.Metiers.ListeActions
         /// Décrit si l'action est bloquante (on ne peut pas faire d'autre actions pendant ce temps) ou non
         /// </summary>
         private bool m_bloquant;
+        public bool isBloquant { get { return m_bloquant; } }
 
 
 
@@ -93,7 +94,10 @@ namespace DiabManager.Metiers.ListeActions
             if (m_bloquant)
             {
                 if (Temps.getInstance().isActionEnCours) //si il y a deja une action, on la remplace
+                {
                     Temps.getInstance().swapAction();
+                }
+                    
                 Temps.getInstance().swapAction();
 
             }
