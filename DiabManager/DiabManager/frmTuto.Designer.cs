@@ -37,7 +37,7 @@
             // pbTuto
             // 
             this.pbTuto.BackgroundImage = global::DiabManager.Properties.Resources.tuto;
-            this.pbTuto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbTuto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbTuto.Location = new System.Drawing.Point(28, 12);
             this.pbTuto.Name = "pbTuto";
             this.pbTuto.Size = new System.Drawing.Size(891, 377);

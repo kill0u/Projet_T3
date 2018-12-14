@@ -193,7 +193,7 @@ namespace DiabManager
                     lblNouvelles.Visible = true;
                 }
                 lblNouvelles.Text = "Vous êtes diabétique, vous allez donc devoirs faire attention a votre taux de glycémie, " +
-                    Environment.NewLine+"a ce que vous mangerais et à ce que vous allez faire.";
+                    Environment.NewLine+"a ce que vous mangerez et à ce que vous allez faire.";
                 bu.Enabled = false;
                 compt--;
             }
@@ -246,7 +246,7 @@ namespace DiabManager
             }
             else
             {
-                remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.1, 1.5, 2);
+                remplirFormulaireJoueur("Camille",new string[] {"Peureux","Sportif"}, 26, "Muller", 'F', 150, 50, 2.1, 1.4, 1.8);
             }
         }
 
@@ -325,7 +325,7 @@ namespace DiabManager
             }
             if (e.KeyChar == ',') // Si l'utilisateur appuie sur la touche virgule
             {
-                if (txtPoid.Text.Contains(","))
+                if (t.Text.Contains(","))
                 {
                     e.Handled = true;
                 }
@@ -336,13 +336,12 @@ namespace DiabManager
             }
             if (!t.Text.Contains(','))
             {
-                txtPoid.MaxLength = 3;
+                t.MaxLength = 3;
             }
             else
             {
-                txtPoid.MaxLength = 5;
+                t.MaxLength = 5;
             }
-
         }
 
         #endregion
@@ -465,15 +464,15 @@ namespace DiabManager
             clboxPersonnalite = creerCheckList("Personalite", p);
             p.Y += 30;
             txtGlyc = creerTextbox("txtGlyc", p, s);
-            ajoutEvKeypress(txtGlyc, new KeyPressEventHandler(NoLetter_keyPress));
+            ajoutEvKeypress(txtGlyc, new KeyPressEventHandler(NoLetterOneComma_KeyPress));
             toolTipGlyc.SetToolTip(txtGlyc, "Glycémie de départ");
             p.Y += 30;
             txtObjGlycHaut = creerTextbox("txtObjGlycHaut", p, s);
-            ajoutEvKeypress(txtObjGlycHaut, new KeyPressEventHandler(NoLetter_keyPress));
+            ajoutEvKeypress(txtObjGlycHaut, new KeyPressEventHandler(NoLetterOneComma_KeyPress));
             toolTipHaut.SetToolTip(txtObjGlycHaut, "Votre glycémie devra rester en dessous de cette valeur");
             p.Y += 30;
             txtObjGlycBas = creerTextbox("txtObjGlycBas", p, s);
-            ajoutEvKeypress(txtObjGlycBas, new KeyPressEventHandler(NoLetter_keyPress));
+            ajoutEvKeypress(txtObjGlycBas, new KeyPressEventHandler(NoLetterOneComma_KeyPress));
             toolTipBas.SetToolTip(txtObjGlycBas, "Votre glycémie devra rester en dessous de cette valeur");
             #endregion
             #region creation des label
@@ -603,6 +602,22 @@ namespace DiabManager
                 double it = glycemieObjBas;
                 glycemieObjBas = glycemieObjHaut;
                 glycemieObjHaut = it;
+            }
+            if (glycemie <= 0)
+            {
+                glycemie = 0.4;
+            }
+            if(glycemie >= 3)
+            {
+                glycemie = 2.2;
+            }
+            if (glycemieObjBas <= 0.5)
+            {
+                glycemieObjBas = 0.7;
+            }
+            if(glycemieObjHaut >= 2)
+            {
+                glycemieObjHaut = 1.8;
             }
 
             IHM.IHM_Joueur.addJoueur(new Metiers.Joueur(nom, age, personalitee,prenom, sex, taille, poids, glycemie, glycemieObjBas, glycemieObjHaut,20.0));
