@@ -292,7 +292,7 @@ namespace DiabManager.Metiers
             }
             else //On vient de commencer une action
             {
-                m_dayTimer.Interval = 200;
+                m_dayTimer.Interval = 300;
                 m_actionEnCours = true;
             }
         }
