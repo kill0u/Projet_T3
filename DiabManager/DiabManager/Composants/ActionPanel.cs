@@ -46,7 +46,7 @@ namespace DiabManager.Composants
             Label l2 = new Label();
             l2.Text = a.Desc;
             l2.Location = new Point(5, 25);
-            l2.MaximumSize = new Size(190, 30);
+            l2.MaximumSize = new Size(190, 40);
             l2.AutoSize = true;
             l2.Click += new EventHandler(componentClick);
             l2.Font = new Font(FontFamily.GenericSansSerif, 8);
@@ -58,7 +58,7 @@ namespace DiabManager.Composants
                 pb.ImageLocation = a.Url;
 
                 pb.Size = new Size(190, 140);
-                pb.Location = new Point(5, 60);
+                pb.Location = new Point(5, 65);
 
                 this.Controls.Add(pb);
                 pb.Click += new EventHandler(componentClick);

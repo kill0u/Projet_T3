@@ -47,6 +47,7 @@ Ensuite, lancez le fichier DiabManager.sln avec Visual Studio.
 
 ## Liens
 - [Téléchargement](https://git.unistra.fr/T432_SPA18_T3_B/T432_SPA18_T3_B/blob/master/DiabManagerSetup.exe "Lien de téléchargement")
+- [Téléchargement ZIP](https://git.unistra.fr/T432_SPA18_T3_B/T432_SPA18_T3_B/blob/master/DiabManager.zip"Lien de téléchargement en .zip, a utilisé en cas de problème")
 - [Doc (disponible depuis l'IUT)](https://webetu.iutrs.unistra.fr/~gkugelmann/T3/doc/ "Lien de doc")
 - [Notre CDCF](https://docs.google.com/document/d/1cVAyEzOS9O1DJjmaP3hkC2fDr3x8sC2kWvRtWae6wbE "Cahier des charges")
 - [Notre répartition des tâches](https://docs.google.com/spreadsheets/d/1MUhy42l2Raar1IHmeH0sRpqbUxsurJD8HO2RxUYNQFs "Répartition des tâches")
