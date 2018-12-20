@@ -13,7 +13,7 @@ namespace DiabManager.IHM
      * @author Geoffrey Kugelmann
      * @version 1
      */
-    class IHM_Actions
+    public class IHM_Actions
     {
         /// <summary>
         /// Référence vers le gestionnaire d'action
@@ -39,6 +39,7 @@ namespace DiabManager.IHM
         /// </summary>
         public static void Update()
         {
+			// Do nothing because of X and Y.
         }
 
         /// <summary>
@@ -59,21 +60,25 @@ namespace DiabManager.IHM
             if(!Temps.getInstance().isActionEnCours)
             { 
                 IHM_Joueur.Update();
-
-                Actions action = null;
-                foreach (var a in m_actionControlleur.ListActions)
+				
+				Actions action = null;
+				foreach (var a in m_actionControlleur.ListActions)
+				{
+					if (a.Key.Nom == nom)
+					{
+						action = a.Key;
+						break;
+					}
+				}
+                if (action != null)
                 {
-                    if (a.Key.Nom == nom)
-                    {
-                        action = a.Key;
-                        break;
-                    }
+                    SetAction(new ActionPanel(action));
+                    //On notifie actionControlleur qu'un action s'est lancée
+                    m_actionControlleur.ActionActive = action;
+                    //Réalise le code de l'action
+                    action.makeAction(Temps.getInstance().getHeureJournee()); 
                 }
-                SetAction(new ActionPanel(action));
-                //On notifie actionControlleur qu'un action s'est lancée
-                m_actionControlleur.ActionActive = action;
-                //Réalise le code de l'action
-                action.makeAction(Temps.getInstance().getHeureJournee());
+				
             }
         }
 
