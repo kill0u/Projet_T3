@@ -66,7 +66,7 @@ namespace DiabManager.Metiers
         /// Case 1: Ne fais rien
         /// Case 2: Est malade
         /// Case 3: Est au travail
-        protected double[] m_etatInitial = new double[4];
+        protected double[] m_etatInitial;
 
         /// <summary>
         /// État final après avoir réalisé l'action
@@ -82,7 +82,7 @@ namespace DiabManager.Metiers
         /// Case 4: Ne fais rien
         /// Case 5: Est malade
         /// Case 6: Est au travail
-        protected Dictionary<string, double[]> m_etatFinalCharac = new Dictionary<string, double[]>();
+        protected Dictionary<string, double[]> m_etatFinalCharac;
         public Dictionary<string, double[]> EtatFinalCharac
         {
             get { return m_etatFinalCharac; }
@@ -183,12 +183,8 @@ namespace DiabManager.Metiers
                 foreach (var charac in IHM.IHM_Joueur.getJoueur().Personalite)
                 {
 
-                    if (m_etatFinalCharac.ContainsKey(charac))
-                    {
-                        if (m_etatFinalCharac[charac][i + 4] != 2) //On ne change l'état du joueur que s'il le faut
-                            IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4]; 
-                    }
-
+                    if (m_etatFinalCharac.ContainsKey(charac) && m_etatFinalCharac[charac][i + 4] != 2) //On ne change l'état du joueur que s'il le faut
+                        IHM.IHM_Joueur.getJoueur().Etat[i] = m_etatFinalCharac[charac][i + 4]; 
                 }
             }
             //On ajoute au log
